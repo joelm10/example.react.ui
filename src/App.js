@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // layout
-import Layout from './components/index.js';
+import Layout from './components';
 
-class App extends Component {
-  render() {
-    return (
-      <Layout />
+const App = () => {
+    const appWrapper = (
+        <Layout />
     );
-  }
-}
+    return appWrapper;
+};
 
 export default App;

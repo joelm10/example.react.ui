@@ -1,9 +1,18 @@
 import React from 'react';
 
-class Header extends React.Component {
-   render(){
-        return (<div>Header</div>);
-   } 
+import ImageLoader from '../../helpers/images/imageLoader';
+import logo from '../../logo.svg';
+
+const Header = () => {
+    const logoProps = {
+        imgPath: logo,
+        imgType: '',
+        altText: 'test text',
+        size: 'sml'
+    };
+    const Logo = <ImageLoader {...logoProps} />;
+
+    return Logo;
 };
 
 export default Header;
