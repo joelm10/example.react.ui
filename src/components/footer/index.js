@@ -10,9 +10,9 @@ const Footer = ({ footerText = 'Default footer content', footerContent = columnL
     const footerColumns = columnLayout(footerContent);
 
     const footerWrapper = (
-        <footer class="footer">
+        <footer className="footer">
             {footerColumns}
-            <span class="text-muted">{footerLabelText}</span>
+            <span className="text-muted">{footerLabelText}</span>
         </footer>);
     return footerWrapper;
 }

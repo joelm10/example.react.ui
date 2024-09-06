@@ -6,20 +6,13 @@ import makeAnchorLink from '../html/anchor';
 
 const makeColumnContent = (content) => {
     const contentContent = content.map((item) => {
-        const {
-            itemId,
-            // TODO: Future flag for empty columns/unique content types
-            itemType,
-            label,
-            linkUrl,
-            target,
-            itemKey = makeUniqueKeyStr(label)
-        } = item;
-
+        const itemKey = makeUniqueKeyStr(item.label);
         const AnchorLink = makeAnchorLink(item);
         // TODO: move to link generator method, add class handler
         return (
-            <div className="flex flex-col">
+            <div
+                key={itemKey}
+                className="flex flex-col">
                 {AnchorLink}
             </div>
         );
@@ -39,9 +32,9 @@ const makeColumnLayout = (columnList = []) => {
         const { columnHeader, columnItems } = col;
 
         const columnContent = makeColumnContent(columnItems);
-
+        const colKey = makeUniqueKeyStr(`${col.colId}_${columnHeader}`);
         return (
-            <Col>
+            <Col key={colKey}>
                 <div>
                     <div className="border-b inline-block border-transparent text-md text-secondary dark:text-secondary-dark my-2 font-bold hover:border-gray-10">
                         {columnHeader}

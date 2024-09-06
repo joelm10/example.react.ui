@@ -5,7 +5,7 @@ const defaultClass = "border-b inline-block border-transparent text-sm text-prim
 const makeAnchorLink = (props) => {
     const {
         altText,
-        itemKey = makeUniqueKeyStr(label),
+        itemKey = makeUniqueKeyStr(props.label),
         linkUrl,
         target,
         label,

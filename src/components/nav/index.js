@@ -13,10 +13,11 @@ const NavWrapper = ({ navElements }) => {
         } = item;
         const altText = item.altText ?? label;
         const itemKey = item.itemKey ?? makeUniqueKeyStr(label);
-        // TODO: refactor to use makeAnchorLink() method;
         const itemTarget = item.target ? '_blank' : null;
         const navItem = itemUrl
-            ? (
+            ?
+            // TODO: refactor to use makeAnchorLink() method;
+            (
                 <Nav.Link
                     href={itemUrl}
                     title={altText}
@@ -25,6 +26,7 @@ const NavWrapper = ({ navElements }) => {
                     {label}
                 </Nav.Link>
             )
+            // TODO: END refactor to use makeAnchorLink() method;
             : label;
 
         const navItemList = (
