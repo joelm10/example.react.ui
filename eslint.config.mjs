@@ -16,7 +16,9 @@ export default [...compat.extends("airbnb"), {
   languageOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
+    parser: {
 
+    },
     globals: {
       ...globals.browser,
       ...globals.commonjs,

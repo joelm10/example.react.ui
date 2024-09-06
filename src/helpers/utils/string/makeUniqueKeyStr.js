@@ -3,7 +3,7 @@
  * @param {string} str
  * @returns string in hyphen case
  */
-const makeKeyName = (str) => {
+const makeUniqueKeyStr = (str) => {
     if (!str) {
         return '';
     }
@@ -12,4 +12,4 @@ const makeKeyName = (str) => {
         .replace(/,/, '');
 };
 
-export default makeKeyName;
+export default makeUniqueKeyStr;

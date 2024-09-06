@@ -7,9 +7,10 @@ import NavWrapper from '../nav';
 import AppBody from './AppBody';
 import Footer from '../footer';
 
+// TODO: Move to config
 const navElements = [
     {
-        itemLabel: 'Google', itemLink: 'http://google.com'
+        itemLabel: 'Google', itemLink: 'http://google.com', target: '_blank'
     },
     {
         itemLabel: 'Photography', itemLink: 'http://photography.com'
