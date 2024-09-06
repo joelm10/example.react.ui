@@ -13,7 +13,7 @@ const NavWrapper = ({ navElements }) => {
         } = item;
         const altText = item.altText ?? label;
         const itemKey = item.itemKey ?? makeUniqueKeyStr(label);
-
+        // TODO: refactor to use makeAnchorLink() method;
         const itemTarget = item.target ? '_blank' : null;
         const navItem = itemUrl
             ? (

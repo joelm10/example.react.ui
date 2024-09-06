@@ -1,30 +1,26 @@
 
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import makeUniqueKeyStr from '../../../utils/string/makeUniqueKeyStr';
+import makeAnchorLink from '../html/anchor';
 
 const makeColumnContent = (content) => {
     const contentContent = content.map((item) => {
         const {
             itemId,
+            // TODO: Future flag for empty columns/unique content types
             itemType,
             label,
             linkUrl,
-            target
+            target,
+            itemKey = makeUniqueKeyStr(label)
         } = item;
 
+        const AnchorLink = makeAnchorLink(item);
         // TODO: move to link generator method, add class handler
         return (
-
             <div className="flex flex-col">
-                <a
-                    key={itemId}
-                    href={linkUrl}
-                    target={target}
-                    className="border-b inline-block border-transparent text-sm text-primary"
-                >
-                    {label}
-                </a>
+                {AnchorLink}
             </div>
         );
 
