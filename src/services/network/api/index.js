@@ -1,5 +1,6 @@
 // import camelcaseKeys from 'camelcase-keys';
-
+// TODO: Fix above import to run in tests, currenly fails
+// err: ' SyntaxError: Cannot use import statement outside a module'
 import realFetch from 'node-fetch';
 
 import buildApiUrl from './buildApiUrl';
