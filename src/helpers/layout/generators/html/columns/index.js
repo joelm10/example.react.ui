@@ -1,8 +1,8 @@
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import makeUniqueKeyStr from '../../../utils/string/makeUniqueKeyStr';
-import makeAnchorLink from '../html/anchor';
+import makeUniqueKeyStr from '../../../../utils/string/makeUniqueKeyStr';
+import makeAnchorLink from '../anchor';
 
 const makeColumnContent = ({ content, styles }) => {
     const {

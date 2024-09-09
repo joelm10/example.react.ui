@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 // import the things
 import Header from './header';
 import NavWrapper from './header/nav';
-import AppBody from './AppBody';
+import AppBody from './appBody';
 import Footer from './footer';
 
 import navElements from '../../config/nav';

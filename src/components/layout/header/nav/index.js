@@ -18,7 +18,7 @@ const NavWrapper = ({ navElements }) => {
             label,
             linkUrl,
         } = item;
-        console.info('navElements',navElements);
+
         const itemKey = item.itemKey ?? makeUniqueKeyStr(label);
         const altText = item.altText ?? label;
         const target = item.target ?? null;

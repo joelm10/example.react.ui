@@ -21,8 +21,9 @@ const navElements = [
     {
         label: 'Recent Work',
         linkUrl: 'https://jmm.id.au/#projects',
+        target: '_blank',
         childNav: [],
-        isInternalNav: true,
+        isInternalNav: false,
 
     },
     {

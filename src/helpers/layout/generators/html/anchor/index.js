@@ -14,14 +14,22 @@ const makeAnchorLink = (props) => {
         linkUrl,
         target = "",
         label,
-        anchorClass = defaultClass
+        anchorClass = defaultClass,
+        // routing specific flag
+        isInternalNav = false
     } = props;
 
-    const anchorHtml = label !=='' ? (
+    // TODO: add link handler for leaving site
+    // TODO: consider handler for any external linnks, auto set target (middleware, rather than here)
+    // skip if internal- remove new tab/window
+    let targetRuntime = isInternalNav ? "" : target;
+
+
+    const anchorHtml = label !== '' ? (
         <a
             key={itemKey}
             href={linkUrl}
-            target={target}
+            target={targetRuntime}
             className={anchorClass}
             title={altText}
         >

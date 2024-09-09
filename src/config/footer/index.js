@@ -18,26 +18,20 @@ const defaultFooterList = {
                      */
                     itemId: 1,
                     itemType: 'link',
-                    label: 'item 1',
-                    linkUrl: 'http://item1.com',
+                    label: 'Photography',
+                    linkUrl: '/photography',
                     target: '_blank',
                     isInternalNav: true,
                     routeElement: 'app',
                 },
                 {
                     itemId: 2,
-                    label: 'item 2',
                     itemType: 'link',
-                    linkUrl: 'http://item2.com',
-                    target: '_blank'
-                },
-                {
-                    itemId: 3,
-                    label: 'Three item',
-                    itemType: 'link',
-
-                    linkUrl: 'http://item3.com',
-                    target: '_blank'
+                    label: 'engineering',
+                    linkUrl: '/engineering',
+                    target: '_blank',
+                    isInternalNav: true,
+                    routeElement: 'app',
                 }
             ]
         },
@@ -49,7 +43,8 @@ const defaultFooterList = {
                     itemId: 1,
                     itemType: 'link',
                     label: 'About Us',
-                    linkUrl: 'http://item1.com',
+                    linkUrl: '/about',
+                    isInternalNav: true,
                     target: '_blank'
                 },
                 {
@@ -60,14 +55,14 @@ const defaultFooterList = {
                     target: '_blank'
 
                 },
-                {
-                    itemId: 3,
-                    label: 'Three item',
-                    itemType: 'link',
+                // {
+                //     itemId: 3,
+                //     label: 'Three item',
+                //     itemType: 'link',
 
-                    linkUrl: 'http://item3.com',
-                    target: '_blank'
-                }
+                //     linkUrl: 'http://item3.com',
+                //     target: '_blank'
+                // }
             ]
         }
     ]

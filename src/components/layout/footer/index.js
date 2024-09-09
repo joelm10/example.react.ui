@@ -1,10 +1,12 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
-import columnLayout from '../../../helpers/layout/generators/columns';
 import defaultFooterList from '../../../config/footer';
+import columnLayout from '../../../helpers/layout/generators/html/columns';
 
-const Footer = ({ footerText = 'Default footer content', footerContent = defaultFooterList }) => {
+
+const Footer = ({ footerText = 'Default footer copyright', footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;
     let footerColumns = {
         ...footerContent,
@@ -17,7 +19,9 @@ const Footer = ({ footerText = 'Default footer content', footerContent = default
         <footer className="footer">
             <Container>
                 {footerColumns}
-                <span className="text-muted">{footerLabelText}</span>
+                <Row>
+                    <span className="text-muted footer__copyright">{footerLabelText}</span>
+                </Row>
             </Container>
         </footer>);
     return footerWrapper;
