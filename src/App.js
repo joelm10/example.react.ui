@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // layout
-import Layout from './components';
+import Layout from './components/layout';
 
 // TODO: implement react-dom routing
 const App = () => {

@@ -49,5 +49,18 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.35.2",
     "globals": "^15.9.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/serviceWorker.js",
+      "!src/reportWebVitals.js",
+      "!src/helpers/renderApp/index.js",
+      "!src/content/**",
+      "!src/config/**/*.js",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
   }
 }

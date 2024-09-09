@@ -3,8 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import defaultFooterList from '../../../config/footer';
-import columnLayout from '../../../helpers/layout/generators/html/columns';
-
+import columnLayout from '../../../helpers/generators/html/columns';
 
 const Footer = ({ footerText = 'Default footer copyright', footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;

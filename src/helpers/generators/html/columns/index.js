@@ -1,35 +1,9 @@
 
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import makeUniqueKeyStr from '../../../../utils/string/makeUniqueKeyStr';
-import makeAnchorLink from '../anchor';
+import Row from 'react-bootstrap/Row';
+import makeUniqueKeyStr from '../../../utils/string/makeUniqueKeyStr';
 
-const makeColumnContent = ({ content, styles }) => {
-    const {
-        anchorClass = styles?.anchorClass ?? '',
-        columnClass = content?.styles?.columnClass ?? "flex flex-col"
-    } = styles;
-
-    const contentContent = content.map((item) => {
-        const itemKey = makeUniqueKeyStr(item.label);
-
-        const anchorLink = makeAnchorLink({ ...item, anchorClass });
-        return (
-            <div
-                key={itemKey}
-                className={columnClass}>
-                {anchorLink}
-            </div>
-        );
-
-    });
-    return (
-        <div className={columnClass}>
-            {contentContent}
-        </div>
-
-    );
-};
+import makeColumnContent from './content';
 
 const makeColumnLayout = ({ columns = [], styles }) => {
     // iterate over array of objects, generate bootstrap compatible markup

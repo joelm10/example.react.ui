@@ -3,8 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+import makeAnchorLink from '../../../../helpers/generators/html/anchor';
 import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
-import makeAnchorLink from '../../../../helpers/layout/generators/html/anchor';
 
 /**
  * Simple nav bar wrapper compoennt

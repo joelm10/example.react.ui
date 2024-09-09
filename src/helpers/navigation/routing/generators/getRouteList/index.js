@@ -1,16 +1,16 @@
-import App from './../../../../App';
+import App from '../../../../../App';
 // routing within app
-import navElements from '../../../../config/nav';
-import footerElements from '../../../../config/footer';
+import navElements from '../../../../../config/nav';
+import footerElements from '../../../../../config/footer';
 
-const getNestedRoutes = (array, key) => {
-    const nestedRoutes = array.flatMap((item) => {
-        return item[key];
-    });
-    return nestedRoutes;
-};
+import getNestedRoutes from '../getNestedRoutes';
 
 // extract only internal routes to be supported 
+/**
+ * Generate list of internal app routes to support, 
+ *  from config values - nav and footer
+ * @returns {array} flat array to be consumed by react-router-dom 
+ */
 const getRouteList = () => {
     const footerRoutes = getNestedRoutes(footerElements?.columns, 'columnItems');
     const composedRouteList = [
