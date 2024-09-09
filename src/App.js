@@ -5,6 +5,7 @@ import './App.css';
 // layout
 import Layout from './components';
 
+// TODO: implement react-dom routing
 const App = () => {
     const appWrapper = (
         <Layout />

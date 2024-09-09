@@ -2,17 +2,22 @@ import makeUniqueKeyStr from "../../../../utils/string/makeUniqueKeyStr";
 
 const defaultClass = "border-b inline-block border-transparent text-sm text-primary";
 
+/**
+ * Generate an A markup object, with links, target and class support
+ * @param {*} props 
+ * @returns 
+ */
 const makeAnchorLink = (props) => {
     const {
         altText,
         itemKey = makeUniqueKeyStr(props.label),
         linkUrl,
-        target,
+        target = "",
         label,
         anchorClass = defaultClass
     } = props;
 
-    const anchorHtml = (
+    const anchorHtml = label ? (
         <a
             key={itemKey}
             href={linkUrl}
@@ -22,8 +27,8 @@ const makeAnchorLink = (props) => {
         >
             {label}
         </a>
+    ) : null;
 
-    );
     return anchorHtml;
 };
 

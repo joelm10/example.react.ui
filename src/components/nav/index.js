@@ -4,29 +4,27 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 import makeUniqueKeyStr from '../../helpers/utils/string/makeUniqueKeyStr';
+import makeAnchorLink from '../../helpers/layout/generators/html/anchor';
 
+/**
+ * Simple nav bar wrapper compoennt
+ * utilises https://react-bootstrap.netlify.app/docs/components/navs
+ * @param {*} param0 
+ * @returns 
+ */
 const NavWrapper = ({ navElements }) => {
     const buildNavItems = navElements?.map((item) => {
         const {
             itemLabel: label,
-            itemLink: itemUrl,
+            linkUrl,
         } = item;
-        const altText = item.altText ?? label;
+
         const itemKey = item.itemKey ?? makeUniqueKeyStr(label);
-        const itemTarget = item.target ? '_blank' : null;
-        const navItem = itemUrl
-            ?
-            // TODO: refactor to use makeAnchorLink() method;
-            (
-                <Nav.Link
-                    href={itemUrl}
-                    title={altText}
-                    target={itemTarget}
-                >
-                    {label}
-                </Nav.Link>
-            )
-            // TODO: END refactor to use makeAnchorLink() method;
+        const altText = item.altText ?? label;
+        const target = item.target ?? null;
+
+        const navItem = linkUrl
+            ? makeAnchorLink({ ...item, altText, target, label, anchorClass: "nav-link active" })
             : label;
 
         const navItemList = (
@@ -39,15 +37,24 @@ const NavWrapper = ({ navElements }) => {
         return navItemList;
     });
 
+    const defaultActiveItem = navElements[0].label;
+
     const navWrapper = navElements?.length ? (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar
+            variant="pills"
+            expand="lg"
+            className="bg-body-tertiary"
+        >
             <Container>
-                <Nav>
+                <Nav
+                    defaultActiveKey={defaultActiveItem}
+                >
                     {buildNavItems}
                 </Nav>
             </Container>
         </Navbar>
     ) : null;
+
     return navWrapper;
 };
 

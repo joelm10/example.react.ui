@@ -1,18 +1,24 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+
 import columnLayout from '../../helpers/layout/generators/columns';
+import defaultFooterList from '../../config/columns/footer';
 
-import columnListMOCK from '../../config/columns/mockFooter';
-
-const Footer = ({ footerText = 'Default footer content', footerContent = columnListMOCK }) => {
+const Footer = ({ footerText = 'Default footer content', footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;
+    let footerColumns = {
+        ...footerContent,
+        anchorClass: StyleSheet.anchorClass ?? 'footer'
+    };
 
-    // TOOD: Move to column generator method;
-    const footerColumns = columnLayout(footerContent);
+    footerColumns = columnLayout(footerColumns);
 
     const footerWrapper = (
         <footer className="footer">
-            {footerColumns}
-            <span className="text-muted">{footerLabelText}</span>
+            <Container>
+                {footerColumns}
+                <span className="text-muted">{footerLabelText}</span>
+            </Container>
         </footer>);
     return footerWrapper;
 }
