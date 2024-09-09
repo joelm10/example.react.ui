@@ -1,7 +1,10 @@
+// import camelcaseKeys from 'camelcase-keys';
+
 import realFetch from 'node-fetch';
-import camelcaseKeys from 'camelcase-keys';
-import { buildApiUrl } from './buildApiUrl';
+
+import buildApiUrl from './buildApiUrl';
 import verifyResponseBody from './verifyResponseBody';
+const getOptions = {};
 
 const getFromApi = async (url, fetch = realFetch) => {
 
@@ -19,8 +22,8 @@ const getFromApi = async (url, fetch = realFetch) => {
     let parsedData = (typeof data === 'string')
         ? JSON.parse(data)
         : data;
-
-    parsedData = camelcaseKeys(parsedData, { deep: true });
+    // TODO: Verify import issue from camelcaseKeys npm module
+    // parsedData = camelcaseKeys(parsedData, { deep: true });
 
     return parsedData || data;
 

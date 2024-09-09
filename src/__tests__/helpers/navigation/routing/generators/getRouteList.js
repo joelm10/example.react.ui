@@ -9,6 +9,7 @@ const defaultRouteList = [
     { "element": <App />, "path": "/engineering" },
     { "element": <App />, "path": "/about" }
 ];
+
 describe('/helpers/navigation/routing/generators', () => {
     test('getRouteList() should flat map', () => {
         const recieved = getRouteList();
