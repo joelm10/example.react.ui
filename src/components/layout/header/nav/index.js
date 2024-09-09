@@ -3,8 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import makeUniqueKeyStr from '../../helpers/utils/string/makeUniqueKeyStr';
-import makeAnchorLink from '../../helpers/layout/generators/html/anchor';
+import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
+import makeAnchorLink from '../../../../helpers/layout/generators/html/anchor';
 
 /**
  * Simple nav bar wrapper compoennt
@@ -15,10 +15,10 @@ import makeAnchorLink from '../../helpers/layout/generators/html/anchor';
 const NavWrapper = ({ navElements }) => {
     const buildNavItems = navElements?.map((item) => {
         const {
-            itemLabel: label,
+            label,
             linkUrl,
         } = item;
-
+        console.info('navElements',navElements);
         const itemKey = item.itemKey ?? makeUniqueKeyStr(label);
         const altText = item.altText ?? label;
         const target = item.target ?? null;

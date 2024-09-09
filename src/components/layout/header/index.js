@@ -1,9 +1,11 @@
 import React from 'react';
 
-import ImageLoader from '../../helpers/images/imageLoader';
-import logo from '../../logo.svg';
+// TODO: update this  to take from props
+import ImageLoader from '../../../helpers/images/imageLoader';
+import logoItem from '../../../media/assets/logos/logo.svg';
 
-const Header = () => {
+const Header = (props) => {
+    const { logo = logoItem } = props;
     const logoProps = {
         imgPath: logo,
         imgType: '',

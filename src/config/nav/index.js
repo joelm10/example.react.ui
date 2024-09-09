@@ -1,12 +1,33 @@
+/**
+ * nav menu item/s
+ */
 const navElements = [
     {
-        itemLabel: 'About Me', linkUrl: 'http://google.com', target: '_blank', childNav: []
+        label: 'Home',
+        linkUrl: '/home',
+        childNav: [],
+        isInternalNav: true,
+        routeElement: 'app',
     },
     {
-        itemLabel: 'Recent Work', linkUrl: 'https://jmm.id.au/#projects', childNav: []
+        label: 'About Me',
+        linkUrl: '/about',
+        target: '_blank',
+        childNav: [],
+        // internal navigation
+        isInternalNav: true,
+        routeElement: 'app'
     },
     {
-        itemLabel: 'Photography', linkUrl: 'http://photography.com', childNav: []
+        label: 'Recent Work',
+        linkUrl: 'https://jmm.id.au/#projects',
+        childNav: [],
+        isInternalNav: true,
+
+    },
+    {
+        label: 'Photography', linkUrl: 'http://photography.com', childNav: [],
+        isInternalNav: true,
     }
 ];
 

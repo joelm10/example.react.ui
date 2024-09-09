@@ -1,14 +1,30 @@
 import { createRoot } from 'react-dom/client';
-import './index.css';
+import * as ReactDOM from "react-dom/client";
+
+import {
+    RouterProvider,
+} from "react-router-dom";
+// TODO: Move to /helpers/render/index.js
+
 import App from './App';
 
-import * as serviceWorker from './serviceWorker';
+import router from './helpers/navigation/routing';
+
+import './index.css';
+
+const useRouting = true;
 
 const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<App tab="home" />);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// With routing
+if (useRouting) {
+    const routedRoot = ReactDOM.createRoot(container);
+    routedRoot.render(
+        <RouterProvider router={router} />
+    );
+} else {
+
+    // With-out routing
+    const root = createRoot(container);
+    root.render(<App tab="home" />);
+}

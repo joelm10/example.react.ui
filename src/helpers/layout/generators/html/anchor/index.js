@@ -17,7 +17,7 @@ const makeAnchorLink = (props) => {
         anchorClass = defaultClass
     } = props;
 
-    const anchorHtml = label ? (
+    const anchorHtml = label !=='' ? (
         <a
             key={itemKey}
             href={linkUrl}

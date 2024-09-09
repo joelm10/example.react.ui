@@ -4,15 +4,25 @@ const defaultFooterList = {
     },
     columns: [
         {
-            colId: 1,
+            // colId: 1,
             columnHeader: 'Products',
             columnItems: [
                 {
+                    /**
+                     * 
+                        itemLabel: 'Home',
+                        linkUrl: '/home',
+                        childNav: [],
+                        isInternalNav: true,
+                        routeElement: 'app',
+                     */
                     itemId: 1,
                     itemType: 'link',
                     label: 'item 1',
                     linkUrl: 'http://item1.com',
-                    target: '_blank'
+                    target: '_blank',
+                    isInternalNav: true,
+                    routeElement: 'app',
                 },
                 {
                     itemId: 2,
@@ -20,7 +30,6 @@ const defaultFooterList = {
                     itemType: 'link',
                     linkUrl: 'http://item2.com',
                     target: '_blank'
-
                 },
                 {
                     itemId: 3,

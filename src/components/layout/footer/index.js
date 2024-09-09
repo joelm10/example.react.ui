@@ -1,8 +1,8 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 
-import columnLayout from '../../helpers/layout/generators/columns';
-import defaultFooterList from '../../config/columns/footer';
+import columnLayout from '../../../helpers/layout/generators/columns';
+import defaultFooterList from '../../../config/footer';
 
 const Footer = ({ footerText = 'Default footer content', footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;
