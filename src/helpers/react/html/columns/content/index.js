@@ -1,13 +1,22 @@
 import makeUniqueKeyStr from '../../../../utils/string/makeUniqueKeyStr';
 import makeAnchorLink from '../../anchor';
 
-const makeColumnContent = ({ content, styles }) => {
+/**
+ * Generate HTML to display column/s, 
+ *  containing one/many A href links.
+ * @param {object} props 
+ * @param {array} props.content - Array of links to put into a column
+ * @param {object} props.styles - styling to apply to each link in area
+ * @returns React.JSX
+ */
+const makeColumnContent = (props) => {
+    const { content = [], styles } = props;
     const {
         anchorClass = styles?.anchorClass ?? '',
         columnClass = content?.styles?.columnClass ?? "flex flex-col"
     } = styles;
 
-    const contentContent = content.map((item) => {
+    const columnContent = content?.map((item) => {
         const itemKey = makeUniqueKeyStr(item.label);
 
         const anchorLink = makeAnchorLink({ ...item, anchorClass });
@@ -18,14 +27,14 @@ const makeColumnContent = ({ content, styles }) => {
                 {anchorLink}
             </div>
         );
-
     });
-    return (
+    const columnWrapper = columnContent?.length ? (
         <div className={columnClass}>
-            {contentContent}
+            {columnContent}
         </div>
+    ) : null;
 
-    );
+    return columnWrapper;
 };
 
 export default makeColumnContent;

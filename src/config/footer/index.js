@@ -8,14 +8,6 @@ const defaultFooterList = {
             columnHeader: 'Products',
             columnItems: [
                 {
-                    /**
-                     * 
-                        itemLabel: 'Home',
-                        linkUrl: '/home',
-                        childNav: [],
-                        isInternalNav: true,
-                        routeElement: 'app',
-                     */
                     itemId: 1,
                     itemType: 'link',
                     label: 'Photography',

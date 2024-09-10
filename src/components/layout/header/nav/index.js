@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import makeAnchorLink from '../../../../helpers/generators/html/anchor';
+import makeAnchorLink from '../../../../helpers/react/html/anchor';
 import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
 
 /**
