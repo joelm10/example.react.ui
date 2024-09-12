@@ -1,4 +1,4 @@
-import App from '../../../../../App';
+import ErrorComponent from '../../../../../components/Library/Errors';
 // routing within app
 import footerElements from '../../../../../config/footer';
 import navElements from '../../../../../config/nav';
@@ -19,16 +19,23 @@ const getRouteList = (props) => {
     const composedRouteList = [
         {
             linkUrl: '',
-            // TODO: confirm root path
-            element: <App />,
-            isInternalNav: true
+            routeElement: 'app',
+            isInternalNav: true,
+            routeParams: {
+                pageTitle: 'App Root'
+            },
+            ...props
         },
         // root link
         {
             linkUrl: rootPath,
             // TODO: confirm root path
-            element: <App />,
-            isInternalNav: true
+            routeElement: 'app',
+            isInternalNav: true,
+            routeParams: {
+                pageTitle: 'App root'
+            },
+            ...props
         },
         ...navElements,
         ...footerRoutes
@@ -43,13 +50,15 @@ const getRouteList = (props) => {
         const composedRoute = {
             path: nav?.linkUrl,
             element: routeElement,
+            ...props,
+            errorElement: <ErrorComponent />
         };
         const shouldReturn = nav?.isInternalNav ?? false;
         return shouldReturn && composedRoute;
     }).filter((obj) => {
         return obj && true;
     });
-
+    console.info('info', routeList);
     return routeList;
 };
 

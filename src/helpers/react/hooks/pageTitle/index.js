@@ -5,7 +5,7 @@ import logger from '../../../utils/logging';
  * Document title setter
  * @param {string} pageTitle
  */
-const SetPageTitle = ({ pageTitle = '' }) => {
+const useSetPageTitle = (pageTitle) => {
     try {
         useEffect(() => {
             document.title = pageTitle;
@@ -15,4 +15,4 @@ const SetPageTitle = ({ pageTitle = '' }) => {
     }
 };
 
-export default SetPageTitle;
+export default useSetPageTitle;

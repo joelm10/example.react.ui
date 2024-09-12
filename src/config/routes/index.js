@@ -8,14 +8,13 @@ import ErrorComponent
  * @returns 
  */
 const getComponentForRoute = (key, params) => {
-    // console.log('getComponentForRoute', key, params);
     const componentLibrary = {
+        // TODO: Build out with context for new in-app routes
         'app': <App {...params} />,
         '': <App {...params} />,
     };
 
     const defaultComponent = (<ErrorComponent {...params} />);
-
     return componentLibrary[key] ?? defaultComponent;
 };
 
