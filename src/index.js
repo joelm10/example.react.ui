@@ -1,3 +1,3 @@
-import mountUI from "./helpers/react/render/mountUI";
+import mountUI from './helpers/react/render/mountUI';
 
 mountUI();

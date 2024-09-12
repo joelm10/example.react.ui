@@ -59,7 +59,7 @@ const defaultFooterList = {
                     routeParams: {
                         pageTitle: 'careers'
                     }
-                },
+                }
             ]
         }
     ]

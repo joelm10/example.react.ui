@@ -51,13 +51,13 @@ const mockFlatArray = [
     }
 ];
 
-describe('helpers/navigation/routing/generators',() => {
-    test('getNestedRoutes() should flat map if array passed',() => {
+describe('helpers/navigation/routing/generators', () => {
+    test('getNestedRoutes() should flat map if array passed', () => {
         const recieved = getNestedRoutes(mockNestedArray, 'columns');
         expect(recieved).toEqual(mockFlatArray);
     });
 
-    test('getNestedRoutes() should empty array if no array passed',() => {
+    test('getNestedRoutes() should empty array if no array passed', () => {
         const recieved = getNestedRoutes();
         expect(recieved).toEqual([]);
     });

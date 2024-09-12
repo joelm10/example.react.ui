@@ -2,8 +2,8 @@
 /**
  * Wrapper around console object
  * ref: https://developer.mozilla.org/en-US/docs/Web/API/console
- * @param {string} logType - logType of message. 
- *  Available types are error, warn, info, log, debug, debug with trace 
+ * @param {string} logType - logType of message.
+ *  Available types are error, warn, info, log, debug, debug with trace
  * @param {string} msg - message to send to browser console
  */
 const logger = (logType, msg) => {
@@ -31,6 +31,5 @@ const logger = (logType, msg) => {
     return false;
 };
 /* eslint-enable no-console */
-
 
 export default logger;

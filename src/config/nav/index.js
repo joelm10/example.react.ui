@@ -1,9 +1,9 @@
 /**
  * nav menu item/s
  * Required elements:
- * > rendering: 
+ * > rendering:
  *  - label, linkUrl
- * > routing: 
+ * > routing:
  *  - routeElement, routeParams
  */
 
@@ -35,14 +35,14 @@ const navElements = [
         linkUrl: 'https://jmm.id.au/#projects',
         target: '_blank',
         childNav: [],
-        isInternalNav: false,
+        isInternalNav: false
 
     },
     {
         label: 'Photography',
         linkUrl: 'http://photography.com',
         childNav: [],
-        isInternalNav: false,
+        isInternalNav: false
     }
 ];
 

@@ -18,13 +18,14 @@ const makeColumnContent = (props) => {
 
     const columnContent = content?.map((item) => {
         const itemKey = makeUniqueKeyStr(item.label);
-
-        const anchorLink = AnchorLink({ ...item, anchorClass });
+        const anchorProps = {
+            ...item, anchorClass
+        };
         return (
             <div
                 key={itemKey}
                 className={columnClass}>
-                {anchorLink}
+                <AnchorLink {...anchorProps} />
             </div>
         );
     });

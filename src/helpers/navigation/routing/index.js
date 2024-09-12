@@ -1,9 +1,9 @@
 // route management
 import {
-    createBrowserRouter,
-} from "react-router-dom";
+    createBrowserRouter
+} from 'react-router-dom';
 
-import getRouteList from '../routing/generators/getRouteList';
+import getRouteList from './generators/getRouteList';
 
 // todo: build out routes to pass into this;
 const routeList = getRouteList();

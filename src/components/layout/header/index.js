@@ -1,7 +1,7 @@
 import React from 'react';
 
 // TODO: update this  to take from props
-import ImageLoader from '../../../helpers/images/imageLoader';
+import ImageLoader from '../../Library/images/imageLoader';
 import logoItem from '../../../media/assets/logos/logo.svg';
 
 const Header = (props) => {
@@ -12,7 +12,7 @@ const Header = (props) => {
         altText: 'test text',
         size: 'sml'
     };
-    const Logo = <ImageLoader {...logoProps} />;
+    const Logo = logoItem ? <ImageLoader {...logoProps} /> : null;
 
     return Logo;
 };
