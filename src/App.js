@@ -1,13 +1,18 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Fragment } from 'react';
+import SetPageTitle from './helpers/react/hooks/pageTitle';
 
 // layout
 import Layout from './components/layout';
 
-// TODO: implement react-dom routing
-const App = () => {
+const App = (props) => {
+    const { pageTitle } = props;
+
     const appWrapper = (
-        <Layout />
+        <Fragment>
+            <SetPageTitle pageTitle={pageTitle} />
+            <Layout {...props} />
+        </Fragment>
     );
     return appWrapper;
 };

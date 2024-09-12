@@ -4,6 +4,8 @@ import footerElements from '../../../../../config/footer';
 import navElements from '../../../../../config/nav';
 
 import getNestedRoutes from '../getNestedRoutes';
+import getComponentForRoute from '../../../../../config/routes';
+import logger from '../../../../utils/logging';
 
 // extract only internal routes to be supported 
 /**
@@ -11,11 +13,17 @@ import getNestedRoutes from '../getNestedRoutes';
  *  from config values - nav and footer
  * @returns {array} flat array to be consumed by react-router-dom 
  */
-const getRouteList = (props = {}) => {
+const getRouteList = (props) => {
     const { rootPath = '/', columnKey = 'columnItems' } = props = {};
 
     const footerRoutes = getNestedRoutes(footerElements?.columns, columnKey);
     const composedRouteList = [
+        {
+            linkUrl: '',
+            // TODO: confirm root path
+            element: <App />,
+            isInternalNav: true
+        },
         // root link
         {
             linkUrl: rootPath,
@@ -26,12 +34,16 @@ const getRouteList = (props = {}) => {
         ...navElements,
         ...footerRoutes
     ];
+    // de-duplicate routes before iteration
+    composedRouteList.filter((item, index) => {
+        return composedRouteList.indexOf(item) === index;
+    });
 
-    const routeList = composedRouteList.flatMap((nav) => {
+    let routeList = composedRouteList.flatMap((nav) => {
+        const routeElement = getComponentForRoute(nav?.routeElement, nav?.routeParams);
         const composedRoute = {
             path: nav?.linkUrl,
-            // TODO: Bind in element dynamically from routeElements array
-            element: <App /> // nav?.routeElement,
+            element: routeElement,
         };
         const shouldReturn = nav?.isInternalNav ?? false;
         return shouldReturn && composedRoute;

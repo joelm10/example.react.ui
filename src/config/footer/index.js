@@ -15,6 +15,9 @@ const defaultFooterList = {
                     target: '_blank',
                     isInternalNav: true,
                     routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'Photography'
+                    }
                 },
                 {
                     itemId: 2,
@@ -24,6 +27,9 @@ const defaultFooterList = {
                     target: '_blank',
                     isInternalNav: true,
                     routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'engineering'
+                    }
                 }
             ]
         },
@@ -34,27 +40,26 @@ const defaultFooterList = {
                 {
                     itemId: 1,
                     itemType: 'link',
-                    label: 'About Us',
-                    linkUrl: '/about',
+                    label: 'About Me',
+                    linkUrl: '/about-me',
                     isInternalNav: true,
-                    target: '_blank'
+                    target: '_blank',
+                    routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'About Me'
+                    }
                 },
                 {
                     itemId: 2,
-                    label: 'Careers',
+                    label: 'Linked In',
                     itemType: 'link',
-                    linkUrl: 'http://item2.com',
-                    target: '_blank'
-
+                    linkUrl: 'https://www.linkedin.com/in/joel-morrison-6a57432/',
+                    target: '_blank',
+                    routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'careers'
+                    }
                 },
-                // {
-                //     itemId: 3,
-                //     label: 'Three item',
-                //     itemType: 'link',
-
-                //     linkUrl: 'http://item3.com',
-                //     target: '_blank'
-                // }
             ]
         }
     ]

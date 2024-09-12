@@ -4,7 +4,7 @@ import getFromApi from '../../../services/network/api';
 const mockURL = 'https://jsonplaceholder.typicode.com/posts';
 
 const ArticleWrapper = (props) => {
-    const { url = mockURL } = props;
+    const { url = mockURL, articleLimit = 10 } = props;
     const [articleContent, setApiContent] = useState(null);
 
     useEffect(() => {
@@ -12,7 +12,8 @@ const ArticleWrapper = (props) => {
             let apiResponse = await getFromApi(url);
 
             const formattedResponse = apiResponse
-                ? apiResponse.map((item) => {
+                // TODO: refactor the limit handler below
+                ? apiResponse.slice(0, articleLimit).map((item) => {
                     const { title, body, id: objKey } = item;
                     // /TODO: Move to generator/builder method
                     return (

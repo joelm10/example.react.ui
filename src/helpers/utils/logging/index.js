@@ -6,7 +6,7 @@
  *  Available types are error, warn, info, log, debug, debug with trace 
  * @param {string} msg - message to send to browser console
  */
-const logger = ({ logType, msg }) => {
+const logger = (logType, msg) => {
     // Ensure never runs in production
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
         if (!logType || !msg) {
