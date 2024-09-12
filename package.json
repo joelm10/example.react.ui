@@ -26,7 +26,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "coverage": "npm test -- --coverage --watchAll=false"
+    "coverage": "npm test -- --coverage --watchAll=false",
+    "test:ci": "react-scripts test --watchAll=false",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [

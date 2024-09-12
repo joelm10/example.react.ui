@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import SetPageTitle from './helpers/react/hooks/pageTitle';
 
 // layout
