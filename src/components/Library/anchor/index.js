@@ -1,4 +1,4 @@
-import makeUniqueKeyStr from "../../../utils/string/makeUniqueKeyStr";
+import makeUniqueKeyStr from "../../../helpers/utils/string/makeUniqueKeyStr";
 
 const defaultClass = "border-b inline-block border-transparent text-sm text-primary";
 
@@ -7,7 +7,7 @@ const defaultClass = "border-b inline-block border-transparent text-sm text-prim
  * @param {*} props 
  * @returns 
  */
-const makeAnchorLink = (props) => {
+const AnchorLink = (props) => {
     const {
         altText,
         itemKey = makeUniqueKeyStr(props.label),
@@ -40,4 +40,4 @@ const makeAnchorLink = (props) => {
     return anchorHtml;
 };
 
-export default makeAnchorLink;
+export default AnchorLink;

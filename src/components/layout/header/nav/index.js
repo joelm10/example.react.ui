@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import makeAnchorLink from '../../../../helpers/react/html/anchor';
+import AnchorLink from '../../../Library/anchor';
 import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
 
 /**
@@ -22,9 +22,16 @@ const NavWrapper = ({ navElements }) => {
         const itemKey = item.itemKey ?? makeUniqueKeyStr(label);
         const altText = item.altText ?? label;
         const target = item.target ?? null;
+        const anchorProps = {
+            ...item,
+            altText,
+            target,
+            label,
+            anchorClass: "nav-link active"
+        };
 
         const navItem = linkUrl
-            ? makeAnchorLink({ ...item, altText, target, label, anchorClass: "nav-link active" })
+            ? <AnchorLink {...anchorProps} />
             : label;
 
         const navItemList = (

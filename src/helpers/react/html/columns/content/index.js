@@ -1,5 +1,5 @@
 import makeUniqueKeyStr from '../../../../utils/string/makeUniqueKeyStr';
-import makeAnchorLink from '../../anchor';
+import AnchorLink from '../../../../../components/Library/anchor';
 
 /**
  * Generate HTML to display column/s, 
@@ -19,7 +19,7 @@ const makeColumnContent = (props) => {
     const columnContent = content?.map((item) => {
         const itemKey = makeUniqueKeyStr(item.label);
 
-        const anchorLink = makeAnchorLink({ ...item, anchorClass });
+        const anchorLink = AnchorLink({ ...item, anchorClass });
         return (
             <div
                 key={itemKey}

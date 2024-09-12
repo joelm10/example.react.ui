@@ -5,7 +5,6 @@ import navElements from '../../../../../config/nav';
 
 import getNestedRoutes from '../getNestedRoutes';
 import getComponentForRoute from '../../../../../config/routes';
-import logger from '../../../../utils/logging';
 
 // extract only internal routes to be supported 
 /**
