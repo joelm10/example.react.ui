@@ -1,7 +1,7 @@
 import App from '../../../../../App';
 // routing within app
-import navElements from '../../../../../config/nav';
 import footerElements from '../../../../../config/footer';
+import navElements from '../../../../../config/nav';
 
 import getNestedRoutes from '../getNestedRoutes';
 
@@ -11,9 +11,18 @@ import getNestedRoutes from '../getNestedRoutes';
  *  from config values - nav and footer
  * @returns {array} flat array to be consumed by react-router-dom 
  */
-const getRouteList = () => {
-    const footerRoutes = getNestedRoutes(footerElements?.columns, 'columnItems');
+const getRouteList = (props = {}) => {
+    const { rootPath = '/', columnKey = 'columnItems' } = props = {};
+
+    const footerRoutes = getNestedRoutes(footerElements?.columns, columnKey);
     const composedRouteList = [
+        // root link
+        {
+            linkUrl: rootPath,
+            // TODO: confirm root path
+            element: <App />,
+            isInternalNav: true
+        },
         ...navElements,
         ...footerRoutes
     ];
@@ -29,6 +38,7 @@ const getRouteList = () => {
     }).filter((obj) => {
         return obj && true;
     });
+
     return routeList;
 };
 
