@@ -1,5 +1,9 @@
 // TODO: add in json verification handlers
 const verifyResponseBody = (responseBody, omitHeaderCheck = false) => {
+    if(!responseBody) { 
+        return null; 
+    }
+
     // API sometimes ONLY returnst status:200, with empty body
     // eg: MVC Ok() method
     const isValidJson = !omitHeaderCheck

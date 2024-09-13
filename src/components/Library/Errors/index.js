@@ -6,11 +6,11 @@ const ErrorComponent = (props) => {
     const location = useLocation();
     logger('debugTrace', location);
 
-    const errMessage = `An error has occured, cant find page ${location.pathname}`;
+    const errMessage = `An error has occured, cant find page "${location.pathname}"`;
     const errComponent = (
         <Fragment>
             <h1>{errHeading}</h1>
-            <div>{errMessage}</div>
+            <article>{errMessage}</article>
             <a href="/">Go home</a>
         </Fragment>
     );

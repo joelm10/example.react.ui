@@ -1,4 +1,4 @@
-// route management
+// NOTE: This file is excluded from test coverage reports
 import {
     createBrowserRouter
 } from 'react-router-dom';
