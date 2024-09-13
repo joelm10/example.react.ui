@@ -22,7 +22,7 @@ const getRouteList = (props) => {
             routeElement: 'app',
             isInternalNav: true,
             routeParams: {
-                pageTitle: 'App Root'
+                pageTitle: 'App Home'
             },
             ...props
         },
@@ -33,7 +33,7 @@ const getRouteList = (props) => {
             routeElement: 'app',
             isInternalNav: true,
             routeParams: {
-                pageTitle: 'App root'
+                pageTitle: 'App Home'
             },
             ...props
         },
@@ -58,7 +58,6 @@ const getRouteList = (props) => {
     }).filter((obj) => {
         return obj && true;
     });
-    console.info('info', routeList);
     return routeList;
 };
 

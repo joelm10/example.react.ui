@@ -2,6 +2,11 @@
 import ImageLoader from '../../Library/images/imageLoader';
 import logoItem from '../../../media/assets/logos/logo.svg';
 
+/**
+ * Return a header Image
+ * @param {object} props 
+ * @returns 
+ */
 const Header = (props) => {
     const { logo = logoItem } = props;
     const logoProps = {

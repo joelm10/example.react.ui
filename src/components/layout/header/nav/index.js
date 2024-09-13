@@ -35,6 +35,7 @@ const NavWrapper = ({ navElements }) => {
 
         const navItemList = (
             <Nav.Item
+                role="menuitem"
                 key={itemKey}
             >
                 {navItem}
@@ -43,10 +44,10 @@ const NavWrapper = ({ navElements }) => {
         return navItemList;
     });
 
-    const defaultActiveItem = navElements[0].label;
+    const defaultActiveItem = buildNavItems?.length ? navElements[0]?.label : '';
 
-    const navWrapper = navElements?.length ? (
-        <Navbar
+    const navWrapper = buildNavItems?.length ? (
+        <Navbar role="navigation"
             variant="pills"
             expand="lg"
             className="bg-body-tertiary"

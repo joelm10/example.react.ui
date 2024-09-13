@@ -14,7 +14,10 @@ const Footer = ({ footerText = 'Default footer copyright', footerContent = defau
     footerColumns = columnLayout(footerColumns);
 
     const footerWrapper = (
-        <footer className="footer">
+        <footer
+            className="footer"
+            role="contentinfo"
+        >
             <Container>
                 {footerColumns}
                 <Row>

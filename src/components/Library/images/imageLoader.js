@@ -15,6 +15,7 @@ const ImageLoader = ({
     const imgObject = imgType === ''
         ? (
             <Image
+                role="img"
                 fluid
                 src={imgPath}
                 alt={altText}

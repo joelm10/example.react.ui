@@ -8,13 +8,13 @@ import ArticleWrapper from '../../Library/articles';
 const AppBody = () => {
 
     const appBody = (
-        <main>
+        <main role="main">
             <article>
                 <Container
                     className='min-vh-75'
                 >
                     <Row className="h-auto d-inline-block">
-                        <div>app goes here</div>
+                        {/* <div>app goes here</div> */}
                         <ArticleWrapper />
                     </Row>
                 </Container>
