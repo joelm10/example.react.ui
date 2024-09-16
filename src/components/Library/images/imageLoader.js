@@ -9,7 +9,7 @@ import makeUniqueKeyStr from '../../../helpers/utils/string/makeUniqueKeyStr';
  * TODO: image width/height defaults
  */
 const ImageLoader = ({
-    imgType, imgPath, altText, size, width = '30', height = '30'
+    imgType, imgPath, altText, size, width = '30', height = '30', imgClass
 }) => {
     // add img type check - png, etc
     const imgObject = imgType === ''
@@ -19,7 +19,8 @@ const ImageLoader = ({
                 fluid
                 src={imgPath}
                 alt={altText}
-                className={size}
+                size={size}
+                className={imgClass}
                 width={width}
                 height={height}
             />

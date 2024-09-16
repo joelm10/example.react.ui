@@ -11,7 +11,7 @@ const verifyResponseBody = (responseBody, omitHeaderCheck = false) => {
         : false;
     const isStatusValid = responseBody?.status === 200;
     const isErrorResponse = !responseBody?.ok;
-    const isSuccessResponse = responseBody?.ok;
+    const isSuccessResponse = responseBody?.ok ?? false;
 
     return {
         isStatusValid,

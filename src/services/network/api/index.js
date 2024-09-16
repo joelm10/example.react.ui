@@ -15,10 +15,13 @@ const getFromApi = async (url, fetch = realFetch) => {
 
     const isValidResponse = verifyResponseBody(response, true);
     const {
-        isSuccessResponse
+        isSuccessResponse,
+        isErrorResponse
     } = isValidResponse;
 
-    const data = isSuccessResponse && await response.json();
+    const data = isSuccessResponse
+        ? await response.json()
+        : isErrorResponse && { ...await response.json() }
 
     const parsedData = (typeof data === 'string')
         ? JSON.parse(data)
