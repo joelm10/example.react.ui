@@ -25,8 +25,11 @@ const makeColumnLayout = ({ columns = [], styles }) => {
                 </div>
             </Col>
         );
-    })
-    return (<Row>{columnLayout}</Row>);
+    });
+
+    return columnLayout.length
+        ? <Row>{columnLayout}</Row>
+        : null;
 };
 
 export default makeColumnLayout;

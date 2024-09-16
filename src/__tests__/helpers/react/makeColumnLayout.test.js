@@ -1,5 +1,5 @@
-// makeColumnContent
-import makeColumnContent from '../../../../../helpers/react/html/columns/content';
+
+import makeColumnLayout from '../../../helpers/react/html/columns';
 
 const testProps = {
     content: [],
@@ -7,7 +7,7 @@ const testProps = {
 };
 describe('helpers/generators/html/columns', () => {
     test('makeColumnContent() should return null if empty array passed', () => {
-        const recieved = makeColumnContent(testProps);
+        const recieved = makeColumnLayout(testProps);
         expect(recieved).toBeNull();
     });
 

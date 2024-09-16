@@ -65,10 +65,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/index.js",
+      "!src/helpers/react/render/mountUI/index.js",
       "!src/helpers/navigation/routing/index.js",
       "!src/serviceWorker.js",
       "!src/reportWebVitals.js",
-      "!src/helpers/renderApp/index.js",
       "!src/content/**",
       "!src/config/**/*.js",
       "!**/node_modules/**",

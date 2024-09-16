@@ -1,3 +1,8 @@
+/**
+ * This file is skipped from coverage report
+ * WHY: Renders self contained app to created dom element
+ */
+
 import * as ReactDOM from "react-dom/client";
 import { createRoot } from 'react-dom/client';
 import {
@@ -38,4 +43,5 @@ const mountUI = (domMountPoint = 'root', useRouting = true, defaultTab = 'home')
         logger('err', `MountUI() error ${e}`);
     }
 };
+
 export default mountUI;

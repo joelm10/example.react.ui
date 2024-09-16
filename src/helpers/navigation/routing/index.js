@@ -1,4 +1,9 @@
-// NOTE: This file is excluded from test coverage reports
+/**
+ * This file is excluded from test coverage reports
+ * WHY: calls self contained helper methods to generate array
+ *      getRouteList() has own Unit tests
+ */
+
 import {
     createBrowserRouter
 } from 'react-router-dom';
