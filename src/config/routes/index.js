@@ -1,6 +1,6 @@
 import App from "../../App";
 import ErrorComponent
-    from "../../components/Library/Errors";
+    from "../../components/Library/Atomic/Errors";
 
 /**
  * Import ALL components into dictionary, expose via lookup and return

@@ -1,5 +1,5 @@
 import makeUniqueKeyStr from '../../../../utils/string/makeUniqueKeyStr';
-import AnchorLink from '../../../../../components/Library/anchor';
+import AnchorLink from '../../../../../components/Library/Atomic/anchor';
 
 /**
  * Generate HTML to display column/s, 

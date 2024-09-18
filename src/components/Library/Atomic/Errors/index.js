@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
-import logger from '../../../helpers/utils/logging';
 import { useLocation } from 'react-router-dom';
+
+import logger from '../../../../helpers/utils/logging';
+
 const ErrorComponent = (props) => {
     const { errHeading = 'Page not found' } = props;
     const location = useLocation();

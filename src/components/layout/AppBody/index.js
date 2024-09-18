@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import ArticleWrapper from '../../Library/articles';
+import ArticleWrapper from '../../Library/Atomic/articles';
 
 // TODO: Add useContext() wrapper/provider for content
 // ref: https://react.dev/reference/react/useContext

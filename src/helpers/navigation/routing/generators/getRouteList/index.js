@@ -1,10 +1,10 @@
-import ErrorComponent from '../../../../../components/Library/Errors';
+import ErrorComponent from '../../../../../components/Library/Atomic/Errors';
 // routing within app
 import footerElements from '../../../../../config/footer';
 import navElements from '../../../../../config/nav';
 
-import getNestedRoutes from '../getNestedRoutes';
 import getComponentForRoute from '../../../../../config/routes';
+import getNestedRoutes from '../getNestedRoutes';
 
 // extract only internal routes to be supported 
 /**

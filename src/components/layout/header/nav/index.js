@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import AnchorLink from '../../../Library/anchor';
+import AnchorLink from '../../../Library/Atomic/anchor';
 import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
 
 /**

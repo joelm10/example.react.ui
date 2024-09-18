@@ -1,5 +1,5 @@
 // TODO: update this  to take from props
-import ImageLoader from '../../Library/images/imageLoader';
+import ImageLoader from '../../Library/Atomic/images/imageLoader';
 import logoItem from '../../../media/assets/logos/logo.svg';
 
 /**

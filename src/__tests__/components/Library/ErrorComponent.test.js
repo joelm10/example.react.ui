@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 
-import ErrorWrapper from '../../../components/Library/Errors';
+import ErrorWrapper from '../../../components/Library/Atomic/Errors';
 
 const mockPath = 'http://google.com?q=test';
 

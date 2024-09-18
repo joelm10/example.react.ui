@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 
-import getFromApi from '../../../services/network/api';
+import getFromApi from '../../../../services/network/api';
 const mockURL = 'https://jsonplaceholder.typicode.com/posts';
 
 /**
