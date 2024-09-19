@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom'
 
 // core components
 import Header from '../../components/layout/header';
@@ -41,7 +42,12 @@ const componentList = [
 
 describe('components/layout/', () => {
     test.each(componentList)('%s', (component, TestComponent, testProps, expected) => {
-        render(<TestComponent {...testProps} />);
+        render(
+            <BrowserRouter>
+                <TestComponent {...testProps} />
+            </BrowserRouter>
+        );
+
         let recieved = null;
         if (TestComponent === Header) {
             recieved = screen.getAllByAltText(expected.altText);

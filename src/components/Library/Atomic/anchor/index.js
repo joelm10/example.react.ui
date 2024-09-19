@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import makeUniqueKeyStr from "../../../../helpers/utils/string/makeUniqueKeyStr";
 
 const defaultClass = "border-b inline-block border-transparent text-sm text-primary";
@@ -19,23 +21,51 @@ const AnchorLink = (props) => {
         isInternalNav = false
     } = props;
 
-    // TODO: add link handler for leaving site
     // TODO: consider handler for any external linnks, auto set target (middleware, rather than here)
     // skip if internal- remove new tab/window
     let targetRuntime = isInternalNav ? "" : target;
 
+    const anchorProps = {
+        title: altText,
+        className: anchorClass
+    }
 
-    const anchorHtml = label !== '' ? (
-        <a
-            key={itemKey}
-            href={linkUrl}
-            target={targetRuntime}
-            className={anchorClass}
-            title={altText}
-        >
-            {label}
-        </a>
-    ) : null;
+    let anchorHtml = null;
+    if (isInternalNav) {
+        // Ref: https://reactrouter.com/en/main/components/link#link
+        const linkProps = {
+            to: linkUrl,
+            preventScrollReset: false,
+            // relative?: "route" | "path";
+            // reloadDocument?: boolean;
+            // replace?: boolean;
+            // state?: any;
+            // unstable_viewTransition?: boolean;
+            ...anchorProps
+        };
+        
+        // generate <Link /> object
+        anchorHtml = label !== '' && (
+            <Link
+                key={itemKey}
+                {...linkProps}
+            >
+                {label}
+            </Link>
+        );
+    } else {
+        anchorHtml = label !== '' && (
+            <a
+                key={itemKey}
+                href={linkUrl}
+                target={targetRuntime}
+
+                {...anchorProps}
+            >
+                {label}
+            </a>
+        );
+    }
 
     return anchorHtml;
 };

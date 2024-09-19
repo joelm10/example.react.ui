@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom'
+
 import NavWrapper from '../../components/layout/header/nav';
 import navElements from '../../config/nav';
+
 const testProps = {
     navElements: navElements
 }
@@ -12,7 +15,12 @@ describe('components/layout/', () => {
     });
 
     test('<NavWrapper /> should render empty when elements passed', () => {
-        render(<NavWrapper {...testProps} />);
+        render(
+            <BrowserRouter>
+
+                <NavWrapper {...testProps} />
+            </BrowserRouter>
+        );
 
         // outer container present
         const navWrapper = screen.getAllByRole('navigation');

@@ -1,8 +1,13 @@
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom'
 
 import App from '../App';
 
 it('renders without crashing', () => {
-    render(<App tab="home" pageTitle='test page title' />);
+    render(
+        <BrowserRouter>
+            <App tab="home" pageTitle='test page title here' />
+        </BrowserRouter>
+    );
     // TODO: Add assert
 });
