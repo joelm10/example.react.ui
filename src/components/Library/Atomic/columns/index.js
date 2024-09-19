@@ -1,17 +1,18 @@
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import makeUniqueKeyStr from '../../../utils/string/makeUniqueKeyStr';
+import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
 
-import makeColumnContent from './content';
+import ColumnContent from './ColumnContent';
 
-const makeColumnLayout = ({ columns = [], styles }) => {
+const ColumnLayout = ({ columns = [], styles }) => {
     // iterate over array of objects, generate bootstrap compatible markup
     const columnLayout = columns?.map((col) => {
         const { columnHeader, columnItems } = col;
 
-        const columnContent = makeColumnContent({ content: columnItems, styles });
         const colKey = makeUniqueKeyStr(`${col.colId}_${columnHeader}`);
+        const columnContent = <ColumnContent content={columnItems} styles />;
+
         // TODO: correct h5 classname structure
         const headingStyle = "border-b inline-block border-transparent text-md text-secondary dark:text-secondary-dark my-2 font-bold hover:border-gray-10";
         return (
@@ -32,4 +33,4 @@ const makeColumnLayout = ({ columns = [], styles }) => {
         : null;
 };
 
-export default makeColumnLayout;
+export default ColumnLayout;

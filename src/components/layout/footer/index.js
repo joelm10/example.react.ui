@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import defaultFooterList from '../../../config/footer';
-import columnLayout from '../../../helpers/react/html/columns';
+import ColumnLayout from '../../Library/Atomic/columns';
 
 const Footer = ({ footerText = 'Default footer copyright', footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;
@@ -11,7 +11,7 @@ const Footer = ({ footerText = 'Default footer copyright', footerContent = defau
         anchorClass: StyleSheet.anchorClass ?? 'footer'
     };
 
-    footerColumns = columnLayout(footerColumns);
+    footerColumns = <ColumnLayout columns={footerColumns.columns} />;
 
     const footerWrapper = (
         <footer

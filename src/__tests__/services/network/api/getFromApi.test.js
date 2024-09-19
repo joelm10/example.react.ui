@@ -55,7 +55,7 @@ describe('services/network/api/getFromApi()', () => {
         verifyResponseBody.mockReturnValueOnce(isInvalidResponse);
 
         const recieved = await getFromApi('apiUrlHere.com', fetchMock);
-        console.log('r', recieved);
+
         expect(recieved).toEqual(isInvalidResponse);
     });
 

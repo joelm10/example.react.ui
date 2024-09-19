@@ -1,5 +1,5 @@
-import makeUniqueKeyStr from '../../../../utils/string/makeUniqueKeyStr';
-import AnchorLink from '../../../../../components/Library/Atomic/anchor';
+import makeUniqueKeyStr from '../../../../../helpers/utils/string/makeUniqueKeyStr';
+import AnchorLink from '../../anchor';
 
 /**
  * Generate HTML to display column/s, 
@@ -9,7 +9,7 @@ import AnchorLink from '../../../../../components/Library/Atomic/anchor';
  * @param {object} props.styles - styling to apply to each link in area
  * @returns React.JSX
  */
-const makeColumnContent = (props) => {
+const ColumnContent = (props) => {
     const { content = [], styles } = props;
     const {
         anchorClass = styles?.anchorClass ?? '',
@@ -38,4 +38,4 @@ const makeColumnContent = (props) => {
     return columnWrapper;
 };
 
-export default makeColumnContent;
+export default ColumnContent;
