@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 
 // core components
-import Header from '../../components/layout/header';
-import footer from '../../components/layout/footer';
-import AppBody from '../../components/layout/appBody';
+import AppBody from '../../layout/appBody';
+import Footer from '../../layout/footer';
+import Header from '../../layout/header';
 
 // TODO: Move to generic test folder
 const getShouldAssert = (param) => `should render component ${param}`;
@@ -19,7 +19,7 @@ const componentList = [
     ],
     [
         getShouldAssert('footer'),
-        footer,
+        Footer,
         { navElements: [] },
         { role: 'contentinfo', class: 'flex flex-col' }
     ],

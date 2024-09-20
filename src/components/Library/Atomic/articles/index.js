@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import getFromApi from '../../../../services/network/api';
-const mockURL = 'https://jsonplaceholder.typicode.com/posts';
+import articleFromFields from './getFromJson';
+
 
 /**
  * 
@@ -9,8 +10,9 @@ const mockURL = 'https://jsonplaceholder.typicode.com/posts';
  * @returns 
  */
 const ArticleWrapper = (props) => {
-    const { url = mockURL, articleLimit = 10 } = props;
+    const { url, meta, articleLimit = 10, pageTitle } = props;
     const [articleContent, setApiContent] = useState(null);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,23 +21,22 @@ const ArticleWrapper = (props) => {
             const formattedResponse = apiResponse
                 // TODO: refactor the limit handler below
                 ? apiResponse.slice(0, articleLimit).map((item) => {
-                    // TODO: refactor to generator to extract keys and handle accordingly
-                    const { title, body, id: objKey } = item;
-                    // /TODO: Move to generator/builder method
-                    return (
-                        <Fragment key={objKey}>
-                            <h2>{title}</h2>
-                            {body}
-                        </Fragment>
-                    );
+                    const articleBody = articleFromFields(item, meta);
+                    return articleBody;
                 })
-                : (<Fragment>No records</Fragment>);
+                : noArticleFound
 
             setApiContent(formattedResponse);
         };
+        const noArticleFound = (<Fragment>No articles for {pageTitle}</Fragment>);
 
-        fetchData();
-    }, [url, articleLimit]);
+        if (!url) {
+            setApiContent(noArticleFound);
+            return;
+        } else {
+            fetchData();
+        }
+    }, [url, articleLimit, meta, pageTitle]);
 
     return articleContent;
 };

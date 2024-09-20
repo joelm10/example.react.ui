@@ -1,8 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import defaultFooterList from '../../../config/footer';
-import ColumnLayout from '../../Library/Atomic/columns';
+import defaultFooterList from '../../config/footer';
+import ColumnLayout from '../../components/Library/Atomic/columns';
 
 const Footer = ({ footerText = 'Default footer copyright', footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;
