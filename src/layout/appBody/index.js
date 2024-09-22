@@ -1,11 +1,11 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import ArticleWrapper from '../../components/Library/Atomic/articles';
-import articleMappings from '../../config/config';
+import articleMappings from '../../config/schema';
 
 // TODO: Add useContext() wrapper/provider for content
 // ref: https://react.dev/reference/react/useContext

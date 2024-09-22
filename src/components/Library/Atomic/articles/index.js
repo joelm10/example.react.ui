@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import getFromApi from '../../../../services/network/api';
-import articleFromFields from './getFromJson';
+import ArticleFromFields from './getFromJson';
 
 
 /**
@@ -13,7 +13,6 @@ const ArticleWrapper = (props) => {
     const { url, meta, articleLimit = 10, pageTitle } = props;
     const [articleContent, setApiContent] = useState(null);
 
-
     useEffect(() => {
         const fetchData = async () => {
             let apiResponse = await getFromApi(url);
@@ -21,7 +20,7 @@ const ArticleWrapper = (props) => {
             const formattedResponse = apiResponse
                 // TODO: refactor the limit handler below
                 ? apiResponse.slice(0, articleLimit).map((item) => {
-                    const articleBody = articleFromFields(item, meta);
+                    const articleBody = <ArticleFromFields article={item} lookupList={meta} />;
                     return articleBody;
                 })
                 : noArticleFound
