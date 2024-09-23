@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import ColumnLayout from '../../../components/Library/Atomic/columns';
+import ColumnLayout from 'components/Library/Atomic/columns';
 
 const testProps = {
     invalid: {},

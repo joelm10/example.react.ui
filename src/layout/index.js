@@ -7,7 +7,7 @@ import Footer from './footer';
 import Header from './header';
 import NavWrapper from './header/nav';
 
-import navElements from '../config/nav';
+import navElements from 'config/nav';
 
 const Layout = (props) => {
     // const LayoutContext = createContext(null);

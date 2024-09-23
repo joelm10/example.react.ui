@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Fragment } from 'react';
-import useSetPageTitle from './helpers/react/hooks/pageTitle';
+import useSetPageTitle from 'helpers/react/hooks/pageTitle';
 
 // layout
-import Layout from './layout';
+import Layout from 'layout';
 
 const App = (props) => {
     const { pageTitle } = props;

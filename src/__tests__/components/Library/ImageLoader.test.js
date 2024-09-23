@@ -1,11 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import ImageLoader from '../../../components/Library/Atomic/images/imageLoader';
+import ImageLoader from 'components/Library/Atomic/images/imageLoader';
 
 const mockTest = {
     valid: {
-        imgType: '', imgPath: 'thisTestPath.png', altText: 'test alt text', size: '', imgClass: 'testImgClass'
+        imgType: '',
+        imgPath: 'thisTestPath.png',
+        altText: 'test alt text',
+        size: '',
+        imgClass: 'testImgClass'
     },
     invalid: {
     }

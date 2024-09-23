@@ -1,6 +1,6 @@
 // TODO: update this  to take from props
-import ImageLoader from '../../components/Library/Atomic/images/imageLoader';
-import logoItem from '../../media/assets/logos/logo.svg';
+import ImageLoader from 'components/Library/Atomic/images/imageLoader';
+import logoItem from 'media/assets/logos/logo.svg';
 
 /**
  * Return a header Image

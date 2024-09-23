@@ -1,5 +1,5 @@
 // makeUniqueKeyStr()
-import makeUniqueKeyStr from "../../../../helpers/utils/string/makeUniqueKeyStr";
+import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 describe('helpers/utils/string/', () => {
     test('makeUniqueKeyStr, should return empty string if no vaue passed', () => {
         const received = makeUniqueKeyStr();

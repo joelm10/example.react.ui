@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Image from 'react-bootstrap/Image';
-import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
+import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 
 /**
  * Wrapper around image

@@ -1,4 +1,4 @@
-import verifyResponseBody from '../../../../services/network/api/verifyResponseBody';
+import verifyResponseBody from 'services/network/api/verifyResponseBody';
 
 const myHeaders = new Headers();
 myHeaders.append('Content-Type');

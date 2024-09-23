@@ -2,8 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import AnchorLink from '../../../components/Library/Atomic/anchor';
-import makeUniqueKeyStr from '../../../helpers/utils/string/makeUniqueKeyStr';
+import AnchorLink from 'components/Library/Atomic/anchor';
+import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 
 /**
  * Simple nav bar wrapper compoennt

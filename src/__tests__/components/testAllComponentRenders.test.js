@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 // core components
-import AppBody from '../../layout/appBody';
-import Footer from '../../layout/footer';
-import Header from '../../layout/header';
+import AppBody from 'layout/appBody';
+import Footer from 'layout/footer';
+import Header from 'layout/header';
 
 // TODO: Move to generic test folder
 const getShouldAssert = (param) => `should render component ${param}`;

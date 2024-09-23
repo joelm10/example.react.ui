@@ -1,8 +1,8 @@
 // getFromApi
-import getFromApi from "../../../../services/network/api";
-import verifyResponseBody from '../../../../services/network/api/verifyResponseBody';
+import getFromApi from "services/network/api";
+import verifyResponseBody from 'services/network/api/verifyResponseBody';
 
-jest.mock('../../../../services/network/api/verifyResponseBody');
+jest.mock('services/network/api/verifyResponseBody');
 
 global.fetch = jest.fn(() => Promise.resolve({
     json: () => Promise.resolve()

@@ -1,7 +1,7 @@
 /*
 * logger
 */
-import logger from '../../../../helpers/utils/logging';
+import logger from 'helpers/utils/logging';
 
 const MOCK_LOG = {
     err: { msg: 'test error messsage' }

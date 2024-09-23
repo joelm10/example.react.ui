@@ -1,7 +1,7 @@
  /*
 import { waitFor } from 'react-dom/test-utils';
 
-import useSetPageTitle from "../../../../helpers/react/hooks/pageTitle";
+import useSetPageTitle from "helpers/react/hooks/pageTitle";
 */
 // TODO: solve hooks testability issue
 describe.skip('helpers/react/hooks/', () => {

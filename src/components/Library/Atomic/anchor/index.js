@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import makeUniqueKeyStr from "../../../../helpers/utils/string/makeUniqueKeyStr";
+import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 
 const defaultClass = "border-b inline-block border-transparent text-sm text-primary";
 

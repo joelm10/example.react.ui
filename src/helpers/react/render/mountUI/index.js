@@ -9,10 +9,10 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
-import router from '../../..//navigation/routing';
-import logger from '../../../utils/logging';
+import router from 'helpers/navigation/routing';
+import logger from 'helpers/utils/logging';
 
-import App from './../../../../App';
+import App from 'App';
 
 /**
  * Wrapper for rending the React application, optional client side routing

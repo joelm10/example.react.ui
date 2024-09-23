@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 // articleFromFields
-import ArticleFromFields from "../../../../components/Library/Atomic/articles/getFromJson";
+import ArticleFromFields from "components/Library/Atomic/articles/getFromJson";
 
 const testProps = {
     valid: {

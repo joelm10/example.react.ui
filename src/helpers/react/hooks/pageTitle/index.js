@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import logger from '../../../utils/logging';
+import logger from 'helpers/utils/logging';
 
 /**
  * Document title setter

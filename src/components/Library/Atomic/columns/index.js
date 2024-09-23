@@ -1,9 +1,9 @@
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import makeUniqueKeyStr from '../../../../helpers/utils/string/makeUniqueKeyStr';
 
 import ColumnContent from './ColumnContent';
+import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 
 const ColumnLayout = ({ columns = [], styles }) => {
     // iterate over array of objects, generate bootstrap compatible markup

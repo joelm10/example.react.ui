@@ -1,4 +1,4 @@
-import makeUniqueKeyStr from '../../../../../helpers/utils/string/makeUniqueKeyStr';
+import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 import AnchorLink from '../../anchor';
 
 /**

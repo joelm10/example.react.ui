@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import ColumnContent from '../../../../components/Library/Atomic/columns/ColumnContent';
+import ColumnContent from 'components/Library/Atomic/columns/ColumnContent';
 
 const testProps = {
     content: [],
