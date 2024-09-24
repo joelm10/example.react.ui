@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import ImageLoader from '../../images/imageLoader';
 
 // context: extrapolate json fields to common display
 /**
@@ -21,8 +21,27 @@ const ArticleFromFields = ({ article, lookupList }) => {
     const bodyContent = article[lookupList?.content];
     const footerContent = article[lookupList?.footer];
 
+    let imgContent = null;
+    const hasImgThumbContent = article[lookupList?.imgThumbPath];
+    const hasImgContent = article[lookupList?.imgPath];
+
+    if (!!hasImgContent) {
+        const imgProps = {
+            imgType: '',
+            imgPath: hasImgThumbContent,
+            altText: title,
+            // TODO: Add correct class for display
+            width: '30',
+            height: '30',
+            // imgClass: ''
+        }
+        imgContent = <ImageLoader {...imgProps} />;
+    }
     return (
-        <Fragment key={objKey}>
+        <div
+            key={objKey}
+            className="col-4"
+        >
             {!!title && (
                 <h2
                     className=''
@@ -37,13 +56,14 @@ const ArticleFromFields = ({ article, lookupList }) => {
                     {bodyContent}
                 </div>
             )}
+            {imgContent}
             {!!footerContent && (
                 <div
                     className=''>
                     {footerContent}
                 </div>
             )}
-        </Fragment>
+        </div>
     );
 };
 

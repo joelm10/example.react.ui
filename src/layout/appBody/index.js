@@ -16,8 +16,10 @@ const AppBody = (props) => {
 
     const activePage = location.pathname;
     let articleProps = {
-        pageTitle: '' //pageTitle
+        pageTitle: '',
+        className: 'foo'
     };
+
     // TODO: put into enum lookup method();
     if (activePage === '/' || activePage === '/home') {
         articleProps = {
@@ -29,15 +31,21 @@ const AppBody = (props) => {
             ...articleMappings.user,
             ...articleProps
         }
+    } else if (activePage === '/photography') {
+        articleProps = {
+            ...articleMappings.photography,
+            ...articleProps
+        }
     }
     // END TODO: 
+
     const appBody = (
         <main role="main">
             <article>
                 <Container
                     className='min-vh-75'
                 >
-                    <Row className="h-auto d-inline-block">
+                    <Row className="h-auto d-inline">
                         <ArticleWrapper {...articleProps} />
                     </Row>
                 </Container>
