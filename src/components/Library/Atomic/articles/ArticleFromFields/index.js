@@ -1,4 +1,5 @@
 import ImageLoader from '../../images/imageLoader';
+import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 
 // context: extrapolate json fields to common display
 /**
@@ -12,9 +13,6 @@ const ArticleFromFields = ({ article, lookupList }) => {
     if (!article || !lookupList) {
         return null;
     }
-    const {
-        id: objKey
-    } = article;
 
     const title = article[lookupList?.heading];
     // TODO: increase functionality to break apart body object into formatable objects
@@ -37,14 +35,16 @@ const ArticleFromFields = ({ article, lookupList }) => {
         }
         imgContent = <ImageLoader {...imgProps} />;
     }
+    const articleKey = makeUniqueKeyStr(title);
+
     return (
         <div
-            key={objKey}
+            key={articleKey}
             className="col-4"
         >
             {!!title && (
                 <h2
-                    className=''
+                    className='article--heading'
                 >
                     {title}
                 </h2>
@@ -59,11 +59,14 @@ const ArticleFromFields = ({ article, lookupList }) => {
             {imgContent}
             {!!footerContent && (
                 <div
-                    className=''>
+                    role='contentinfo'
+                    className=''
+                >
                     {footerContent}
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 

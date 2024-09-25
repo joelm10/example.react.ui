@@ -13,6 +13,9 @@ const Pagination = (props) => {
     const startIndex = (currentPage - 1) * maxDisplayCount;
     const endIndex = startIndex + maxDisplayCount;
 
+    const showPagination = endIndex >= totalPages;
+    const showPageList = endIndex >= totalPages;
+    
     // TODO: Build pagination control click events and callback objects
     // TODO: Limit max page numbers to display at once, AND add ...
     const pageListWrapper = Array.from({ length: totalPages }, (_, item) => {
@@ -26,10 +29,18 @@ const Pagination = (props) => {
         );
     });
 
+    const pageList = showPageList
+        ? (<div>Page {currentPage} of {totalPages}</div>)
+        : null;
+
+    const paginationWrapper = showPagination
+        ? (<ul className='pagination'>{pageListWrapper}</ul>)
+        : null;
+
     return <Fragment>
-        <div>Page {currentPage} of {endIndex}</div><br />
+        {pageList}
         <b>TotalRecords:</b> {totalRecords}<br />
-        <ul className='pagination'>{pageListWrapper}</ul>
+        {paginationWrapper}
     </Fragment>;
 };
 

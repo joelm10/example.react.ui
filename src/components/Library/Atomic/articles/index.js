@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from 'react';
 
-import getFromApi from 'services/network/api';
-import ArticleFromFields from './ArticleFromFields';
 import Pagination from 'components/Library/Widgets/Pagination';
 import getDataFromArray from 'helpers/utils/arrays/getFromArray';
+import getFromApi from 'services/network/api';
+import ArticleFromFields from './ArticleFromFields';
 
 /**
  * 
@@ -24,6 +24,8 @@ const ArticleWrapper = (props) => {
     const [articleContent, setApiContent] = useState(defaultState);
 
     useEffect(() => {
+        // const { loading } = articleContent;
+        let mounted = true;
         const fetchData = async () => {
             let apiResponse = await getFromApi(url);
             // send full data to get parsed, then slice to get accurate pageSet
@@ -50,13 +52,15 @@ const ArticleWrapper = (props) => {
         // TODO: replace with generic empty record component
         const noArticleFound = (<Fragment>No articles for {pageTitle}</Fragment>);
 
-        if (!url) {
+        if (!url || !mounted) {
             setApiContent(noArticleFound);
             return;
         } else {
-            fetchData();
+            if (mounted) {
+                fetchData();
+            }
         }
-    }, [url, articleLimit, meta, pageTitle]);
+    }, [articleLimit, pageTitle, url]);
 
     const articleContentWrapper = articleContent.content !== null
         // TODO: refactor the limit handler below

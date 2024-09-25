@@ -9,12 +9,12 @@ const testProps = {
             id: 91,
             title: 'i am a heading',
             body: 'body foo',
-            footer: ''
+            footer: 'footer example text'
         },
         lookupList: {
             heading: 'title',
             content: 'body',
-            footer: ''
+            footer: 'footer'
         }
     },
     invalid: {
@@ -34,21 +34,21 @@ describe('components/Libary/Atomic/articles', () => {
         expect(container.innerHTML).toHaveLength(0);
     });
 
-    test.only('articleFromFields() should return markup when article is passed, AND lookupList values match', () => {
+    test('articleFromFields() should return markup when article is passed, AND lookupList values match', () => {
         const { valid,
             valid: {
-                heading, content, footer, id
+                heading, content, footer
             }
         } = testProps;
         render(<ArticleFromFields {...valid} />);
 
         const headingContent = screen.getByText(testProps.valid.article.title).text;
         const bodyContent = screen.getByText(testProps.valid.article.body).text;
-        // const footerContent = screen.getByText(testProps.valid.article.title).text; //.getElementsByTagName('h2');
+        const footerContent = screen.getByRole('contentinfo').text;
 
         expect(headingContent).toEqual(heading);
         expect(bodyContent).toEqual(content);
-        // expect(footerContent).toEqual(footer);
+        expect(footerContent).toEqual(footer);
     });
 
 });
