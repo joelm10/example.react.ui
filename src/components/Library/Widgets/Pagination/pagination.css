@@ -1,0 +1,8 @@
+.page-item span {
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--bs-pagination-active-bg);
+        color: #FFF;
+    }
+}

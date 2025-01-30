@@ -71,6 +71,7 @@ const ArticleWrapper = (props) => {
         : null;
 
     const paginationProps = {
+        callback: {},
         ...articleContent.pagination,
     };
     const pagination = <Pagination {...paginationProps} />
