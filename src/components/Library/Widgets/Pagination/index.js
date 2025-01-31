@@ -54,7 +54,6 @@ const Pagination = (props) => {
      * TODO: Consider move to own file
      */
     const makePageItem = (itemKey, itemTitle, itemContent, itemClass, click, targetIndex) => {
-        console.log(itemKey);
         const item = (
             <li
                 key={itemKey}

@@ -35,18 +35,20 @@ const articleSchemas = {
         url: 'https://jsonplaceholder.typicode.com/todos',
         articleLimit: 20,
         meta: {
-            heading: 'title',
-            content: 'completed',
-            footer: ''
+            heading: 'id',
+            content: 'title',
+            footer: 'completed'
         },
     },
 };
 
 // TODO: Move to config;
 const articleMappings = {
-    user: articleSchemas.user,
-    posts: articleSchemas.posts,
-    photography: articleSchemas.photography
+    ...articleSchemas,
+    // user: articleSchemas.user,
+    // posts: articleSchemas.posts,
+    // photography: articleSchemas.photography,
+    // engineering: articleSchemas.engineering
 };
 
 export default articleMappings;
