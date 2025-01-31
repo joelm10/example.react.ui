@@ -1,13 +1,17 @@
 /**
  * Get first n from data array
- * @param {*} apiResponse 
- * @param {*} paginationConfig 
+ * @param {array} array 
+ * @param {object} arrayConfig = 
+ * @param {number} startIndex = starting point 
  * @returns 
- * TODO: Bind the configuration in bus logic - instead of hard coded values
  */
-const getDataFromArray = (array, arrayConfig ) => {
-    const { maxDisplayCount} = arrayConfig;
-    const paginatedData = array.slice(0, maxDisplayCount);
+const getDataFromArray = (array, arrayConfig, startIndex = 0) => {
+    const { maxDisplayCount } = arrayConfig;
+
+    // limit returned array data to no more than maxDisplayCount
+    const endIndex = startIndex + maxDisplayCount;
+
+    const paginatedData = array.slice(startIndex, endIndex);
 
     return paginatedData;
 };

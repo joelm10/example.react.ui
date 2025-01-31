@@ -4,6 +4,7 @@ import Pagination from 'components/Library/Widgets/Pagination';
 import getDataFromArray from 'helpers/utils/arrays/getFromArray';
 import getFromApi from 'services/network/api';
 import ArticleFromFields from './ArticleFromFields';
+import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 
 /**
  * 
@@ -62,18 +63,46 @@ const ArticleWrapper = (props) => {
         }
     }, [articleLimit, pageTitle, url]);
 
+    // TODO: refactor the limit handler below
     const articleContentWrapper = articleContent.content !== null
-        // TODO: refactor the limit handler below
         ? articleContent.content?.map((item) => {
-            const articleBody = <ArticleFromFields article={item} lookupList={meta} />;
+            const articleKey = makeUniqueKeyStr(item?.title)
+            const articleBody = (
+            <ArticleFromFields
+                key={articleKey} 
+                article={item}
+                lookupList={meta} 
+        
+            />);
             return articleBody;
         })
         : null;
 
     const paginationProps = {
-        callback: {},
+        callback: {
+            moveTo: (target) => {
+                const { rawApi, pagination } = articleContent;
+
+                // calculate target from: 1) target page set AND 2) 
+                const targetIndex = (target -1 ) * articleLimit;
+                // extract updated pageSet
+                const updatedApiContent = getDataFromArray(rawApi, pagination, targetIndex);
+
+                const updatedContent = {
+                    ...articleContent,
+                    pagination: {
+                        ...articleContent.pagination,
+                        currentPage: target,
+                    },
+                    content: updatedApiContent
+                };
+
+                setApiContent(updatedContent);
+            }
+        },
         ...articleContent.pagination,
     };
+
     const pagination = <Pagination {...paginationProps} />
 
     const wrappedArticles = !articleContent.isLoading && (
