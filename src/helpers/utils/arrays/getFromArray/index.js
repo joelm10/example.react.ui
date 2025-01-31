@@ -5,11 +5,9 @@
  * @param {number} startIndex = starting point 
  * @returns 
  */
-const getDataFromArray = (array, arrayConfig, startIndex = 0) => {
-    const { maxDisplayCount } = arrayConfig;
-
+const getDataFromArray = (array = [], maxItems = 0, startIndex = 0) => {
     // limit returned array data to no more than maxDisplayCount
-    const endIndex = startIndex + maxDisplayCount;
+    const endIndex = startIndex + maxItems;
 
     const paginatedData = array.slice(startIndex, endIndex);
 

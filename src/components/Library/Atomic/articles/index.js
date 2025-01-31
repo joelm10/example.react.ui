@@ -36,7 +36,7 @@ const ArticleWrapper = (props) => {
                 totalRecords: apiResponse.length
             };
             // api response handling only. subsequent calls, will live in pagination namespace
-            const currentPageData = getDataFromArray(apiResponse, paginationConfig);
+            const currentPageData = getDataFromArray(apiResponse, paginationConfig.maxDisplayCount);
 
             setApiContent({
                 isLoading: false,
@@ -68,12 +68,12 @@ const ArticleWrapper = (props) => {
         ? articleContent.content?.map((item) => {
             const articleKey = makeUniqueKeyStr(item?.title)
             const articleBody = (
-            <ArticleFromFields
-                key={articleKey} 
-                article={item}
-                lookupList={meta} 
-        
-            />);
+                <ArticleFromFields
+                    key={articleKey}
+                    article={item}
+                    lookupList={meta}
+
+                />);
             return articleBody;
         })
         : null;
@@ -84,9 +84,9 @@ const ArticleWrapper = (props) => {
                 const { rawApi, pagination } = articleContent;
 
                 // calculate target from: 1) target page set AND 2) 
-                const targetIndex = (target -1 ) * articleLimit;
+                const targetIndex = (target - 1) * articleLimit;
                 // extract updated pageSet
-                const updatedApiContent = getDataFromArray(rawApi, pagination, targetIndex);
+                const updatedApiContent = getDataFromArray(rawApi, pagination.maxDisplayCount, targetIndex);
 
                 const updatedContent = {
                     ...articleContent,
