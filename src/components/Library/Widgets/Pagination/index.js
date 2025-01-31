@@ -89,7 +89,7 @@ const Pagination = (props) => {
         const isLast = currentPage === numberArray.length;
         const clickHandler = (target) => {
             // Add bounds for prev/next, first & last
-            if (target === 0 || target === (numberArray.length - maxDisplayCount)) {
+            if (target === 0 || target === totalPages + 1) {
                 return;
             }
             handleClick(target);
@@ -102,12 +102,13 @@ const Pagination = (props) => {
         // UI prev/next elements
         const goFirstNav = item === 0
             && makePageItem(`${rootKey}_itemFirst`, `${hintLabel} First`, <Fragment>&lt; First</Fragment>, firstClass, clickHandler, targetIndex);
-        const goLastNav = item === totalPages - 1
-            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex);
         const prevNav = item === 0
             && makePageItem(`${rootKey}_itemPrev`, `${hintLabel} Previous`, <Fragment>&lt;</Fragment>, firstClass, clickHandler, currentPage - 1);
         const nextNav = item === totalPages - 1
             && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&gt;</Fragment>, lastClass, clickHandler, currentPage + 1);
+        const goLastNav = item === totalPages - 1
+            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex);
+
         const pagingationContent = makePageItem(`${rootKey}_${itemKey}`, itemTitle, itemTitle, itemClass, handleClick, targetIndex);
         if (item === 0) {
             pageListWrapper.push(goFirstNav, prevNav);
