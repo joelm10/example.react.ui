@@ -7,8 +7,10 @@ const makeUniqueKeyStr = (str) => {
     if (!str) {
         return '';
     }
-    return str.replace(/ /g, '-')
+    const uniqueStr = str.replace(/ /g, '-')
         .replace(/,/, '');
+
+    return uniqueStr;
 };
 
 export default makeUniqueKeyStr;

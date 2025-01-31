@@ -23,9 +23,9 @@ const ArticleWrapper = (props) => {
     };
     const { url, meta, articleLimit = 10, pageTitle } = props;
     const [articleContent, setApiContent] = useState(defaultState);
+    // const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        // const { loading } = articleContent;
         let mounted = true;
         const fetchData = async () => {
             let apiResponse = await getFromApi(url);
@@ -63,17 +63,17 @@ const ArticleWrapper = (props) => {
         }
     }, [articleLimit, pageTitle, url]);
 
-    // TODO: refactor the limit handler below
     const articleContentWrapper = articleContent.content !== null
         ? articleContent.content?.map((item) => {
-            const articleKey = makeUniqueKeyStr(item?.title)
+            const articleKey = makeUniqueKeyStr(`acr_${item[meta.heading]}`)
+
             const articleBody = (
                 <ArticleFromFields
                     key={articleKey}
                     article={item}
                     lookupList={meta}
-
-                />);
+                />
+            );
             return articleBody;
         })
         : null;
@@ -103,13 +103,11 @@ const ArticleWrapper = (props) => {
         ...articleContent.pagination,
     };
 
-    const pagination = <Pagination {...paginationProps} />
-
     const wrappedArticles = !articleContent.isLoading && (
         <Fragment>
-            {pagination}
-            {articleContentWrapper}
-            {pagination}
+            {/* <Pagination {...paginationProps} rootKey={'header'} /> */}
+            <div className='row'>{articleContentWrapper}</div>
+            <Pagination {...paginationProps} rootKey={'footer'} />
         </Fragment>
     )
     return wrappedArticles;

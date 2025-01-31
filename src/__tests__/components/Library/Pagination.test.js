@@ -6,6 +6,7 @@ import '@testing-library/jest-dom';
 import Pagination from 'components/Library/Widgets/Pagination';
 
 const testProps = {
+    rootKey: 'test_',
     callback: {
         moveTo: jest.fn()
     }
@@ -30,7 +31,6 @@ describe('components/Library/<Pagination />', () => {
 
         const totalRecords = screen.queryByRole('menu');
         expect(totalRecords).toBeTruthy()
-        // expect(container).toBeEmptyDOMElement();
     });
 
     // TODO: add tests for click events forward, back and number

@@ -17,7 +17,7 @@ const AppBody = (props) => {
     const activePage = location.pathname;
     let articleProps = {
         pageTitle: '',
-        className: 'foo'
+        className: ''
     };
 
     // TODO: put into enum lookup method();
@@ -34,6 +34,11 @@ const AppBody = (props) => {
     } else if (activePage === '/photography') {
         articleProps = {
             ...articleMappings.photography,
+            ...articleProps
+        }
+    } else if (activePage === '/engineering') {
+        articleProps = {
+            ...articleMappings.engineering,
             ...articleProps
         }
     }

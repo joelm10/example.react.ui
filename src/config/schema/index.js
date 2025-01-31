@@ -3,7 +3,7 @@
 const articleSchemas = {
     posts: {
         url: 'https://jsonplaceholder.typicode.com/posts',
-        articleLimit: 12,
+        articleLimit: 10,
         meta: {
             heading: 'title',
             content: 'body',
@@ -30,7 +30,16 @@ const articleSchemas = {
             imgPath: 'url',
             imgThumbPath: 'thumbnailUrl',
         }
-    }
+    },
+    engineering: {
+        url: 'https://jsonplaceholder.typicode.com/todos',
+        articleLimit: 20,
+        meta: {
+            heading: 'title',
+            content: 'completed',
+            footer: ''
+        },
+    },
 };
 
 // TODO: Move to config;

@@ -35,7 +35,7 @@ const ArticleFromFields = ({ article, lookupList }) => {
         }
         imgContent = <ImageLoader {...imgProps} />;
     }
-    const articleKey = makeUniqueKeyStr(title);
+    const articleKey = makeUniqueKeyStr(`aff_${title}`);
 
     return (
         <div
@@ -66,7 +66,7 @@ const ArticleFromFields = ({ article, lookupList }) => {
                 </div>
             )
             }
-        </div >
+        </div>
     );
 };
 

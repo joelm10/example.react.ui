@@ -14,6 +14,7 @@ import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 const Pagination = (props) => {
     const {
         currentPage, totalRecords, maxDisplayCount = 10,
+        rootKey,
         callback: {
             moveTo = () => { }
         }
@@ -26,9 +27,8 @@ const Pagination = (props) => {
     const totalPages = Math.ceil(totalRecords / maxDisplayCount);
     const startIndex = (currentPage - 1) * maxDisplayCount;
     const endIndex = startIndex + maxDisplayCount;
-    const showPagination = endIndex >= totalPages;
+    const showPagination = totalRecords >= maxDisplayCount;
     const showPageList = endIndex >= totalPages;
-
     /**
      * Call functoiun passed via props, with error handler
      * @param {number} target 
@@ -54,6 +54,7 @@ const Pagination = (props) => {
      * TODO: Consider move to own file
      */
     const makePageItem = (itemKey, itemTitle, itemContent, itemClass, click, targetIndex) => {
+        console.log(itemKey);
         const item = (
             <li
                 key={itemKey}
@@ -70,9 +71,9 @@ const Pagination = (props) => {
         );
         return item;
     };
-
+    const pageListWrapper = [];
     const numberArray = Array.from({ length: totalPages });
-    const pageListWrapper = numberArray.map((_, item) => {
+    showPagination && numberArray.map((_, item) => {
         // Handle 0 index for display and referential use
         const targetIndex = item + 1;
         const itemTitle = targetIndex;
@@ -82,7 +83,8 @@ const Pagination = (props) => {
             : '';
         const itemClass = `${baseClass} ${activeClass}`;
 
-        const itemKey = makeUniqueKeyStr(`paginateItem_${itemTitle}`);
+        const itemKey = makeUniqueKeyStr(`${rootKey}_paginateItem_${itemTitle}`);
+
         // handle bounds - functional AND presentation
         const isFirst = currentPage === 1;
         const isLast = currentPage === numberArray.length;
@@ -96,25 +98,26 @@ const Pagination = (props) => {
 
         const firstClass = !isFirst ? baseClass : `${baseClass} disabled`;
         const lastClass = !isLast ? baseClass : `${baseClass} disabled`;
+        // TODO: move to config
         const hintLabel = 'Go to';
         // UI prev/next elements
-        const goFirstNav = item === 0 && makePageItem(`itemFirst`, `${hintLabel} First`, <Fragment>&lt; First</Fragment>, firstClass, clickHandler, targetIndex);
-        const goLastNav = item === totalPages - 1 && makePageItem('itemLast', itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex);
+        const goFirstNav = item === 0
+            && makePageItem(`${rootKey}_itemFirst`, `${hintLabel} First`, <Fragment>&lt; First</Fragment>, firstClass, clickHandler, targetIndex);
+        const goLastNav = item === totalPages - 1
+            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex);
+        const prevNav = item === 0
+            && makePageItem(`${rootKey}_itemPrev`, `${hintLabel} Previous`, <Fragment>&lt;</Fragment>, firstClass, clickHandler, currentPage - 1);
+        const nextNav = item === totalPages - 1
+            && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&gt;</Fragment>, lastClass, clickHandler, currentPage + 1);
+        const pagingationContent = makePageItem(`${rootKey}_${itemKey}`, itemTitle, itemTitle, itemClass, handleClick, targetIndex);
 
-        const prevNav = item === 0 && makePageItem('itemPrev', `${hintLabel} Previous`, <Fragment>&lt;</Fragment>, firstClass, clickHandler, currentPage - 1);
-        const nextNav = item === totalPages - 1 && makePageItem('itemNext', `${hintLabel} Next`, <Fragment>&gt;</Fragment>, lastClass, clickHandler, currentPage + 1);
-
-        const pagingationContent = makePageItem(itemKey, itemTitle, itemTitle, itemClass, handleClick, targetIndex);
-
-        return (
-            <Fragment>
-                {goFirstNav}
-                {prevNav}
-                {pagingationContent}
-                {nextNav}
-                {goLastNav}
-            </Fragment>
-        );
+        if (item === 0) {
+            pageListWrapper.push(goFirstNav, prevNav);
+        } else if (item + 1 === maxDisplayCount) {
+            pageListWrapper.push(nextNav, goLastNav);
+        }
+        pageListWrapper.push(pagingationContent);
+        return null;
     });
 
     const pageList = showPageList
@@ -132,10 +135,15 @@ const Pagination = (props) => {
         : null;
 
     // TODO: Move hard coded labels/strings to config
-    return (
+    return showPagination && (
         <Fragment>
             {pageList}
-            <b>Total Records:</b> {totalRecords}<br />
+            {showPagination && (
+                <Fragment>
+                    <b>Total Records:</b> {totalRecords}<br />
+                </Fragment>
+            )
+            }
             {paginationWrapper}
         </Fragment>
     );
