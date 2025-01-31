@@ -109,13 +109,15 @@ const Pagination = (props) => {
         const nextNav = item === totalPages - 1
             && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&gt;</Fragment>, lastClass, clickHandler, currentPage + 1);
         const pagingationContent = makePageItem(`${rootKey}_${itemKey}`, itemTitle, itemTitle, itemClass, handleClick, targetIndex);
-
         if (item === 0) {
             pageListWrapper.push(goFirstNav, prevNav);
-        } else if (item + 1 === maxDisplayCount) {
+        }
+        // Add item
+        pageListWrapper.push(pagingationContent);
+        // add footer
+        if (item + 1 === totalPages) {
             pageListWrapper.push(nextNav, goLastNav);
         }
-        pageListWrapper.push(pagingationContent);
         return null;
     });
 
