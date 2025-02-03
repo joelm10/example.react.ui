@@ -7,15 +7,16 @@ const GridWrapper = (props) => {
         },
         config: {
             valueTypes,
-            gridSize = 9
-        }
+        },
+        gameState
     } = props;
 
     const GridItems = () => {
-        const baseArray = Array.from(Array(gridSize).keys());
+        const baseArray = gameState.grid;
         const items = baseArray.map((item) => {
             const { value, itemKey } = item;
             const gridItemValue = valueTypes[value] ?? null;
+            // add context of 'player', and pass to clickHandler
             return (
                 <span
                     key={itemKey}

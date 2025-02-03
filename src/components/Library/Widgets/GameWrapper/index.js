@@ -6,6 +6,10 @@ const valueTypes = {
     x: 'X',
     o: 'O'
 };
+const gridSize = 9
+const defaultGrid = Array.from(Array(gridSize).keys());;
+
+// ABOVE THS MOVE TO CONFIG
 
 const GameWrapper = (props) => {
     const {
@@ -13,7 +17,9 @@ const GameWrapper = (props) => {
     } = props;
 
     // setup game state - number of options, game play types, 
-    const [gameState, setGameState] = useState();
+    const [gameState, setGameState] = useState({
+        grid: defaultGrid
+    });
     const gridProps = {
         config: {
             valueTypes: valueTypes
@@ -23,7 +29,9 @@ const GameWrapper = (props) => {
             clickHandler: (val) => {
                 console.info('GameWrapper', val);
                 // TODO: compose new updated value
-                const newValues = {};
+                const newValues = {
+                    [val]: val
+                };
                 const newGameState = {
                     ...gameState,
                     newValues
@@ -36,7 +44,9 @@ const GameWrapper = (props) => {
                     console.err('try set state err', newGameState)
                 }
             },
-        }
+        },
+        // TOOD: consider useContext()
+        gameState
     };
 
     const gameWrapper = (
