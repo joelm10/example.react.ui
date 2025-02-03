@@ -105,7 +105,7 @@ const ArticleWrapper = (props) => {
 
     const wrappedArticles = !articleContent.isLoading && (
         <Fragment>
-            <Pagination {...paginationProps} rootKey={'header'} />
+            {/* <Pagination {...paginationProps} rootKey={'header'} /> */}
             <div className='row'>{articleContentWrapper}</div>
             <Pagination {...paginationProps} rootKey={'footer'} />
         </Fragment>

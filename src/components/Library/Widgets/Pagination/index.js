@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import './pagination.css';
+import RecordCountMenu from './RecordCountMenu';
+
 import logger from "helpers/utils/logging";
 import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 
@@ -14,6 +16,7 @@ import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 const Pagination = (props) => {
     const {
         currentPage, totalRecords, maxDisplayCount = 10,
+        pageLength,
         rootKey,
         callback: {
             moveTo = () => { }
@@ -53,9 +56,10 @@ const Pagination = (props) => {
      * @returns React.Element
      * TODO: Consider move to own file
      */
-    const makePageItem = (itemKey, itemTitle, itemContent, itemClass, click, targetIndex) => {
+    const makePageItem = (itemKey, itemTitle, itemContent, itemClass, click, targetIndex, role) => {
         const item = (
             <li
+                rel={role}
                 key={itemKey}
                 className={itemClass}
                 onClick={() => click(targetIndex)}
@@ -70,6 +74,7 @@ const Pagination = (props) => {
         );
         return item;
     };
+
     const pageListWrapper = [];
     const numberArray = Array.from({ length: totalPages });
     showPagination && numberArray.map((_, item) => {
@@ -101,15 +106,15 @@ const Pagination = (props) => {
         const hintLabel = 'Go to';
         // UI prev/next elements
         const goFirstNav = item === 0
-            && makePageItem(`${rootKey}_itemFirst`, `${hintLabel} First`, <Fragment>&lt; First</Fragment>, firstClass, clickHandler, targetIndex);
+            && makePageItem(`${rootKey}_itemFirst`, `${hintLabel} First`, <Fragment>&lt; First</Fragment>, firstClass, clickHandler, targetIndex, '');
         const prevNav = item === 0
-            && makePageItem(`${rootKey}_itemPrev`, `${hintLabel} Previous`, <Fragment>&lt;</Fragment>, firstClass, clickHandler, currentPage - 1);
+            && makePageItem(`${rootKey}_itemPrev`, `${hintLabel} Previous`, <Fragment>&laquo;</Fragment>, firstClass, clickHandler, currentPage - 1, 'prev');
         const nextNav = item === totalPages - 1
-            && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&gt;</Fragment>, lastClass, clickHandler, currentPage + 1);
+            && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&raquo;</Fragment>, lastClass, clickHandler, currentPage + 1, 'next');
         const goLastNav = item === totalPages - 1
-            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex);
+            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex, 'last');
 
-        const pagingationContent = makePageItem(`${rootKey}_${itemKey}`, itemTitle, itemTitle, itemClass, handleClick, targetIndex);
+        const pagingationContent = makePageItem(`${rootKey}_${itemKey}`, itemTitle, itemTitle, itemClass, handleClick, targetIndex, '');
         if (item === 0) {
             pageListWrapper.push(goFirstNav, prevNav);
         }
@@ -122,10 +127,6 @@ const Pagination = (props) => {
         return null;
     });
 
-    const pageList = showPageList
-        ? (<div role="menu">Page {currentPage} of {totalPages}</div>)
-        : null;
-
     const paginationWrapper = showPagination
         ? (
             <ul
@@ -136,16 +137,26 @@ const Pagination = (props) => {
         )
         : null;
 
+    const recordCountMenuProps = {
+        showResultCount: true,
+        showPageStatus: false,
+        showCurrentPageSet: true,
+        // data to populate
+        dataSet: {
+            currentPage,
+            totalRecords,
+            pageLength,
+            totalPages
+        }
+    };
+
     // TODO: Move hard coded labels/strings to config
     return showPagination && (
         <Fragment>
+            {/* {rowsPerPage}
             {pageList}
-            {showPagination && (
-                <Fragment>
-                    <b>Total Records:</b> {totalRecords}<br />
-                </Fragment>
-            )
-            }
+            {recordTotals} */}
+            <RecordCountMenu {...recordCountMenuProps} />
             {paginationWrapper}
         </Fragment>
     );
