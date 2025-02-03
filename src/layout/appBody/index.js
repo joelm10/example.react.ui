@@ -1,9 +1,10 @@
-// import { useContext } from 'react';
+import { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
+import GameWrapper from 'components/Library/Widgets/GameWrapper';
 import ArticleWrapper from 'components/Library/Atomic/articles';
 import articleMappings from 'config/schema';
 
@@ -41,9 +42,22 @@ const AppBody = (props) => {
             ...articleMappings.engineering,
             ...articleProps
         }
+    } else if (activePage === '/game') {
+        articleProps = {
+            ...articleMappings.game,
+            ...articleProps
+        }
     }
-    // END TODO: 
 
+    // END TODO: 
+    const content = activePage === '/game'
+        ? (
+            <GameWrapper />
+        )
+        : (
+            <ArticleWrapper {...articleProps} />
+
+        );
     const appBody = (
         <main role="main">
             <article>
@@ -51,7 +65,7 @@ const AppBody = (props) => {
                     className='min-vh-75'
                 >
                     <Row className="h-auto d-inline">
-                        <ArticleWrapper {...articleProps} />
+                        {content}
                     </Row>
                 </Container>
             </article>

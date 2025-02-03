@@ -21,7 +21,7 @@ const ArticleWrapper = (props) => {
             totalRecords: 0
         }
     };
-    const { url, meta, articleLimit = 10, pageTitle } = props;
+    const { url, meta, articleLimit = 12, pageTitle } = props;
     const [articleContent, setApiContent] = useState(defaultState);
     // const [isLoaded, setIsLoaded] = useState(false);
 
@@ -105,7 +105,6 @@ const ArticleWrapper = (props) => {
 
     const wrappedArticles = !articleContent.isLoading && (
         <Fragment>
-            {/* <Pagination {...paginationProps} rootKey={'header'} /> */}
             <div className='row'>{articleContentWrapper}</div>
             <Pagination {...paginationProps} rootKey={'footer'} />
         </Fragment>

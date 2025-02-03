@@ -11,7 +11,6 @@ import navElements from 'config/nav';
 
 const Layout = (props) => {
     // const LayoutContext = createContext(null);
-
     return (
         // <LayoutContext.Provider value={props}>
             <Container fluid>

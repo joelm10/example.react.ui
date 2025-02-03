@@ -45,6 +45,7 @@ const RecordCountMenu = (props) => {
     // TODO: add styles
     const recordTotals = showResultCount && (
         <div>
+            Records:
             {currentPageListStart}-{currentRecordList} of {totalRecords}<br />
         </div>
     );
@@ -52,7 +53,7 @@ const RecordCountMenu = (props) => {
     // TODO: add styles
     const pageStatus = showPageStatus && (
         <div>
-            Results per page:
+            <span>Results per page:</span>
             {pageLength}
         </div>
     );

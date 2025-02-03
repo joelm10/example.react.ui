@@ -14,7 +14,8 @@ const App = (props) => {
 
     const appProps = {
         ...props
-    }
+    };
+
     const appWrapper = (
         <Fragment>
             <Layout {...appProps} />

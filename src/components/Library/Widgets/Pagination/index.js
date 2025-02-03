@@ -106,13 +106,13 @@ const Pagination = (props) => {
         const hintLabel = 'Go to';
         // UI prev/next elements
         const goFirstNav = item === 0
-            && makePageItem(`${rootKey}_itemFirst`, `${hintLabel} First`, <Fragment>&lt; First</Fragment>, firstClass, clickHandler, targetIndex, '');
+            && makePageItem(`${rootKey}_itemFirst`, `${hintLabel} First`, <Fragment>&laquo; First</Fragment>, firstClass, clickHandler, targetIndex, '');
         const prevNav = item === 0
-            && makePageItem(`${rootKey}_itemPrev`, `${hintLabel} Previous`, <Fragment>&laquo;</Fragment>, firstClass, clickHandler, currentPage - 1, 'prev');
+            && makePageItem(`${rootKey}_itemPrev`, `${hintLabel} Previous`, <Fragment>&lt;</Fragment>, firstClass, clickHandler, currentPage - 1, 'prev');
         const nextNav = item === totalPages - 1
-            && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&raquo;</Fragment>, lastClass, clickHandler, currentPage + 1, 'next');
+            && makePageItem(`${rootKey}_itemNext`, `${hintLabel} Next`, <Fragment>&gt;</Fragment>, lastClass, clickHandler, currentPage + 1, 'next');
         const goLastNav = item === totalPages - 1
-            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &gt;</Fragment>, lastClass, clickHandler, targetIndex, 'last');
+            && makePageItem(`${rootKey}_itemLast`, itemTitle, <Fragment>Last &raquo;</Fragment>, lastClass, clickHandler, targetIndex, 'last');
 
         const pagingationContent = makePageItem(`${rootKey}_${itemKey}`, itemTitle, itemTitle, itemClass, handleClick, targetIndex, '');
         if (item === 0) {
@@ -127,7 +127,7 @@ const Pagination = (props) => {
         return null;
     });
 
-    const paginationWrapper = showPagination
+    const paginationWrapper = (showPagination && showPageList)
         ? (
             <ul
                 key='paginationWrapper'
@@ -139,7 +139,7 @@ const Pagination = (props) => {
 
     const recordCountMenuProps = {
         showResultCount: true,
-        showPageStatus: false,
+        showPageStatus: true,
         showCurrentPageSet: true,
         // data to populate
         dataSet: {
@@ -150,14 +150,10 @@ const Pagination = (props) => {
         }
     };
 
-    // TODO: Move hard coded labels/strings to config
     return showPagination && (
         <Fragment>
-            {/* {rowsPerPage}
-            {pageList}
-            {recordTotals} */}
-            <RecordCountMenu {...recordCountMenuProps} />
             {paginationWrapper}
+            <RecordCountMenu {...recordCountMenuProps} />
         </Fragment>
     );
 };

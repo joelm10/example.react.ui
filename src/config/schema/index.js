@@ -3,7 +3,7 @@
 const articleSchemas = {
     posts: {
         url: 'https://jsonplaceholder.typicode.com/posts',
-        articleLimit: 10,
+        articleLimit: 12,
         meta: {
             heading: 'title',
             content: 'body',
@@ -40,6 +40,15 @@ const articleSchemas = {
             footer: 'completed'
         },
     },
+    game: {
+        url: 'null',
+        articleLimit: 20,
+        meta: {
+            heading: 'id',
+            content: 'title',
+            footer: 'completed'
+        },
+    }
 };
 
 // TODO: Move to config;

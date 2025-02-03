@@ -1,3 +1,6 @@
+/**
+ * Routing MUST occur from here, or ./config/nav/index.js to be found
+ */
 const defaultFooterList = {
     styles: {
         anchorClass: 'nav-link p-0 text-muted '
@@ -29,6 +32,18 @@ const defaultFooterList = {
                     routeElement: 'app',
                     routeParams: {
                         pageTitle: 'engineering'
+                    }
+                },
+                {
+                    itemId: 2,
+                    itemType: 'link',
+                    label: 'game',
+                    linkUrl: '/game',
+                    target: '_blank',
+                    isInternalNav: true,
+                    routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'game things'
                     }
                 }
             ]

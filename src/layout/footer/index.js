@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import defaultFooterList from 'config/footer';
 import ColumnLayout from 'components/Library/Atomic/columns';
 
-const Footer = ({ footerText = 'Default footer copyright', footerContent = defaultFooterList }) => {
+const Footer = ({ footerText = `Copyright ${new Date().getFullYear()}`, footerContent = defaultFooterList }) => {
     const footerLabelText = footerText;
     let footerColumns = {
         ...footerContent,
