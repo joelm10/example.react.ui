@@ -1,38 +1,7 @@
 import { useState } from "react";
 import GridWrapper from "./Grid";
-
-// TODO: move to config
-const valueTypes = {
-    x: 'X',
-    o: 'O'
-};
-const playerList = {
-    1: {
-        title: 'player 1',
-        type: valueTypes.x
-    },
-    2: {
-        title: 'player 1',
-        type: valueTypes.o
-    }
-};
-
-const gridSize = 9
-const defaultGrid = Array.from(Array(gridSize)).map((_, index) => {
-    return {
-        id: index,
-        value: null
-    }
-});
-
-const defaultGameSetup = {
-    grid: defaultGrid,
-    playerConfig: playerList,
-    currentPlayer: 1,
-}
-// ABOVE THS MOVE TO CONFIG
-
-
+import { defaultGameSetup, valueTypes } from "./config/defaultGameSetup";
+import logger from "helpers/utils/logging";
 // MOVE TO HELPER FILE?
 const playerMove = (move, targetLocation, gameState) => {
     // Check if value is stored or not 
@@ -79,6 +48,15 @@ const togglePlayer = (playerList, currentPlayer) => {
     return newPlayer;
 }
 
+const winningGrid = [
+    // Rows
+    [0, 1, 2], [3, 4, 5], [6, 7, 8]
+    // columns
+    [0, 3, 6], [1, 3, 7], [2, 5, 8]
+    // diaginals
+    [0, 4, 8], [2, 4, 6]
+]
+
 /**
  * Calculate if game has a winner
  * TODO: BUILD OUT with possible winning states
@@ -86,6 +64,12 @@ const togglePlayer = (playerList, currentPlayer) => {
  * @returns 
  */
 const checkWinner = (gameState) => {
+    const isWin = false;
+    const currentMoves = gameState.grid.filter((item) => item.value !== null);
+    // check current gamestate permutations against the winningGrid;
+
+    // check for X
+    // check for 0
     return true;
 };
 
@@ -104,16 +88,14 @@ const GameWrapper = (props) => {
         callbacks: {
             // TODO: add business logic
             clickHandler: (targetLocation, move) => {
-                console.info('GameWrapper', targetLocation, 'move:', move);
                 // check if this move triggers game outcome
-                const canMove = checkWinner();
+                const canMove = checkWinner(gameState);
 
                 // can player move to this targetLocation
                 const newGameState = playerMove(move, targetLocation, gameState);
                 const shouldMove = newGameState.shouldMove;
                 if (shouldMove && canMove) {
                     try {
-
                         // Get next currentplayer move type - 0 or X
                         const nextCurrentPlayer = canMove && togglePlayer(playerMove, gameState.currentPlayer);
                         const newState = {
@@ -121,15 +103,16 @@ const GameWrapper = (props) => {
                             ...newGameState,
                             currentPlayer: nextCurrentPlayer
                         }
-                        // console.info('TRY: try set state to', newGameState, nextCurrentPlayer);
+                        logger('info', `player ${gameState.currentPlayer} played ${targetLocation} `);
 
                         setGameState(newState);
                         return;
                     } catch (e) {
-                        console.error('ERROR: try set state err', newGameState)
+                        logger('err', `ERROR: try set state er ${newGameState}`);
+
                     }
                 }
-                console.error('Should not move', newGameState);
+                logger('err', `Should not move ${newGameState}`);
                 return;
 
             },
@@ -138,10 +121,17 @@ const GameWrapper = (props) => {
         gameState
     };
 
+    // Simple Game reset
+    const Reset = () => {
+        return (
+            <button type="button" className="btn btn-success" onClick={() => setGameState(defaultGameSetup)} title="Reset">Restart Game</button>
+        );
+    }
     const gameWrapper = (
         <div>
             <h2>{gameTitle}</h2>
             <GridWrapper {...gridProps} />
+            <Reset />
         </div>
     );
 

@@ -1,14 +1,16 @@
-/* */
+
 .gridWrapper {
     height: 30%;
     width: 30%;
     margin: 20px;
+    margin-left: 0px;
 }
 
 .gridItem {
     border: 1px solid #000;
     min-height: 100px;
-    text-align: center;
-    font-size: 16px;
+    font-size: 46px;
     cursor: pointer;
+    text-align: center;
+    padding-top: 4%;
 }

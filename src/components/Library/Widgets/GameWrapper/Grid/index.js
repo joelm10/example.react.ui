@@ -1,6 +1,5 @@
 import '../grid.css';
 
-
 const GridWrapper = (props) => {
     const {
         callbacks: {
