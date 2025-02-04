@@ -1,26 +1,30 @@
 import '../grid.css';
 
+
 const GridWrapper = (props) => {
     const {
         callbacks: {
             clickHandler,
         },
-        config: {
-            valueTypes,
-        },
-        gameState
+        gameState,
+        gameState: {
+            currentPlayer, playerConfig
+        }
     } = props;
 
     const GridItems = () => {
         const baseArray = gameState.grid;
         const items = baseArray.map((item) => {
-            const { value, itemKey } = item;
-            const gridItemValue = valueTypes[value] ?? null;
+            const { id, itemKey, value } = item;
             // add context of 'player', and pass to clickHandler
+            const gridItemValue = value;
+
+            const playerMove = playerConfig[currentPlayer].type;
+            const targetLocation = id;
             return (
                 <span
                     key={itemKey}
-                    onClick={() => clickHandler()}
+                    onClick={() => clickHandler(targetLocation, playerMove)}
                     className="col-4 gridItem"
                 >
                     {gridItemValue}
