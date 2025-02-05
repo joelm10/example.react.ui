@@ -20,7 +20,17 @@ const defaultGrid = Array.from(Array(gridSize)).map((_, index) => {
     };
 });
 
+export const winningGrid = [
+    // Rows
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    // columns
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    // diaginals
+    [0, 4, 8], [2, 4, 6]
+];
+
 export const defaultGameSetup = {
+    canPlay: true,
     grid: defaultGrid,
     playerConfig: playerList,
     currentPlayer: 1,
