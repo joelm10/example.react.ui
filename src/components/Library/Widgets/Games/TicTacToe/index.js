@@ -44,10 +44,10 @@ const GameWrapper = (props) => {
                 if (canPlay) {
                     try {
                         // Get next currentplayer move type - 0 or X
-                        const nextCurrentPlayer = togglePlayer(playerMove, gameState.currentPlayer);
+                        const nextCurrentPlayer = togglePlayer('', gameState.currentPlayer);
                         const newState = {
-                            // update current player ref and config
                             ...newGameState,
+                            // update current player ref and config
                             currentPlayer: nextCurrentPlayer,
                             errorPosition: null
                         }

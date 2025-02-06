@@ -8,12 +8,21 @@
 const playerMove = (move, targetLocation, gameState) => {
     // Check if value is stored or not 
     let newGameState = gameState;
-    const isTargetLocationOpen = gameState.grid.filter((obj) => {
+    const errorState = {
+        ...gameState,
+        canPlay: false,
+        errorPosition: targetLocation ?? null
+    }
+    if (!targetLocation && parseInt(targetLocation)) {
+        return errorState;
+    }
+
+    const isTargetLocationOpen = gameState?.grid.filter((obj) => {
         const isOpen = obj.id === targetLocation && obj.value === null;
         return isOpen;
     });
     // Check current location - if empty
-    if (isTargetLocationOpen.length === 1) {
+    if (isTargetLocationOpen?.length === 1) {
         const newValues = {
             id: targetLocation,
             value: move
@@ -32,7 +41,9 @@ const playerMove = (move, targetLocation, gameState) => {
             grid: updatedGameState,
             shouldMove: true
         };
-    };
+    } else {
+        newGameState = errorState;
+    }
     return newGameState;
 }
 
