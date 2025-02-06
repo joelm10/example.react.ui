@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import GameWrapper from 'components/Library/Widgets/GameWrapper';
+import GameWrapper from 'components/Library/Widgets/Games/TicTacToe';
 import ArticleWrapper from 'components/Library/Atomic/articles';
 import articleMappings from 'config/schema';
 

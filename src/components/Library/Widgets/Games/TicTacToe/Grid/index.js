@@ -1,4 +1,4 @@
-import '../grid.css';
+import '../styles/grid.css';
 
 const GridWrapper = (props) => {
     const {
@@ -14,14 +14,17 @@ const GridWrapper = (props) => {
     const GridItems = () => {
         const baseArray = gameState.grid;
         const items = baseArray.map((item) => {
-            const { id, itemKey, value } = item;
+            const { id, value } = item;
             // add context of 'player', and pass to clickHandler
             const gridItemValue = value;
 
             const playerMove = playerConfig[currentPlayer].type;
             const targetLocation = id;
+
+            const itemKey = id;
             return (
                 <span
+                    role="gridcell"
                     key={itemKey}
                     onClick={() => clickHandler(targetLocation, playerMove)}
                     className="col-4 gridItem"
@@ -34,11 +37,12 @@ const GridWrapper = (props) => {
         return items;
     };
 
-    const gridWrapper = (
-        <div className="row gridWrapper">
-            <GridItems />
-        </div>
-    );
+    const gridWrapper = gameState?.grid.length > 0
+        ? (
+            <div className="row gridWrapper">
+                <GridItems />
+            </div>
+        ) : null;
 
     return gridWrapper;
 };

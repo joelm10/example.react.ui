@@ -34,4 +34,5 @@ export const defaultGameSetup = {
     grid: defaultGrid,
     playerConfig: playerList,
     currentPlayer: 1,
+    errorPosition: null
 };
