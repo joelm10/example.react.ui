@@ -11,4 +11,10 @@
     text-align: center;
     vertical-align: top;
     padding-top: 4%;
+
+    &.isWinner {
+        background: rgb(26, 164, 123);
+        color: #FFF;
+        border-color: #FFF;
+    }
 }

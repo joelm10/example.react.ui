@@ -19,14 +19,21 @@ const GameWrapper = (props) => {
     useEffect(() => {
         // check if this move triggers game outcome
         const hasWinner = checkWinner(gameState);
+        const { gameStatus, gameStatus: { gameOver, outcome } } = hasWinner;
 
         if (gameState.canPlay && !hasWinner.canPlay) {
             logger('info', 'Move not allowed');
             setGameState({
                 ...gameState,
                 canPlay: false,
-                winner: hasWinner.winner
+                winner: hasWinner.winner,
+                gameStatus: {
+                    ...gameStatus
+                }
             });
+            return;
+        } else if (gameStatus.draw && gameOver) {
+            logger('info', `Game has ended.\nOutcome: ${outcome}`);
             return;
         }
     }, [gameState]);
@@ -93,19 +100,39 @@ const GameWrapper = (props) => {
             notificationMessage={`Cant play in location ${gameState.errorPosition}`}
         />
     );
+
     const WinnerNotification = (
         <Notification
-            showNotification={gameState.winner}
+            showNotification={!!gameState.gameStatus.winner && gameState.gameStatus.winner !== ''}
             notificationMessage={`Winner found -
-            ${gameState.winner}`}
+            ${gameState.gameStatus.winner}`}
         />
     );
+    const currentPlayerList = (
+        <div>Current Player: {gameState.currentPlayer}</div>
+    );
+
+    const GameStatus = (props) => {
+        const { winner, draw, won } = props;
+        const isDraw = draw ? 'Draw' : '';
+        let isWon = false;
+        if (won && !draw) {
+            isWon = `Won by ${winner}`
+        } else if (!draw) {
+            isWon = 'Active'
+        }
+
+        return (<div>Game Status: {isDraw} {isWon}</div>
+        )
+    };
 
     const gameWrapper = (
         <div className="col-6">
             <h2>{gameTitle}</h2>
             {WinnerNotification}
             {errorNotification}
+            {currentPlayerList}
+            <GameStatus {...gameState.gameStatus} />
             <GridWrapper {...gridProps} />
             <Reset />
         </div>

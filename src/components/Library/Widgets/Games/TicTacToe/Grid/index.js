@@ -14,20 +14,25 @@ const GridWrapper = (props) => {
     const GridItems = () => {
         const baseArray = gameState.grid;
         const items = baseArray.map((item) => {
-            const { id, value } = item;
+            const { id: targetLocation, value: gridItemValue } = item;
+
             // add context of 'player', and pass to clickHandler
-            const gridItemValue = value;
-
             const playerMove = playerConfig[currentPlayer].type;
-            const targetLocation = id;
+            const { gameStatus: { winningMoves } } = gameState;
+            const isWinMove = winningMoves?.indexOf(targetLocation);
+            const isWinnerClass = !!isWinMove && isWinMove !== -1
+                ? 'isWinner'
+                : '';
 
-            const itemKey = id;
+            const gridClass = `col-4 gridItem ${isWinnerClass}`;
+
+            const itemKey = targetLocation;
             return (
                 <span
                     role="gridcell"
                     key={itemKey}
                     onClick={() => clickHandler(targetLocation, playerMove)}
-                    className="col-4 gridItem"
+                    className={gridClass}
                 >
                     {gridItemValue}
                 </span>

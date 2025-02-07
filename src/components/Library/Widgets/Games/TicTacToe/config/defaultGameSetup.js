@@ -30,9 +30,15 @@ export const winningGrid = [
 ];
 
 export const defaultGameSetup = {
-    canPlay: true,
     grid: defaultGrid,
     playerConfig: playerList,
+    canPlay: true,
     currentPlayer: 1,
-    errorPosition: null
+    errorPosition: null,
+    winningMoves: null,
+    gameStatus: {
+        winner: false,
+        won: false,
+        draw: false
+    }
 };

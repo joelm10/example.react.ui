@@ -7,16 +7,25 @@ import { winningGrid } from "../config/defaultGameSetup";
  */
 export const checkWinner = (gameState) => {
 
-    // TODO: consider making generic generator method
-    // check for X
-    const movesX = gameState.grid.filter((move) => move.value === 'X').map((item) => {
-        return item.id;
-    });
-    // check for 0
-    const movesO = gameState.grid.filter((move) => move.value === 'O').map((item) => {
-        return item.id;
-    });
+    /**
+     * Get current move per player
+     * Filter source array to ONLY contain values matching predicate 'player' string
+     * @param {array} arrayOfMoves 
+     * @param {string} actualMoveValue 
+     * @returns {array}
+     */
+    const getMoveByPlayer = (arrayOfMoves, actualMoveValue) => {
+        return arrayOfMoves
+            ?.filter((move) => move.value === actualMoveValue)
+            .map((item) => {
+                return item.id;
+            });
+    };
 
+    // check for X or Y
+    const movesX = getMoveByPlayer(gameState.grid, 'X');
+    const movesO = getMoveByPlayer(gameState.grid, 'O');
+    let winningMoves = null;
     // check current gamestate permutations against the winningGrid;
     const isGameWon = (player, target) => {
         let isWin = false;
@@ -25,7 +34,11 @@ export const checkWinner = (gameState) => {
             if (outerRow) {
                 const row = JSON.stringify(outerRow);
                 const move = JSON.stringify(target);
-
+                // flag winning combination
+                const isWinRow = row === move;
+                if (isWinRow) {
+                    winningMoves = move;
+                }
                 return row === move;
             }
             return isWin;
@@ -33,13 +46,28 @@ export const checkWinner = (gameState) => {
 
         return rowWinner;
     };
+
     const player1 = isGameWon('1', movesX);
     const player2 = isGameWon('2', movesO);
 
     const gameWinner = (player1 && 'player 1') || (player2 && 'player 2');
+    // no winner AND no available moves left
+    const isDraw = !gameWinner && gameState.grid.filter((item) => {
+        const { value } = item;
+        return value === null;
+    }).length === 0;
 
+    const gameOver = isDraw || gameWinner;
     return {
-        winner: gameWinner,
-        canPlay: !gameWinner
+        // needed for UI presentation of winning moves
+        canPlay: !gameWinner && !isDraw,
+        gameStatus: {
+            outcome: (gameWinner && 'Won') || (isDraw && 'Draw'),
+            winningMoves: winningMoves,
+            winner: gameWinner,
+            won: gameWinner,
+            draw: isDraw,
+            gameOver
+        }
     };
 };
