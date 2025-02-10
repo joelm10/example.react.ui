@@ -26,7 +26,9 @@ export const winningGrid = [
     // columns
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
     // diaginals
-    [0, 4, 8], [2, 4, 6]
+    [0, 4, 8], [2, 4, 6],
+    // opposite order diaganals
+    [6, 4, 2], [8, 4, 0]
 ];
 
 export const defaultGameSetup = {

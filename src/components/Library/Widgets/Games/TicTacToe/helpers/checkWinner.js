@@ -16,7 +16,10 @@ export const checkWinner = (gameState) => {
      */
     const getMoveByPlayer = (arrayOfMoves, actualMoveValue) => {
         return arrayOfMoves
-            ?.filter((move) => move.value === actualMoveValue)
+            ?.filter((move) => {
+                const filtered = move.value === actualMoveValue;
+                return filtered;
+            })
             .map((item) => {
                 return item.id;
             });
@@ -27,13 +30,13 @@ export const checkWinner = (gameState) => {
     const movesO = getMoveByPlayer(gameState.grid, 'O');
     let winningMoves = null;
     // check current gamestate permutations against the winningGrid;
-    const isGameWon = (player, target) => {
+    const isGameWon = (player, targetMove) => {
         let isWin = false;
 
         let rowWinner = winningGrid.some((outerRow) => {
             if (outerRow) {
                 const row = JSON.stringify(outerRow);
-                const move = JSON.stringify(target);
+                const move = JSON.stringify(targetMove);
                 // flag winning combination
                 const isWinRow = row === move;
                 if (isWinRow) {
@@ -58,7 +61,7 @@ export const checkWinner = (gameState) => {
     }).length === 0;
 
     const gameOver = isDraw || gameWinner;
-    return {
+    const winningResponse = {
         // needed for UI presentation of winning moves
         canPlay: !gameWinner && !isDraw,
         gameStatus: {
@@ -70,4 +73,5 @@ export const checkWinner = (gameState) => {
             gameOver
         }
     };
+    return winningResponse;
 };
