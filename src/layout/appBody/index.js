@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
+import ChartWrapper from 'components/Library/Widgets/Charts';
 import GameWrapper from 'components/Library/Widgets/Games/TicTacToe';
 import ArticleWrapper from 'components/Library/Atomic/articles';
 import articleMappings from 'config/schema';
@@ -49,14 +50,22 @@ const AppBody = (props) => {
     }
 
     // END TODO: 
-    const content = activePage === '/game'
-        ? (
-            <GameWrapper />
-        )
-        : (
-            <ArticleWrapper {...articleProps} />
+    let content = null;
+    // Setup as switch or get method
+    switch (activePage) {
+        case '/chart': {
+            content = <ChartWrapper />;
+            break;
+        }
+        case '/game': {
+            content = <GameWrapper />;
+            break;
+        }
+        default: {
+            content = <ArticleWrapper {...articleProps} />;
+        }
+    };
 
-        );
     const appBody = (
         <main role="main">
             <article>

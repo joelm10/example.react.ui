@@ -10,6 +10,7 @@ const defaultRouteList = [
     { "element": <App pageTitle="Photography" />, "path": "/photography", "errorElement": <ErrorComponent /> },
     { "element": <App pageTitle="engineering" />, "path": "/engineering", "errorElement": <ErrorComponent /> },
     { "element": <App pageTitle="game things" />, "path": "/game", "errorElement": <ErrorComponent /> },
+    { "element": <App pageTitle="chartJS wrapper" />, "path": "/chart", "errorElement": <ErrorComponent /> },
     { "element": <App pageTitle="About Me" />, "path": "/about-me", "errorElement": <ErrorComponent /> },
 ];
 

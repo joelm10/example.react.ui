@@ -45,6 +45,19 @@ const defaultFooterList = {
                     routeParams: {
                         pageTitle: 'game things'
                     }
+            
+                },
+                {
+                    itemId: 3,
+                    itemType: 'link',
+                    label: 'chart',
+                    linkUrl: '/chart',
+                    target: '_blank',
+                    isInternalNav: true,
+                    routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'chartJS wrapper'
+                    }
                 }
             ]
         },

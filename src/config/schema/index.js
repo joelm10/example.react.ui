@@ -48,6 +48,15 @@ const articleSchemas = {
             content: 'title',
             footer: 'completed'
         },
+    },
+    chart: {
+        url: 'null',
+        articleLimit: 2,
+        meta: {
+            heading: 'id',
+            content: 'title',
+            footer: 'completed'
+        },
     }
 };
 
