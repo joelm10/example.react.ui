@@ -6,7 +6,8 @@ import 'chart.js/auto'
 
 import { getChartByType } from './getChartByType';
 import ChartNav from "./ChartNav";
-import { mockData, defaultArgs } from "./config/defaultChartList";
+import { defaultArgs } from "./config/defaultChartList";
+// import { mockData } from "./config/mockData";
 
 /**
  * Wrapper around react-chartJS-2
@@ -16,17 +17,18 @@ import { mockData, defaultArgs } from "./config/defaultChartList";
 const ChartWrapper = (props) => {
     const {
         chartType = 'pie',
-        chartData = mockData,
+        chartData,
         chartArgs = defaultArgs,
         chartOpts = {
         }
 
     } = props;
     const showNavUI = true;
-    
+    const [chartTypeToShow, setChartType] = useState(chartType);
+
     // draft composed props
     const chartProps = {
-        type: chartType,
+        type: chartTypeToShow,
         options: {
             // TODO: Build out generator for these, and/or 
             ...chartOpts
@@ -35,7 +37,6 @@ const ChartWrapper = (props) => {
         ...chartArgs
     };
 
-    const [chartTypeToShow, setChartType] = useState(chartType);
     // get component, compose props as needed and return
     let ChartWrapper = getChartByType(chartTypeToShow, chartProps);
 

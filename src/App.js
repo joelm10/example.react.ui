@@ -2,6 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Fragment } from 'react';
 import useSetPageTitle from 'helpers/react/hooks/pageTitle';
 
+// presentation
+import 'styles/baseStyle.css';
+
 // layout
 import Layout from 'layout';
 

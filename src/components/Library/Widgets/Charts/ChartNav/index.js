@@ -15,6 +15,7 @@ const ChartNav = (props) => {
     const TypeSelector = chartList.map((item) => {
         const { title } = item;
         const thisKey = makeUniqueKeyStr(title);
+        const displayTitle = title;
         return (
             <div
                 className="nav-item"
@@ -30,7 +31,7 @@ const ChartNav = (props) => {
                         () => callback(title)
                     }
                 >
-                    {item.title}
+                    {displayTitle}
                 </button>
             </div >
         )
@@ -48,4 +49,5 @@ const ChartNav = (props) => {
 
     return chartNav;
 };
+
 export default ChartNav;
