@@ -1,5 +1,16 @@
 .nav-item {
+    cursor: pointer;
+
     button {
         text-transform: capitalize;
+    }
+
+    &.active {
+        background: #CCC;
+        font-weight: bolder;
+
+        .nav-link {
+            color: #FFF;
+        }
     }
 }

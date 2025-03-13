@@ -1,5 +1,27 @@
 
 
+
+
+// simple iterator to build random values
+const getRandomNumbers = (min, max) => {
+    return Math.round(Math.random() * (max - min) + min, 0);
+};
+
+const makeRandomBubbles = (dataSize) => {
+    const min = 0;
+    const max = 20;
+
+    const bubbleARr = Array.from({ length: dataSize }, () => {
+        return {
+            x: getRandomNumbers(min, max),
+            y: getRandomNumbers(min, max),
+            r: getRandomNumbers(min, max),
+        }
+    });
+
+    return bubbleARr;
+};
+
 export const mockGeneralData = [
     {
         label: '# of Votes',
@@ -24,32 +46,31 @@ export const mockGeneralData = [
     },
 ];
 
-// simple iterator to build random values
-const getR = (min, max) => {
-    return Math.round(Math.random() * (max - min) + min, 0);
-};
-
-const makeRandomBubbles = (dataSize) => {
-    const min = 0;
-    const max = 20;
-
-    const bubbleARr = Array.from({ length: dataSize }, () => {
-        return {
-            x: getR(min, max),
-            y: getR(min, max),
-            r: getR(min, max),
-        }
-    });
-
-    return bubbleARr;
-};
-
 export const mockBubbleData = {
     datasets: [{
         label: 'Sample Bubble data',
         data: [
             ...makeRandomBubbles(20)
         ],
+        backgroundColor: 'rgb(255, 99, 132)'
+    }]
+};
+export const mockScatterData = {
+    datasets: [{
+        label: 'Scatter Dataset',
+        data: [{
+            x: -10,
+            y: 0
+        }, {
+            x: 0,
+            y: 10
+        }, {
+            x: 10,
+            y: 5
+        }, {
+            x: 0.5,
+            y: 5.5
+        }],
         backgroundColor: 'rgb(255, 99, 132)'
     }]
 };

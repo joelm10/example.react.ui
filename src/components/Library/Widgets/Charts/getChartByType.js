@@ -1,19 +1,14 @@
 
-import { Doughnut, Bar, Pie, Line, PolarArea, Bubble } from 'react-chartjs-2';
+import { defaultChartList } from './config/defaultChartList';
 
-import { mockBubbleData, mockData, mockGeneralData } from './config/mockData';
+// TODO: remove mock data for non-dev
+import { mockBubbleData, mockData, mockScatterData } from './config/mockData';
 
 export const getChartByType = (chartType, chartProps) => {
-    const chartList = {
-        donut: Doughnut,
-        bar: Bar,
-        pie: Pie,
-        line: Line,
-        polarArea: PolarArea,
-        bubble: Bubble
-    };
 
-    let ChartWrapper = chartList[chartType] ?? null;
+    let ChartWrapper = defaultChartList.find((obj) => {
+        return obj.title === chartType
+    })?.component;
 
     if (!!ChartWrapper) {
         const generatedChartProps = generatePropsForChart(chartType, chartProps);
@@ -26,21 +21,34 @@ export const getChartByType = (chartType, chartProps) => {
 
 // compute props object based on chart Type
 const generatePropsForChart = (chartType, baseProps) => {
+    const isDev = process.env.NODE_ENV === 'development';
+    
     const defaultDataConfig = {
-        // labels: [],
-        // datasets: []
+        datasets: [],
+        labels: []
+    };
+    // TODO: TURN ON FOR DEV ONLY & refactor more cleanly
+    const devData = isDev ? mockData : {
+        datasets: [],
+        labels: []
     };
 
-    // TODO: TURN ON FOR DEV ONLY
     let composedData = {
-        ...mockData,
+        ...devData,
         ...baseProps.data,
     };
 
+    // TODO: Build data transformer OR early return if not in expected format/structure
     if (baseProps.type === 'bubble') {
-        // TODO: Build data transformer OR early return if not in expected format/structure
-        composedData = mockBubbleData;
+        composedData = isDev ? mockBubbleData : composedData;
+    } else if (baseProps.type === 'scatter') {
+        composedData = isDev ? mockScatterData : composedData;
+
     }
+
+    const defaultOptions = defaultChartList.find((item) => {
+        return item.title === chartType && item.defaultOptions;
+    })?.defaultOptions;
 
     const newOptions = {
         responsive: true,
@@ -50,12 +58,11 @@ const generatePropsForChart = (chartType, baseProps) => {
             },
             title: {
                 display: true,
-                // TODO: get from config
-                text: 'Chart.js Bar Chart',
+                text: baseProps?.title
             },
-        }
+        },
+        ...defaultOptions
     };
-
     // TODO: extract and extrapolate chart types and required values
     const generatedProps = {
         ...defaultDataConfig,

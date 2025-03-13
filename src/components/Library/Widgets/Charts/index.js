@@ -7,7 +7,6 @@ import 'chart.js/auto'
 import { getChartByType } from './getChartByType';
 import ChartNav from "./ChartNav";
 import { defaultArgs } from "./config/defaultChartList";
-// import { mockData } from "./config/mockData";
 
 /**
  * Wrapper around react-chartJS-2
@@ -20,9 +19,11 @@ const ChartWrapper = (props) => {
         chartData,
         chartArgs = defaultArgs,
         chartOpts = {
+            title: defaultArgs.title
         }
 
     } = props;
+
     const showNavUI = true;
     const [chartTypeToShow, setChartType] = useState(chartType);
 
@@ -43,7 +44,7 @@ const ChartWrapper = (props) => {
     if (!!ChartWrapper) {
         return (
             <Fragment>
-                {showNavUI && <ChartNav callback={setChartType} />}
+                {showNavUI && <ChartNav callback={setChartType} currentChart={chartTypeToShow}/>}
                 {ChartWrapper}
             </Fragment>
         );

@@ -1,19 +1,77 @@
+import { Doughnut, Bar, Pie, Line, PolarArea, Bubble, Radar } from 'react-chartjs-2';
+
 export const defaultChartList = [
     // https://www.chartjs.org/docs/latest/charts/bar.html
-    { title: 'bar' },
+    {
+        component: Bar,
+        title: 'bar',
+        defaultOptions: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    },
     // https://www.chartjs.org/docs/latest/charts/doughnut.html
-    { title: 'donut' },
-    { title: 'pie' },
+    {
+        component: Doughnut,
+        title: 'donut',
+        defaultOptions: {}
+    },
+    {
+        component: Pie,
+        title: 'pie',
+        defaultOptions: {}
+    },
     // https://www.chartjs.org/docs/latest/charts/line.html
-    { title: 'line' },
+    {
+        component: Line,
+        title: 'line',
+        defaultOptions: {}
+    },
     // https://www.chartjs.org/docs/latest/charts/polar.html
-    { title: 'polarArea' },
+    {
+        component: PolarArea,
+        title: 'polarArea',
+        defaultOptions: {}
+    },
     // https://www.chartjs.org/docs/latest/charts/bubble.html
-    { title: 'bubble' },
+    {
+        component: Bubble,
+        title: 'bubble',
+        defaultOptions: {}
+    },
+    // https://www.chartjs.org/docs/latest/charts/bubble.html
+    {
+        component: Radar,
+        title: 'radar',
+        defaultOptions: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            }
+        }
+    },
+    // https://www.chartjs.org/docs/latest/charts/scatter.html
+    {
+        component: Bar,
+        title: 'scatter',
+        defaultOptions: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom'
+                }
+            }
+        }
+    }
 ];
 
 
 export const defaultArgs = {
-    width: 500,
+    width: 400,
     height: 400,
+    title: 'Chart Example'
 };

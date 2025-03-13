@@ -28,7 +28,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "coverage": "npm test -- --coverage --watchAll=false",
+    "coverage": "npm test -- --coverage --watchAll=false && open ./coverage/lcov-report/index.html",
     "test:ci": "react-scripts test --watchAll=false",
     "prepare": "husky"
   },
