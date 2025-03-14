@@ -4,34 +4,33 @@ import { Fragment, useState } from "react";
 // Import, auto register
 import 'chart.js/auto'
 
-import { getChartByType } from './getChartByType';
+import { getChartByType } from './helpers/getChartByType';
 import ChartNav from "./ChartNav";
 import { defaultArgs } from "./config/defaultChartList";
 
 /**
  * Wrapper around react-chartJS-2
- * TODO: add change UI for switching charts
  * @param {*} props 
  */
 const ChartWrapper = (props) => {
     const {
-        chartType = 'pie',
+        showNavUI = 'true',
+        chartType = 'bar',
         chartData,
         chartArgs = defaultArgs,
         chartOpts = {
             title: defaultArgs.title
         }
-
     } = props;
 
-    const showNavUI = true;
+
     const [chartTypeToShow, setChartType] = useState(chartType);
 
-    // draft composed props
+    // draft composed props.
+    //  These are augmented/decorated in generatePropsForChart(), called by getChartByType() method
     const chartProps = {
         type: chartTypeToShow,
         options: {
-            // TODO: Build out generator for these, and/or 
             ...chartOpts
         },
         data: chartData,
@@ -44,7 +43,7 @@ const ChartWrapper = (props) => {
     if (!!ChartWrapper) {
         return (
             <Fragment>
-                {showNavUI && <ChartNav callback={setChartType} currentChart={chartTypeToShow}/>}
+                {showNavUI && <ChartNav callback={setChartType} currentChart={chartTypeToShow} />}
                 {ChartWrapper}
             </Fragment>
         );

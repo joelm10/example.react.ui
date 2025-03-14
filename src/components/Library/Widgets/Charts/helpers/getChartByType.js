@@ -1,14 +1,15 @@
 
-import { defaultChartList } from './config/defaultChartList';
+import { defaultChartList } from '../config/defaultChartList';
 
 // TODO: remove mock data for non-dev
-import { mockBubbleData, mockData, mockScatterData } from './config/mockData';
+import { mockBubbleData, mockData, mockScatterData } from '../config/mockData';
+// TODO: END
 
 export const getChartByType = (chartType, chartProps) => {
 
     let ChartWrapper = defaultChartList.find((obj) => {
         return obj.title === chartType
-    })?.component;
+    })?.component ?? null;
 
     if (!!ChartWrapper) {
         const generatedChartProps = generatePropsForChart(chartType, chartProps);
@@ -19,10 +20,20 @@ export const getChartByType = (chartType, chartProps) => {
     return ChartWrapper;
 };
 
-// compute props object based on chart Type
-const generatePropsForChart = (chartType, baseProps) => {
+/**
+ * Composes props to pass to chards component, based on chart type
+ * compute props object based on chart Type
+ * @param {string} chartType 
+ * @param {object} baseProps 
+ * @returns 
+ */
+export const generatePropsForChart = (chartType, baseProps) => {
+    if(!baseProps) {
+        return {};
+    }
+    // TODO: Refactor to be more clear
     const isDev = process.env.NODE_ENV === 'development';
-    
+
     const defaultDataConfig = {
         datasets: [],
         labels: []
@@ -39,11 +50,11 @@ const generatePropsForChart = (chartType, baseProps) => {
     };
 
     // TODO: Build data transformer OR early return if not in expected format/structure
+    // TODO: refactor to ensure chartData is in structure expected by chart - to avoid throwing an error
     if (baseProps.type === 'bubble') {
         composedData = isDev ? mockBubbleData : composedData;
     } else if (baseProps.type === 'scatter') {
         composedData = isDev ? mockScatterData : composedData;
-
     }
 
     const defaultOptions = defaultChartList.find((item) => {

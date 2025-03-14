@@ -1,5 +1,8 @@
 // REF SOURCE: https://www.30secondsofcode.org/js/s/string-case-conversion/#convert-any-case-to-sentence-case
 export const makeSentenceCase = (str) => {
+    if(!str) { 
+        return '';
+    }
     const s =
         str &&
         str.match(

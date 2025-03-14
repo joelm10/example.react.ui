@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 import { defaultChartList } from "../config/defaultChartList";
 import { makeSentenceCase } from "../helpers/makeSentenceCase";
@@ -9,7 +8,7 @@ import { makeSentenceCase } from "../helpers/makeSentenceCase";
  * @returns 
  */
 const ChartNav = (props) => {
-    const { callback, currentChart, navType = 'select' } = props;
+    const { callback, currentChart, navType = 'menu' } = props;
 
     const chartList = defaultChartList.sort((a, b) => {
         return a.title.localeCompare(b.title);
@@ -20,7 +19,8 @@ const ChartNav = (props) => {
         const thisKey = makeUniqueKeyStr(title);
         const displayTitle = makeSentenceCase(title);
         const activeClass = title === currentChart ? 'active' : '';
-        const menuMarkup = (<div
+
+        const menuMarkup = navType === 'menu' && (<div
             className={`nav-item ${activeClass}`}
             role="menuitem"
             key={thisKey}
@@ -41,16 +41,19 @@ const ChartNav = (props) => {
         const selectMarkup = navType === 'select' && (
             <option value={title}>
                 {displayTitle}
-            </option >);
-        const typeSelector = navType === 'menu' ? menuMarkup : selectMarkup;
-        return typeSelector;
+            </option>
+        );
+
+        return navType === 'menu' ? menuMarkup : selectMarkup;;
     });
 
     let chartNav = null;
 
     if (navType === 'menu') {
         chartNav = (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav
+                role="menu"
+                className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         {TypeSelector}
@@ -60,7 +63,7 @@ const ChartNav = (props) => {
         )
     } else if (navType === 'select') {
         chartNav = (
-            <Fragment>
+            <nav role="menu">
                 <h3>Select Graph Type</h3>
                 <select
                     onChange={
@@ -72,7 +75,8 @@ const ChartNav = (props) => {
                 >
                     {TypeSelector}
                 </select>
-            </Fragment>);
+            </nav>
+        );
     }
 
     return chartNav;
