@@ -66,11 +66,16 @@ const ArticleWrapper = (props) => {
     const articleContentWrapper = articleContent.content !== null
         ? articleContent.content?.map((item) => {
             const articleKey = makeUniqueKeyStr(`acr_${item[meta.heading]}`)
+            let displayContent = item;
+            // check if item is object, and get child object if needed
+            if (typeof item !== 'object') {
+              // TODO: BUILD FOR SPLIT OBJECTS
+            }
 
             const articleBody = (
                 <ArticleFromFields
                     key={articleKey}
-                    article={item}
+                    article={displayContent}
                     lookupList={meta}
                 />
             );

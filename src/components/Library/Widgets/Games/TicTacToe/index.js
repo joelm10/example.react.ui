@@ -9,6 +9,26 @@ import togglePlayer from "./helpers/togglePlayer";
 
 import playerMove from "./helpers/playerMove";
 
+/**
+ * A component that wraps a Tic Tac Toe game and manages its state.
+ * 
+ * @component
+ * @param {Object} props - The component props
+ * @param {string} [props.gameTitle='Tic Tac Toe'] - The title of the game
+ * @returns {JSX.Element} A game wrapper containing the game title, notifications, 
+ * current player display, game status, grid, and reset button
+ * 
+ * @example
+ * <GameWrapper gameTitle="My Tic Tac Toe Game" />
+ * 
+ * @description
+ * This component manages the state of a Tic Tac Toe game including:
+ * - Tracking player moves
+ * - Toggling between players
+ * - Checking for winners
+ * - Displaying game status and notifications
+ * - Allowing game reset
+ */
 const GameWrapper = (props) => {
     const {
         gameTitle = 'Tic Tac Toe',

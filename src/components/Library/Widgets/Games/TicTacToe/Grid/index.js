@@ -24,7 +24,7 @@ const GridWrapper = (props) => {
                 ? 'isWinner'
                 : '';
 
-            const gridClass = `col-4 gridItem ${isWinnerClass}`;
+            const gridClass = isWinnerClass ? `col-4 gridItem isWinner` : `col-4 gridItem`;
 
             const itemKey = targetLocation;
             return (

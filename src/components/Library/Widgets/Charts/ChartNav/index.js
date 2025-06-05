@@ -1,6 +1,9 @@
 import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 import { defaultChartList } from "../config/defaultChartList";
 import { makeSentenceCase } from "../helpers/makeSentenceCase";
+const getChartList = () => {
+    return defaultChartList.sort((a, b) => a.title.localeCompare(b.title));
+};
 
 /**
  * Simple UI Nav bar to enalbe click to change chart type
@@ -8,11 +11,7 @@ import { makeSentenceCase } from "../helpers/makeSentenceCase";
  * @returns 
  */
 const ChartNav = (props) => {
-    const { callback, currentChart, navType = 'menu' } = props;
-
-    const chartList = defaultChartList.sort((a, b) => {
-        return a.title.localeCompare(b.title);
-    });
+    const { callback, currentChart, navType = 'menu', chartList = getChartList() } = props;
 
     const TypeSelector = chartList.map((item) => {
         const { title } = item;
@@ -44,7 +43,9 @@ const ChartNav = (props) => {
             </option>
         );
 
-        return navType === 'menu' ? menuMarkup : selectMarkup;;
+        return navType === 'menu'
+            ? menuMarkup
+            : selectMarkup;
     });
 
     let chartNav = null;
@@ -83,4 +84,3 @@ const ChartNav = (props) => {
 };
 
 export default ChartNav;
-

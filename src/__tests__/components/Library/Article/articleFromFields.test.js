@@ -8,7 +8,7 @@ const testProps = {
         article: {
             id: 91,
             title: 'i am a heading',
-            body: 'body foo',
+            body: 'body content goes in this container',
             footer: 'footer example text'
         },
         lookupList: {
@@ -35,20 +35,20 @@ describe('components/Libary/Atomic/articles', () => {
     });
 
     test('articleFromFields() should return markup when article is passed, AND lookupList values match', () => {
-        const { valid,
-            valid: {
-                heading, content, footer
-            }
-        } = testProps;
+        const { valid } = testProps;
+        const { title, body, footer } = valid.article;
+
         render(<ArticleFromFields {...valid} />);
 
-        const headingContent = screen.getByText(testProps.valid.article.title).text;
-        const bodyContent = screen.getByText(testProps.valid.article.body).text;
-        const footerContent = screen.getByRole('contentinfo').text;
+        // Get the DOM elements first
+        const headingElement = screen.getByText(testProps.valid.article.title);
+        const bodyElement = screen.getByText(testProps.valid.article.body);
+        const footerElement = screen.getByRole('contentinfo');
 
-        expect(headingContent).toEqual(heading);
-        expect(bodyContent).toEqual(content);
-        expect(footerContent).toEqual(footer);
+        // Use textContent property instead of .text which doesn't exist
+        expect(headingElement.textContent).toEqual(title);
+        expect(bodyElement.textContent).toEqual(body);
+        expect(footerElement.textContent).toEqual(footer);
     });
 
 });

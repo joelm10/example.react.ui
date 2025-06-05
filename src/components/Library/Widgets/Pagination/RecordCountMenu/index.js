@@ -3,6 +3,15 @@ import { Fragment } from "react";
 /**
  * 
  * TODO: 1) add correct styling
+ *       2) Add support for positioning of child elements by allowing custom styles or class names to be passed via props.
+ *          Example: 
+ *          - Use `containerStyle` or `containerClassName` props to apply custom positioning styles.
+ *          - Example usage:
+ *              <RecordCountMenu containerStyle={{ display: 'flex', justifyContent: 'center' }} />
+ *              or
+ *              <RecordCountMenu containerClassName="custom-class" />
+ * Inline styles: <div style={{ color: 'blue', fontSize: '14px' }}>Records:</div>
+ * CSS classes: <div className="record-count-menu">Records:</div>
  *       2) and support for positioning of child elements
  *       3) add config values for labels
  * @param {*} props 

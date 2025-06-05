@@ -5,19 +5,70 @@ import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 /**
  * 
  * @param {object} props 
- * @param {object} article - json object with contet 
+ * @param {object} article - json object with content 
  * @param {object} lookupList - enum object string values for matching 
  * @returns 
  */
-const ArticleFromFields = ({ article, lookupList }) => {
+const ArticleFromFields = ({ article, lookupList, options = {} }) => {
     if (!article || !lookupList) {
         return null;
     }
-
-    const title = article[lookupList?.heading];
-    // TODO: increase functionality to break apart body object into formatable objects
+    const useFormatted = options?.useFormatted || false;
     const bodyContent = article[lookupList?.content];
     const footerContent = article[lookupList?.footer];
+
+    const articleKey = makeUniqueKeyStr(`aff_${bodyContent.substring(0, 10)}`);
+    const articleFormattedKey = makeUniqueKeyStr(`aff_formatted-${bodyContent.substring(0, 10)}`);
+
+    const title = article[lookupList?.heading];
+    /**
+     * Function to process bodyContent into formatable objects.
+     * This is a placeholder implementation and should be enhanced further.
+     * @param {string} bodyContent - The raw body content string.
+     * @returns {Array} - Array of formatable objects.
+     */
+    const processBodyContent = (bodyContent) => {
+        // Example: Split content by paragraphs
+        return bodyContent?.split('\n').map((paragraph, index) => ({
+            id: `paragraph_${index}`,
+            content: paragraph.trim(),
+        }));
+    };
+    // TODO: Consider moving to own generator funtions file
+    const rawFormattedBodyContent = useFormatted && processBodyContent(article[lookupList?.content]);
+    const formattedBodyContent = useFormatted && rawFormattedBodyContent?.map((item) => {
+        const { content, id } = item;
+        return (
+            <div
+                className="article--body"
+                role='article'
+                aria-labelledby={articleFormattedKey}
+                aria-describedby={`${articleFormattedKey}-body`}
+                id={`${articleFormattedKey}-body-formatted`}
+                title={title}
+                aria-label={title}
+            >
+                <p className="article--body-formatted" key={id}>
+                    {content}
+                </p>
+            </div>);
+    });
+
+    const rawArticleBodyContent = !useFormatted
+        ? (
+            <div
+                className="article--body--content"
+                role='article'
+                aria-labelledby={articleKey}
+                aria-describedby={`${articleKey}-body`}
+                id={`${articleKey}-body`}
+
+            >
+                {bodyContent}
+
+            </div>
+        )
+        : null;
 
     let imgContent = null;
     const hasImgThumbContent = article[lookupList?.imgThumbPath];
@@ -35,7 +86,6 @@ const ArticleFromFields = ({ article, lookupList }) => {
         }
         imgContent = <ImageLoader {...imgProps} />;
     }
-    const articleKey = makeUniqueKeyStr(`aff_${title}`);
 
     return (
         <div
@@ -49,13 +99,8 @@ const ArticleFromFields = ({ article, lookupList }) => {
                     {title}
                 </h2>
             )}
-            {!!bodyContent && (
-                <div
-                    className=''
-                >
-                    {bodyContent}
-                </div>
-            )}
+            {formattedBodyContent}
+            {rawArticleBodyContent}
             {imgContent}
             {!!footerContent && (
                 <div
