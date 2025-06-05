@@ -1,9 +1,15 @@
 /**
- * Bus logic of player move in game
- * @param {number} move 
- * @param {number} targetLocation 
- * @param {array} gameState 
- * @returns 
+ * Updates the game state based on a player's move in a Tic-Tac-Toe game.
+ * 
+ * @param {string} move - The value to place on the grid (typically 'X' or 'O').
+ * @param {number} targetLocation - The position on the grid where the move should be placed.
+ * @param {Object} gameState - The current state of the game.
+ * @param {Array<Object>} gameState.grid - Array of grid cell objects, each with id and value properties.
+ * @param {boolean} gameState.canPlay - Whether moves can be made.
+ * 
+ * @returns {Object} The updated game state. If the move is invalid, returns the game state with 
+ * canPlay set to false and errorPosition set to the invalid targetLocation.
+ * If the move is valid, returns the updated grid with the new move and shouldMove set to true.
  */
 const playerMove = (move, targetLocation, gameState) => {
     // Check if value is stored or not 

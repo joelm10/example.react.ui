@@ -38,6 +38,6 @@ describe('components/Widgets/Games/TicTacToc/helpers', () => {
         expect(received).toStrictEqual(testMockValid)
     });
 
-    // TODO: write test for error state IF target
-    test.todo('playerMove() should return same gameState IF targetLocation NOT available');
+    // TODO: write test for error state IF target location NOT available
+    test.todo('playerMove() should return error state IF targetLocation NOT available');
 });
