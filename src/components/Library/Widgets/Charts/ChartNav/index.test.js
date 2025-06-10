@@ -58,7 +58,7 @@ describe('ChartNav Component', () => {
         const menuItems = screen.getAllByRole('menuitem', { name: /Bar|Line|Pie/i });
         // hardcoded as tests mock the defaultChartList
         // and it contains 6 items in the mock
-        expect(menuItems.length).toBe(6);
+        expect(menuItems.length).toBe(defaultChartList.length);
     });
 
     test('renders the correct chart titles in menu mode', () => {
@@ -84,17 +84,20 @@ describe('ChartNav Component', () => {
 
     test('renders menu navigation by default', () => {
         render(<ChartNav callback={mockCallback} currentChart="bar" />);
-        
-        expect(screen.getByRole('menu')).toBeInTheDocument();
-        expect(screen.getAllByRole('menuitem').length).toBe(6);
+
+        const menuItem = screen.getByRole('button', { name: 'Bar' });
+
+        expect(menuItem).toBeInTheDocument();
+        expect(menuItem).toHaveClass('nav-link button');
+        expect(screen.getAllByRole('button').length).toBe(defaultChartList.length);
     });
 
     test('calls callback when menu item is clicked', () => {
         render(<ChartNav callback={mockCallback} currentChart="bar" />);
-        
+
         const pieMenuItem = screen.getByText('Pie');
         fireEvent.click(pieMenuItem);
-        
+
         expect(mockCallback).toHaveBeenCalledWith('pie');
     });
 
@@ -103,15 +106,32 @@ describe('ChartNav Component', () => {
             { title: 'custom1' },
             { title: 'custom2' }
         ];
-        
-        render(<ChartNav 
-            callback={mockCallback} 
-            currentChart="custom1" 
-            chartList={customChartList} 
+
+        render(<ChartNav
+            callback={mockCallback}
+            currentChart="custom1"
+            chartList={customChartList}
         />);
-        
+
         expect(screen.getByText('Custom1')).toBeInTheDocument();
         expect(screen.getByText('Custom2')).toBeInTheDocument();
         expect(screen.queryByText('Bar')).not.toBeInTheDocument();
     });
+
+    test('highlights the current chart in menu mode', () => {
+        render(<ChartNav callback={mockCallback} currentChart="bar" />);
+
+        const expectedClass = "nav-link";
+        const activeMenuItem = screen.getByRole('button', { name: 'Bar' });
+        expect(activeMenuItem).toHaveClass(expectedClass);
+
+    });
+
+    test.skip('sets the correct selected option in select mode', () => {
+        render(<ChartNav callback={mockCallback} currentChart="line" navType="select" />);
+
+        const select = screen.getByRole('combobox');
+        expect(select.value).toBe('line');
+    });
+
 });

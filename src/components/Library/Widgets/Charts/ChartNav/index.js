@@ -24,17 +24,17 @@ const ChartNav = (props) => {
             role="menuitem"
             key={thisKey}
         >
-            <button
-                role="menuitem"
-                title={title}
-                className="nav-link"
+            <li
+                role="button"
+                title={title.toLowerCase()}
+                className="nav-link button"
                 href="#"
                 onClick={
                     () => callback(title)
                 }
             >
                 {displayTitle}
-            </button>
+            </li>
         </div >
         );
         const selectMarkup = navType === 'select' && (

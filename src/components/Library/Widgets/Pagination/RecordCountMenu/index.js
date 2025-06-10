@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 /**
  * 
  * TODO: 1) add correct styling
@@ -22,63 +20,67 @@ const RecordCountMenu = (props) => {
         showResultCount = false,
         showPageStatus = false,
         showCurrentPageSet = false,
+        containerStyle = {},
+        containerClassName = '',
+        labels = {
+            records: 'Records:',
+            resultsPerPage: 'Results per page:',
+            page: 'Page',
+            of: 'of'
+        },
         // data to populate
-        dataSet: {
-            currentPage,
-            totalRecords,
-            totalPages,
-            pageLength
-        }
+        paginationData: {
+            currentPage = 1,
+            totalRecords = 0,
+            totalPages = 1,
+            pageLength = 10
+        } = {}
     } = props;
-
-    //==
-
-    // EG: SCENARIO:
-    // - pageLength of 10
-    // - Page 2
-    // Should show: should be 11 - 20
-
     // showing records from N-P
-    let currentPageListStart = currentPage;
+    let currentPageListStart = ((currentPage - 1) * pageLength) + 1;
     let currentRecordList = currentPage * pageLength;
 
-    if (currentPage > 1) {
-        currentPageListStart = currentPage * pageLength;
-        currentRecordList = (currentPage * pageLength) + pageLength;
-    }
     if (currentRecordList > totalRecords) {
         currentRecordList = totalRecords;
     }
 
-
-    // TODO: add styles
+    // Handle case when there are no records
+    if (totalRecords === 0) {
+        currentPageListStart = 0;
+        currentRecordList = 0;
+    }
     const recordTotals = showResultCount && (
-        <div>
-            Records:
-            {currentPageListStart}-{currentRecordList} of {totalRecords}<br />
+        <div className="record-totals">
+            {labels.records} {currentPageListStart}-{currentRecordList} {labels.of} {totalRecords}
         </div>
     );
 
-    // TODO: add styles
     const pageStatus = showPageStatus && (
-        <div>
-            <span>Results per page:</span>
-            {pageLength}
+        <div className="page-status">
+            <span>{labels.resultsPerPage}</span> {pageLength}
         </div>
     );
+
     const currentPageSet = showCurrentPageSet
-        ? (<div role="menu">Page {currentPage} of {totalPages}</div>)
+        ? (<div className="current-page-set" role="menu">{labels.page} {currentPage} {labels.of} {totalPages}</div>)
         : null;
 
+    const defaultContainerStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1rem',
+        fontSize: '0.875rem'
+    };
 
-    const recordCountMenu = (
-        <Fragment>
+    const mergedStyle = { ...defaultContainerStyle, ...containerStyle };
+
+    return (
+        <div className={`record-count-menu ${containerClassName}`} style={mergedStyle}>
             {recordTotals}
             {pageStatus}
             {currentPageSet}
-        </Fragment>
+        </div>
     );
-    return recordCountMenu;
 };
 
 export default RecordCountMenu;
