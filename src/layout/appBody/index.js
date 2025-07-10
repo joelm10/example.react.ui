@@ -16,55 +16,46 @@ const AppBody = (props) => {
     const location = useLocation();
 
     const activePage = location.pathname;
-    let articleProps = {
-        pageTitle: '',
-        className: ''
-    };
-
     // TODO: put into enum lookup method();
-    if (activePage === '/' || activePage === '/home') {
-        articleProps = {
-            ...articleMappings.posts,
-            ...articleProps
-        }
-    } else if (activePage === '/about') {
-        articleProps = {
-            ...articleMappings.user,
-            ...articleProps
-        }
-    } else if (activePage === '/photography') {
-        articleProps = {
-            ...articleMappings.photography,
-            ...articleProps
-        }
-    } else if (activePage === '/engineering') {
-        articleProps = {
-            ...articleMappings.engineering,
-            ...articleProps
-        }
-    } else if (activePage === '/game') {
-        articleProps = {
-            ...articleMappings.game,
-            ...articleProps
+    let articleProps = { pageTitle: '', className: '' };
+    switch (activePage) {
+        case '/':
+        case '/home':
+            articleProps = { ...articleMappings.posts, pageTitle: '', className: '' };
+            break;
+        case '/about':
+            articleProps = { ...articleMappings.user, pageTitle: '', className: '' };
+            break;
+        case '/photography':
+            articleProps = { ...articleMappings.photography, pageTitle: '', className: '' };
+            break;
+        case '/engineering':
+            articleProps = { ...articleMappings.engineering, pageTitle: '', className: '' };
+            break;
+        case '/game':
+            articleProps = { ...articleMappings.game, pageTitle: '', className: '' };
+            break;
+        default:
+            articleProps = { pageTitle: '', className: '' };
+    }
+    // END TODO: 
+
+    const getActiveContent = (activePage) => {
+        if (activePage.includes('chart')) {
+            const isRoot = activePage === '/chart';
+            let chartProps = {
+                // get from URL
+                chartType: isRoot ? 'bar' : activePage.split('/').pop()
+            };
+            return <ChartWrapper {...chartProps} />;
+        } else if (activePage === '/game') {
+            return <GameWrapper />;
+        } else {
+            return <ArticleWrapper {...articleProps} />;
         }
     }
 
-    // END TODO: 
-    let content = null;
-    // Setup as switch or get method
-    switch (activePage) {
-        case '/chart': {
-            content = <ChartWrapper />;
-            break;
-        }
-        case '/game': {
-            content = <GameWrapper />;
-            break;
-        }
-        default: {
-            content = <ArticleWrapper {...articleProps} />;
-        }
-    };
+    let content = getActiveContent(activePage);
 
     const appBody = (
         <main role="main">
@@ -72,7 +63,7 @@ const AppBody = (props) => {
                 <Container
                     className='min-vh-75'
                 >
-                    <Row className="h-auto d-inline">
+                    <Row className="h-auto">
                         {content}
                     </Row>
                 </Container>

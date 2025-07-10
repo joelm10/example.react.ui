@@ -5,8 +5,9 @@ import navElements from 'config/nav';
 
 import getComponentForRoute from 'config/routes';
 import getNestedRoutes from '../getNestedRoutes';
+import getChartList from 'components/Library/Widgets/Charts/helpers/getChartList';
 
-// extract only internal routes to be supported 
+
 /**
  * Generate list of internal app routes to support, 
  *  from config values - nav and footer
@@ -16,6 +17,22 @@ const getRouteList = (props) => {
     const { rootPath = '/', columnKey = 'columnItems' } = props = {};
 
     const footerRoutes = getNestedRoutes(footerElements?.columns, columnKey);
+
+    // generate sub nav for direct link to chart types
+    const chartRoutes = getChartList().map((obj) => {
+        const route = {
+            label: obj?.title,
+            routeElement: 'app',
+            isInternalNav: true,
+            itemType: 'link',
+            linkUrl: `/chart/${obj?.title}`,
+            routeParams: {
+                pageTitle: obj?.title
+            }
+        };
+        return route;
+    });
+
     const composedRouteList = [
         {
             linkUrl: '',
@@ -38,8 +55,10 @@ const getRouteList = (props) => {
             ...props
         },
         ...navElements,
-        ...footerRoutes
+        ...footerRoutes,
+        ...chartRoutes
     ];
+
     // de-duplicate routes before iteration
     composedRouteList.filter((item, index) => {
         return composedRouteList.indexOf(item) === index;
@@ -58,6 +77,7 @@ const getRouteList = (props) => {
     }).filter((obj) => {
         return obj && true;
     });
+
     return routeList;
 };
 

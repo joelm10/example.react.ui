@@ -12,13 +12,16 @@ import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
 const ArticleFromFields = ({ article, lookupList, options = {} }) => {
     if (!article || !lookupList) {
         return null;
-    }
+    };
+
     const useFormatted = options?.useFormatted || false;
-    const bodyContent = article[lookupList?.content];
+    const bodyContent = article[lookupList.content];
     const footerContent = article[lookupList?.footer];
 
-    const articleKey = makeUniqueKeyStr(`aff_${bodyContent.substring(0, 10)}`);
-    const articleFormattedKey = makeUniqueKeyStr(`aff_formatted-${bodyContent.substring(0, 10)}`);
+    const keyLegend = bodyContent?.substring(0, 10) || null
+    
+    const articleKey = makeUniqueKeyStr(`aff_${keyLegend}`);
+    const articleFormattedKey = makeUniqueKeyStr(`aff_formatted-${keyLegend}`);
 
     const title = article[lookupList?.heading];
     /**

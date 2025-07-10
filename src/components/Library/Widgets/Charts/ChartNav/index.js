@@ -1,9 +1,6 @@
 import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
-import { defaultChartList } from "../config/defaultChartList";
 import { makeSentenceCase } from "../helpers/makeSentenceCase";
-const getChartList = () => {
-    return defaultChartList.sort((a, b) => a.title.localeCompare(b.title));
-};
+import getChartList from "../helpers/getChartList";
 
 /**
  * Simple UI Nav bar to enalbe click to change chart type

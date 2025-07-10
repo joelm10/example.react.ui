@@ -1,20 +1,23 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import ChartNav from './index';
-import { defaultChartList } from '../config/defaultChartList';
-import { makeSentenceCase } from '../helpers/makeSentenceCase';
+import ChartNav from 'components/Library/Widgets/Charts/ChartNav';
+
+import { makeSentenceCase } from 'components/Library/Widgets/Charts/helpers/makeSentenceCase';
+import { defaultChartList } from 'components/Library/Widgets/Charts/config/defaultChartList';
+
+// import makeUniqueKeyStr from "components/Library/Widgets/Charts/helpers/utils/string/makeUniqueKeyStr";
 
 // Mock the dependencies
 jest.mock('helpers/utils/string/makeUniqueKeyStr', () => (str) => `key-${str}`);
-jest.mock('../config/defaultChartList', () => ({
+jest.mock('components/Library/Widgets/Charts/config/defaultChartList', () => ({
     defaultChartList: [
         { title: 'bar' },
         { title: 'line' },
         { title: 'pie' }
     ]
 }));
-jest.mock('../helpers/makeSentenceCase', () => ({
+jest.mock('components/Library/Widgets/Charts/helpers/makeSentenceCase', () => ({
     makeSentenceCase: (str) => str.charAt(0).toUpperCase() + str.slice(1)
 }));
 
