@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import Pagination from 'components/Library/Widgets/Pagination';
+import LoadingWrapper from 'components/Library/Atomic/loaders';
 import getDataFromArray from 'helpers/utils/arrays/getFromArray';
 import getFromApi from 'services/network/api';
 import ArticleFromFields from './ArticleFromFields';
 import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
-
+import logger from 'helpers/utils/logging';
 /**
  * 
  * @param {object} props 
@@ -21,6 +22,7 @@ const ArticleWrapper = (props) => {
             totalRecords: 0
         }
     };
+
     const { url, meta, articleLimit = 12, pageTitle } = props;
     const [articleContent, setApiContent] = useState(defaultState);
     // const [isLoaded, setIsLoaded] = useState(false);
@@ -35,8 +37,22 @@ const ArticleWrapper = (props) => {
                 maxDisplayCount: articleLimit,
                 totalRecords: apiResponse.length
             };
+            // check for target node in response
+            if (meta?.baseResponseKey && apiResponse[meta?.baseResponseKey]) {
+                // if node exists, use it to get data
+                apiResponse = apiResponse[meta.baseResponseKey];
+            } else if (meta?.baseResponseKey && !apiResponse[meta.baseResponseKey]) {
+                // if node does not exist, log error and return empty array
+                logger('error', `Schema ${meta.baseResponseKey} not found in response for ${pageTitle} at ${url}`);
+                apiResponse = [];
+            }
+            // verify response contains data in array at target level
+            const isValidResponse = Array.isArray(apiResponse) && apiResponse.length > 0;
+
             // api response handling only. subsequent calls, will live in pagination namespace
-            const currentPageData = getDataFromArray(apiResponse, paginationConfig.maxDisplayCount);
+            const currentPageData = isValidResponse
+                ? getDataFromArray(apiResponse, paginationConfig.maxDisplayCount)
+                : [];
 
             setApiContent({
                 isLoading: false,
@@ -50,26 +66,34 @@ const ArticleWrapper = (props) => {
                 }
             });
         };
-        // TODO: replace with generic empty record component
-        const noArticleFound = (<Fragment>No articles for {pageTitle}</Fragment>);
 
         if (!url || !mounted) {
-            setApiContent(noArticleFound);
+            setApiContent({
+                isLoading: false,
+                rawApi: [],
+                content: [],
+                pagination: {
+                    currentPage: 1,
+                    maxDisplayCount: articleLimit,
+                    totalRecords: 0,
+                    pageLength: articleLimit,
+                }
+            });
             return;
         } else {
             if (mounted) {
                 fetchData();
             }
         }
-    }, [articleLimit, pageTitle, url]);
+    }, [articleLimit, pageTitle, url, meta]);
 
-    const articleContentWrapper = articleContent.content !== null
+    const articleContentWrapper = articleContent?.content !== null && articleContent.content.length > 0
         ? articleContent.content?.map((item) => {
             const articleKey = makeUniqueKeyStr(`acr_${item[meta.heading]}`)
             let displayContent = item;
             // check if item is object, and get child object if needed
             if (typeof item !== 'object') {
-              // TODO: BUILD FOR SPLIT OBJECTS
+                // TODO: BUILD FOR SPLIT OBJECTS where content is split across multiple fields
             }
 
             const articleBody = (
@@ -81,7 +105,7 @@ const ArticleWrapper = (props) => {
             );
             return articleBody;
         })
-        : null;
+        : (<div>{meta.errorState}</div>);
 
     const paginationProps = {
         callback: {
@@ -108,12 +132,13 @@ const ArticleWrapper = (props) => {
         ...articleContent.pagination,
     };
 
-    const wrappedArticles = !articleContent.isLoading && (
+    const wrappedArticles = !articleContent.isLoading ? (
         <Fragment>
             <div className='row'>{articleContentWrapper}</div>
             <Pagination {...paginationProps} rootKey={'footer'} />
         </Fragment>
-    )
+    ) : (
+        <LoadingWrapper />)
     return wrappedArticles;
 };
 

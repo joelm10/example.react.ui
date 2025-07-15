@@ -2,12 +2,16 @@
 // eg: /config/meta/schema/fileName.js
 const articleSchemas = {
     posts: {
-        url: 'https://jsonplaceholder.typicode.com/posts',
+        // url: 'https://jsonplaceholder.typicode.com/posts',
+        url: 'https://dummyjson.com/posts',
         articleLimit: 12,
         meta: {
+            // response body initial key
+            baseResponseKey: 'posts',
             heading: 'title',
             content: 'body',
-            footer: ''
+            footer: '',
+            errorState: 'No posts found',
         }
     },
     user: {

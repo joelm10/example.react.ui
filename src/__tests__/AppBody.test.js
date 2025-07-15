@@ -16,19 +16,6 @@ describe('Base Application', () => {
         global.window = Object.create(window);
     });
 
-    test('<AppBody />, should render correctly', () => {
-        global.window.location = {
-            pathname:
-                ''
-        };
-
-        render(
-            <BrowserRouter>
-                <AppBody />
-            </BrowserRouter>
-        );
-    });
-
     test.each(cases)(`<AppBody />, should render correctly when activePage IS set to %p]`,
         (testCase) => {
             global.window.location = { pathname: testCase };

@@ -137,6 +137,12 @@ const Pagination = (props) => {
         )
         : null;
 
+    const paginationData = {
+        currentPage,
+        totalRecords,
+        totalPages,
+        pageLength
+    };
     const recordCountMenuProps = {
         showResultCount: true,
         showPageStatus: true,
@@ -147,7 +153,8 @@ const Pagination = (props) => {
             totalRecords,
             pageLength,
             totalPages
-        }
+        },
+        paginationData
     };
 
     return showPagination && (

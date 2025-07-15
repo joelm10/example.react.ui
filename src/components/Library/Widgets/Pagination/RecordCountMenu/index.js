@@ -15,6 +15,14 @@
  * @param {*} props 
  * @returns 
  */
+// TODO: Move to constants file or config file
+const defaultContainerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+    fontSize: '0.875rem'
+};
+
 const RecordCountMenu = (props) => {
     const {
         showResultCount = false,
@@ -36,9 +44,11 @@ const RecordCountMenu = (props) => {
             pageLength = 10
         } = {}
     } = props;
+
     // showing records from N-P
-    let currentPageListStart = ((currentPage - 1) * pageLength) + 1;
-    let currentRecordList = currentPage * pageLength;
+    const safeCurrentPage = currentPage < 1 ? 1 : currentPage;
+    let currentPageListStart = ((safeCurrentPage - 1) * pageLength) + 1;
+    let currentRecordList = safeCurrentPage * pageLength;
 
     if (currentRecordList > totalRecords) {
         currentRecordList = totalRecords;
@@ -49,6 +59,7 @@ const RecordCountMenu = (props) => {
         currentPageListStart = 0;
         currentRecordList = 0;
     }
+
     const recordTotals = showResultCount && (
         <div className="record-totals">
             {labels.records} {currentPageListStart}-{currentRecordList} {labels.of} {totalRecords}
@@ -64,13 +75,6 @@ const RecordCountMenu = (props) => {
     const currentPageSet = showCurrentPageSet
         ? (<div className="current-page-set" role="menu">{labels.page} {currentPage} {labels.of} {totalPages}</div>)
         : null;
-
-    const defaultContainerStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1rem',
-        fontSize: '0.875rem'
-    };
 
     const mergedStyle = { ...defaultContainerStyle, ...containerStyle };
 
