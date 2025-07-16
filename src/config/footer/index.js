@@ -58,6 +58,18 @@ const defaultFooterList = {
                     routeParams: {
                         pageTitle: 'chartJS wrapper'
                     }
+                },
+                {
+                    itemId: 4,
+                    itemType: 'link',
+                    label: 'kanban',
+                    linkUrl: '/kanban',
+                    target: '_blank',
+                    isInternalNav: true,
+                    routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'kanban board'
+                    }
                 }
             ]
         },

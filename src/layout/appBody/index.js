@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 
 import ChartWrapper from 'components/Library/Widgets/Charts';
 import GameWrapper from 'components/Library/Widgets/Games/TicTacToe';
+import KanbanBoard from 'components/Library/Widgets/Kanban';
 import ArticleWrapper from 'components/Library/Atomic/articles';
-import articleMappings from 'config/schema';
+import schemaMappings from 'config/schema';
 
 // TODO: Add useContext() wrapper/provider for content
 // ref: https://react.dev/reference/react/useContext
@@ -21,19 +22,22 @@ const AppBody = (props) => {
     switch (activePage) {
         case '/':
         case '/home':
-            articleProps = { ...articleMappings.posts, pageTitle: '', className: '' };
+            articleProps = { ...schemaMappings.posts, pageTitle: '', className: '' };
             break;
         case '/about':
-            articleProps = { ...articleMappings.user, pageTitle: '', className: '' };
+            articleProps = { ...schemaMappings.user, pageTitle: '', className: '' };
             break;
         case '/photography':
-            articleProps = { ...articleMappings.photography, pageTitle: '', className: '' };
+            articleProps = { ...schemaMappings.photography, pageTitle: '', className: '' };
             break;
         case '/engineering':
-            articleProps = { ...articleMappings.engineering, pageTitle: '', className: '' };
+            articleProps = { ...schemaMappings.engineering, pageTitle: '', className: '' };
             break;
         case '/game':
-            articleProps = { ...articleMappings.game, pageTitle: '', className: '' };
+            articleProps = { ...schemaMappings.game, pageTitle: '', className: '' };
+            break;
+        case '/kanban':
+            articleProps = { ...schemaMappings.kanban, pageTitle: '', className: '' };
             break;
         default:
             articleProps = { pageTitle: '', className: '' };
@@ -50,6 +54,8 @@ const AppBody = (props) => {
             return <ChartWrapper {...chartProps} />;
         } else if (activePage === '/game') {
             return <GameWrapper />;
+        } else if (activePage === '/kanban') {
+            return <KanbanBoard {...articleProps} />;
         } else {
             return <ArticleWrapper {...articleProps} />;
         }

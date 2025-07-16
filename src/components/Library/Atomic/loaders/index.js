@@ -1,5 +1,5 @@
 const LoadingWrapper = (props) => {
-    const { isLoading = true, label = 'Loading...', children } = props;
+    const { isLoading = true, label = 'Loading...' } = props;
 
     return isLoading && (
         <div class="d-flex justify-content-center">

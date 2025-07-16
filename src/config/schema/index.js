@@ -61,11 +61,20 @@ const articleSchemas = {
             content: 'title',
             footer: 'completed'
         },
+    },
+    kanban: {
+        url: 'null',
+        articleLimit: 0,
+        meta: {
+            heading: 'id',
+            content: 'title',
+            footer: ''
+        },
     }
 };
 
 // TODO: Move to config;
-const articleMappings = {
+const schemaMappings = {
     ...articleSchemas,
     // user: articleSchemas.user,
     // posts: articleSchemas.posts,
@@ -73,4 +82,4 @@ const articleMappings = {
     // engineering: articleSchemas.engineering
 };
 
-export default articleMappings;
+export default schemaMappings;
