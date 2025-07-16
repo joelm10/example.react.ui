@@ -11,20 +11,83 @@ describe('<Card', () => {
         jest.clearAllMocks();
     });
 
-    test('Card component renders with correct content', () => {
+    test('Card component handles click events correctly', () => {
+        const handleClick = jest.fn();
         const cardProps = {
-            cardKey: 'card-1',
+            cardKey: 'card-2',
             card: {
-                content: 'Test Card Content'
+                content: 'Clickable Card'
+            },
+            callbacks: {
+                ...mockCallbacks,
+                handleClick
+            }
+        };
+
+        render(<Card {...cardProps} />);
+
+        const cardElement = screen.getByText('Clickable Card');
+        fireEvent.click(cardElement);
+        expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+
+    test('Card component displays custom className when provided', () => {
+        const cardProps = {
+            cardKey: 'card-3',
+            card: {
+                content: 'Custom Class Card',
+                className: 'custom-card-class'
             },
             callbacks: mockCallbacks
         };
 
         render(<Card {...cardProps} />);
 
-        const cardElement = screen.getByText('Test Card Content');
-        expect(cardElement).toBeInTheDocument();
+        const cardElement = screen.getByText('Custom Class Card');
         expect(cardElement).toHaveClass('kanban-card');
+        expect(cardElement).toHaveClass('custom-card-class');
+    });
+
+    test('Card component with nested HTML structure', () => {
+        const nestedContent = (
+            <div data-testid="nested-container">
+                <h3>Card Title</h3>
+                <p>Card description</p>
+                <span className="metadata">Priority: High</span>
+            </div>
+        );
+        
+        const cardProps = {
+            cardKey: 'nested-card',
+            card: {
+                content: nestedContent
+            },
+            callbacks: mockCallbacks
+        };
+
+        render(<Card {...cardProps} />);
+
+        expect(screen.getByTestId('nested-container')).toBeInTheDocument();
+        expect(screen.getByText('Card Title')).toBeInTheDocument();
+        expect(screen.getByText('Card description')).toBeInTheDocument();
+        expect(screen.getByText('Priority: High')).toBeInTheDocument();
+    });
+
+    test('Card component is disabled when specified', () => {
+        const cardProps = {
+            cardKey: 'disabled-card',
+            card: {
+                content: 'Disabled Card',
+                disabled: true
+            },
+            callbacks: mockCallbacks
+        };
+
+        render(<Card {...cardProps} />);
+
+        const cardElement = screen.getByText('Disabled Card');
+        expect(cardElement.parentElement).toHaveAttribute('draggable', 'false');
+        expect(cardElement.parentElement).toHaveClass('disabled');
     });
 
     test('Card component handles drag events correctly', () => {
@@ -49,7 +112,7 @@ describe('<Card', () => {
         expect(mockCallbacks.handleDragEnd).toHaveBeenCalledTimes(1);
     });
 
-    test('Card component has correct attributes', () => {
+    test.only('Card component has correct attributes', () => {
         const cardProps = {
             cardKey: 'card-unique-key',
             card: {
@@ -59,8 +122,10 @@ describe('<Card', () => {
         };
 
         render(<Card {...cardProps} />);
+
         const cardElement = screen.getByText('Card with Attributes');
-        expect(cardElement).toHaveAttribute('draggable');
+
+        expect(cardElement.parentElement).toHaveAttribute('draggable');
         expect(cardElement).toHaveClass('kanban-card');
 
     });

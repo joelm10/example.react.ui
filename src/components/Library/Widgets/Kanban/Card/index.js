@@ -1,4 +1,5 @@
 import React from 'react';
+import logger from 'helpers/utils/logging';
 /**
  *  This component renders individual cards in the Kanban board,
     including basic drag-and-drop functionality. It can be extended to include more features like editing, deleting, etc.
@@ -11,7 +12,7 @@ const Card = (props) => {
     const {
         cardKey,
         card: { content },
-        callbacks
+        callbacks = {}
     } = props;
 
     const { handleDragEnd, handleDragStart } = callbacks;
@@ -21,27 +22,32 @@ const Card = (props) => {
     const parseContent = (content) => {
         // This function can be extended to parse different types of content
         if (typeof content === 'string') {
-            return <div className="content">{content}</div>;
+            return <div className="kanban-card">{content}</div>;
         } else if (React.isValidElement(content)) {
             return content;
-        } else {
-            console.warn('Unsupported content type:', content);
-            return <div className="content">Unsupported content</div>;
+        } else if (typeof content !== 'string' && !React.isValidElement(content)) {
+            logger('error', 'Invalid content type for card:', content);
+            return (
+                <div className="kanban-card error">
+                    Invalid content: {typeof content}
+                    <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', margin: 0 }}>
+                        {JSON.stringify(content, null, 2)}
+                    </pre>
+                </div>
+            );
+        };
+
+        // Validate content before rendering
+        if (content === null || content === undefined) {
+            logger('warn', 'Card content is null or undefined');
+            return <div className="kanban-card empty">No content</div>;
         }
-    };
-    // Validate content before rendering
-    if (!content) {
-        console.warn('Card content is empty or undefined');
-        return <div className="kanban-card empty">No content</div>;
     }
-    if (typeof content !== 'string' && !React.isValidElement(content)) {
-        console.error('Invalid content type for card:', content);
-        return <div className="kanban-card error">Invalid content</div>;
-    }
+
     const validatedContent = parseContent(content);
     const cardWrapper = (
         <div
-            key={cardKey}
+            data-id={cardKey}
             className="kanban-card"
             draggable
             onDragStart={handleDragStart}
