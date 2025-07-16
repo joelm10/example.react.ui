@@ -2,35 +2,32 @@ import getRouteList from 'helpers/navigation/routing/generators/getRouteList';
 import App from 'App';
 import ErrorComponent from 'components/Library/Atomic/Errors';
 
-// Mock the getRouteList function
-jest.mock('helpers/navigation/routing/generators/getRouteList', () => {
-    return jest.fn();
-});
+const defaultRouteList = [{ "element": <App pageTitle="App Home" />, "errorElement": <ErrorComponent />, "path": "" },
+{ "element": <App pageTitle="App Home" />, "errorElement": <ErrorComponent />, "path": "/" },
+{ "element": <App pageTitle="Home" />, "errorElement": <ErrorComponent />, "path": "/home" },
+{ "element": <App pageTitle="About Me" />, "errorElement": <ErrorComponent />, "path": "/about" },
+{ "element": <App pageTitle="Photography" />, "errorElement": <ErrorComponent />, "path": "/photography" },
+{ "element": <App pageTitle="engineering" />, "errorElement": <ErrorComponent />, "path": "/engineering" },
+{ "element": <App pageTitle="game things" />, "errorElement": <ErrorComponent />, "path": "/game" },
+{ "element": <App pageTitle="chartJS wrapper" />, "errorElement": <ErrorComponent />, "path": "/chart" },
+{ "element": <App pageTitle="kanban board" />, "errorElement": <ErrorComponent />, "path": "/kanban" },
+{ "element": <App pageTitle="About Me" />, "errorElement": <ErrorComponent />, "path": "/about-me" },
+{ "element": <App pageTitle="bar" />, "errorElement": <ErrorComponent />, "path": "/chart/bar" },
+{ "element": <App pageTitle="bubble" />, "errorElement": <ErrorComponent />, "path": "/chart/bubble" },
+{ "element": <App pageTitle="donut" />, "errorElement": <ErrorComponent />, "path": "/chart/donut" },
+{ "element": <App pageTitle="line" />, "errorElement": <ErrorComponent />, "path": "/chart/line" },
+{ "element": <App pageTitle="pie" />, "errorElement": <ErrorComponent />, "path": "/chart/pie" },
+{ "element": <App pageTitle="polarArea" />, "errorElement": <ErrorComponent />, "path": "/chart/polarArea" },
+{ "element": <App pageTitle="radar" />, "errorElement": <ErrorComponent />, "path": "/chart/radar" },
+{ "element": <App pageTitle="scatter" />, "errorElement": <ErrorComponent />, "path": "/chart/scatter" }]
 
-const defaultRouteList = [
-    { "element": <App pageTitle="App Home" />, "path": "", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="App Home" />, "path": "/", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="Home" />, "path": "/home", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="about Me" />, "path": "/about", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="photography" />, "path": "/photography", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="engineering" />, "path": "/engineering", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="game Things" />, "path": "/game", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="chartJS Wrapper" />, "path": "/chart", "errorElement": <ErrorComponent /> },
-    { "element": <App pageTitle="kanban Board" />, "errorElement": <ErrorComponent />, "path": "/kanban", },
-
-    { "element": <App pageTitle="bar" />, "errorElement": <ErrorComponent />, "path": "/chart/bar", },
-    { "element": <App pageTitle="bubble" />, "errorElement": <ErrorComponent />, "path": "/chart/bubble", },
-    { "element": <App pageTitle="donut" />, "errorElement": <ErrorComponent />, "path": "/chart/donut", },
-    { "element": <App pageTitle="line" />, "errorElement": <ErrorComponent />, "path": "/chart/line", },
-    { "element": <App pageTitle="pie" />, "errorElement": <ErrorComponent />, "path": "/chart/pie", },
-];
 
 describe('/helpers/navigation/routing/generators', () => {
     test('getRouteList() should flat map', () => {
-        // Set up the mock to return defaultRouteList
-        getRouteList.mockReturnValue(defaultRouteList);
-
+        // Call the function to get the route list
         const received = getRouteList();
-        expect(received).toEqual(defaultRouteList);
+        // Check if the received route list matches the default route list
+        expect(received).toEqual(expect.arrayContaining(defaultRouteList));
+        // expect(received).toEqual(defaultRouteList);
     });
 });

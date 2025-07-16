@@ -1,3 +1,4 @@
+
 // Sample default cards for the Kanban board
 const defaultCards = [
     { id: 'card-1', content: 'Research user requirements', priority: 'high' },
@@ -9,7 +10,15 @@ const defaultCards = [
 
 // Sample cards for different columns
 const inProgressCards = [
-    { id: 'card-6', content: 'Implement authentication', priority: 'high' },
+    {
+        id: 'card-6', content: (
+            <div>
+                <span>header</span>
+                <div className="content">
+                    Implement authentication
+                </div>
+            </div>), priority: 'high'
+    },
     { id: 'card-7', content: 'Create dashboard layout', priority: 'medium' }
 ];
 

@@ -15,6 +15,7 @@
  * @returns {JSX.Element} A column component with cards.
  */
 import Card from '../Card';
+import ColumnHeader from './Header';
 
 const ColumnWrapper = (props) => {
     const { column, callbacks } = props;
@@ -26,7 +27,8 @@ const ColumnWrapper = (props) => {
             onDragOver={(e) => handleDragOver(e, column.id)}
             onDrop={(e) => handleDrop(e, column.id)}
         >
-            <h2 className="column-title">{column.title}</h2>
+            <ColumnHeader headerTitle={column.title} headerCount={column?.cards?.length} />
+
             <div className="column-content">
                 {column.cards.map(card => {
                     const cardCallbacks = {
