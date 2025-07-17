@@ -1,3 +1,6 @@
+import Card from '../Card';
+import ColumnHeader from './Header';
+
 /**
  * A component that represents a column in a Kanban board.
  * 
@@ -14,9 +17,6 @@
  * @param {Function} props.callbacks.handleDragEnd - Handler for when a drag operation ends.
  * @returns {JSX.Element} A column component with cards.
  */
-import Card from '../Card';
-import ColumnHeader from './Header';
-
 const ColumnWrapper = (props) => {
     const { column, callbacks } = props;
     const { handleDragOver, handleDrop, handleDragStart, handleDragEnd } = callbacks;

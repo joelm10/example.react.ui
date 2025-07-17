@@ -1,3 +1,5 @@
+/* eslint-disable testing-library/no-node-access */
+//TODO: remove this rule when the issue is resolved
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Card from 'components/Library/Widgets/Kanban/Card';

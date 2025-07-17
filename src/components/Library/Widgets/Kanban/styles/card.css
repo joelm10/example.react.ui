@@ -1,0 +1,166 @@
+.kanban-card {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    margin-bottom: 8px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.card-header {
+    >h2 {
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #333;
+        text-transform: uppercase;
+    }
+}
+
+.card-body {
+    padding: 8px 0;
+
+    >p {
+        margin-bottom: 8px;
+        color: #555;
+        font-size: 0.9em;
+    }
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .tag {
+        background-color: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        color: #666;
+    }
+}
+
+
+.field-value {
+    &.name {
+        /* color: pink; */
+    }
+
+    &.description {
+        font-style: normal;
+        color: #666;
+        font-size: medium;
+    }
+
+    &.assignee {
+        /* Styles for assignee field */
+        font-weight: bold;
+        color: #333;
+    }
+
+    &.storyPoints {
+        background: #CCC;
+        color: #000;
+        padding: 2px 6px;
+        border-radius: 0px;
+        font-size: 0.8em;
+        /* border: 1px solid #f5c6cb; */
+        display: inline-block;
+        margin-right: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+
+    }
+
+    &.status {
+        font-weight: bold;
+        color: #007bff;
+        /* Bootstrap primary color */
+    }
+
+    &.priority {
+        font-weight: bold;
+        /* make a tag style */
+        padding: 2px 6px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        display: inline-block;
+
+        &.high {
+            color: #dc3545;
+            /* red */
+        }
+
+        &.medium {
+            color: #fd7e14;
+            /* orange */
+        }
+
+        &.low {
+            color: #28a745;
+            /* green */
+        }
+    }
+
+    &.type {
+        font-weight: bold;
+        /* make a tag style */
+        padding: 2px 6px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        display: inline-block;
+
+
+
+        &[data-property='type'] .field-value {
+            color: #333;
+
+            :contains("Bug") {
+                color: #dc3545;
+                /* red */
+            }
+
+            :contains("Story") {
+                color: #007bff;
+                background: pink;
+                /* blue */
+            }
+
+            &.task {
+                color: #28a745;
+                /* green */
+            }
+
+            &.epic {
+                color: #6f42c1;
+                /* purple */
+            }
+        }
+        &[data-property='type'].field-value:contains("Story") {
+            color: #007bff;
+            text-transform: uppercase;
+        }
+
+        /* make into an icon tag display based on content*/
+
+    }
+
+    &.due-date {
+        font-style: italic;
+        color: #6c757d;
+    }
+}

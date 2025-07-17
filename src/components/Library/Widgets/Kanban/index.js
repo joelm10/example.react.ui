@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './styles/kanbanBoard.css';
 import defaultColumns from './config/kanbanConfig';
 import ColumnWrapper from './Column';
+import logger from 'helpers/utils/logging';
 
 /**
  * A wrapper component for a Kanban board
@@ -16,6 +17,7 @@ const KanbanBoard = ({
     onCardMove,
     children
 }) => {
+
     const [columns, setColumns] = useState(initialColumns);
     const [draggingCard, setDraggingCard] = useState(null);
 
@@ -38,16 +40,22 @@ const KanbanBoard = ({
 
     const handleDrop = (e, targetColumnId) => {
         e.preventDefault();
-
-        if (!draggingCard) return;
-
+        // console.log('handleDrop called with targetColumnId:', targetColumnId);
+        if (!draggingCard) {
+            logger('info', 'No card is being dragged');
+            return;
+        }
         const { card, sourceColumnId } = draggingCard;
 
-        if (sourceColumnId === targetColumnId) return;
-
+        logger('info', `Card ${card.id} dropped from column ${sourceColumnId} to column ${targetColumnId}`);
+        if (sourceColumnId === targetColumnId) {
+            logger('info', `Card ${card.id} dropped in the same column ${sourceColumnId}`);
+            return;
+        }
         const updatedColumns = columns.map(column => {
             // Remove from source column
             if (column.id === sourceColumnId) {
+                logger('info', `Removing card ${card.id} from column ${sourceColumnId}`);
                 return {
                     ...column,
                     cards: column.cards.filter(c => c.id !== card.id)
@@ -56,12 +64,13 @@ const KanbanBoard = ({
 
             // Add to target column
             if (column.id === targetColumnId) {
+                logger('info', `Adding card ${card.id} to column ${targetColumnId}`);
                 return {
                     ...column,
                     cards: [...column.cards, card]
                 };
             }
-
+            logger('info', `No changes made to column ${column.id}`);
             return column;
         });
 
