@@ -1,4 +1,5 @@
 .kanban-card {
+    cursor: pointer;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -14,8 +15,8 @@
 
 .card-header {
     >h2 {
-        font-weight: bold;
-        font-size: 1.1em;
+        font-weight: normal;
+        font-size: 1em;
         color: #333;
         text-transform: uppercase;
     }
@@ -119,7 +120,6 @@
     &.cardKey,
     &.assignee-avatarUrl {
         display: inline-block;
-
     }
 
     &.assignee-avatarUrl {
@@ -129,6 +129,20 @@
         height: 30px;
         margin-right: 4px;
         vertical-align: middle;
+        float: right;
+
+    }
+
+    .initials {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
     }
 
     &.storyPoints {
@@ -183,24 +197,17 @@
         font-size: 0.8em;
         display: inline-block;
 
-        &[data-property='type'] .field-value {
+        [data-property='type'] .field-value {
             color: #333;
+        }
 
-            /*
-            :contains("Story") {
+        /* 
+            Add a class like .task.story in your HTML for Story type and style it here:
+            &.story {
                 color: #007bff;
                 background: pink;
             }
-                */
-
-            &.task {
-                color: #28a745;
-            }
-
-            &.epic {
-                color: #6f42c1;
-            }
-        }
+            */
 
         /* &[data-property='type'].field-value:contains("Story") {
             color: #007bff;
@@ -216,11 +223,37 @@
         color: #6c757d;
     }
 
+    & .epic {
+        color: #FFF;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 2px 6px;
+        border-radius: 4%;
+        font-size: 0.8em;
+        display: inline-block;
+        margin-right: 4px;
+        /* TODO add colour based on schema or data values */
+        background: red;
+    }
 }
 
 .badge {
+    color: #fff;
+
+    &.badge-highest {
+        background-color: #9c1321;
+    }
+
     &.badge-high {
         background-color: #dc3545;
-        color: #fff;
+    }
+
+    &.badge-medium {
+        background-color: #fd7e14;
+    }
+
+    &.badge-low {
+        background-color: #28a745;
+        border: 1px solid darken(#28a745, 10%);
     }
 }

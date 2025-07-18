@@ -59,7 +59,7 @@ const cardSchema = {
         issueType: {
             isDisplayable: true,
             displayType: 'icon',
-            type: 'icon',
+            type: 'string',
             description: 'Issue type (e.g., "Bug", "Story", "Task", "Epic")',
         },
         priority: {
@@ -118,12 +118,18 @@ const cardSchema = {
         },
         // Planning and tracking
         epic: {
+            isDisplayable: true,
+            displayType: 'epic',
             type: 'object',
             description: 'Epic this card belongs to',
             properties: {
                 id: { type: 'string' },
                 cardKey: { type: 'string' },
-                name: { type: 'string' },
+                name: {
+                    type: 'string',
+                    isDisplayable: true,
+                    displayType: 'epic',
+                },
                 color: { type: 'string' },
             },
         },

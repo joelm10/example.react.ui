@@ -56,7 +56,7 @@ const mockCards = [
         assignee: {
             id: "user-5",
             name: "Eva Martinez",
-            avatarUrl: "https://i.pravatar.cc/30?img=42",
+            avatarUrl: "",
             email: "eva@example.com"
         },
         reporter: {

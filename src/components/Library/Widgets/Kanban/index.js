@@ -1,6 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Fragment } from 'react';
 import './styles/kanbanBoard.css';
 import defaultColumns from './config/kanbanConfig';
+import KanbanHeader from './Header';
+import KanbanInfoHeader from './Header/InfoHeader';
 import ColumnWrapper from './Column';
 import logger from 'helpers/utils/logging';
 import socketWrapper from './network/socketIO'; // Import your socket configuration
@@ -51,12 +53,14 @@ const KanbanBoard = ({
         });
         socket.on(boardEvents.ADD_CARD, (data) => {
             logger('info', 'Card added:', data);
-            // Handle card add logic here
+            // Handle card add logic here, to be triggered from UI or other events
         });
+        // triggered when card is updated in column, or moved across columns
         socket.on(boardEvents.UPDATE_CARD, (data) => {
             logger('info', 'Card updated:', data);
             // Handle card update logic here
         });
+        logger('info', 'Socket event listeners initialized for Kanban board');
         // Cleanup socket listeners on unmount
         return () => {
             socket.off(boardEvents.SAVE_CARD);
@@ -108,24 +112,22 @@ const KanbanBoard = ({
 
     const handleDrop = async (e, targetColumnId) => {
         e.preventDefault();
-        // console.log('handleDrop called with targetColumnId:', targetColumnId);
+
         if (!draggingCard) {
-            logger('info', 'No card is being dragged');
+            logger('info', 'handleDrop() No card is being dragged');
             return;
         }
         const { card, sourceColumnId } = draggingCard;
 
-        logger('info', `Card ${card.id} dropped from column ${sourceColumnId} to column ${targetColumnId}`);
         if (sourceColumnId === targetColumnId) {
             logger('info', `Card ${card.id} dropped in the same column ${sourceColumnId}`);
+            // ADD IN SORTING AND RETURN HERE
             return;
         }
         // TODO: add sort order of cards in the column
         // Update the columns state by removing the card from the source column
         // and adding it to the target column
-        // logger('info', 'Updating columns after drop');
-        // console.log('Columns before drop:', columns);
-        // logger('info', 'Columns before drop:', columns);
+
         const updatedColumns = columns.map(column => {
             // Remove from source column
             if (column.id === sourceColumnId) {
@@ -139,8 +141,13 @@ const KanbanBoard = ({
             // Add to target column
             if (column.id === targetColumnId) {
                 logger('info', `Adding card ${card.id} to column ${targetColumnId}`);
+
                 return {
                     ...column,
+                    // add sorting here, based on the following logic:
+                    // if target is in same column, reorder based on the drop target in current column
+                    // if in different column, reorder badsed on the drop target in new column
+                    // For simplicity, just append to the end of the column
                     cards: [...column.cards, card]
                 };
             }
@@ -148,30 +155,40 @@ const KanbanBoard = ({
             return column;
         });
 
-        logger('info', 'Updated columns after drop:', updatedColumns);
-        // should fire network request to update the backend
-        await dataUpdateActions.updateCardState(updatedColumns);
+        if (updatedColumns && updatedColumns.length > 0) {
+            logger('info', 'Updated columns after drop:', updatedColumns);
+            // should fire network request to update the backend
+            await dataUpdateActions.updateCardState(updatedColumns);
+
+        } else {
+            logger('error', 'No updated columns provided after drop');
+        }
 
     };
 
+    const columnContent = columns && columns.map(column => (
+        <ColumnWrapper
+            key={column.id}
+            column={column}
+            callbacks={{
+                handleDragStart,
+                handleDragEnd,
+                handleDragOver,
+                handleDrop,
+            }}
+        />
+    ));
+
     return (
-        <div className="kanban-board" >
-            {
-                columns.map(column => (
-                    <ColumnWrapper
-                        key={column.id}
-                        column={column}
-                        callbacks={{
-                            handleDragStart,
-                            handleDragEnd,
-                            handleDragOver,
-                            handleDrop,
-                        }}
-                    />
-                ))
-            }
-            {children}
-        </div >
+        <Fragment>
+            <KanbanInfoHeader />
+            <KanbanHeader />
+
+            <div className="kanban-board" >
+                {columnContent}
+                {children}
+            </div >
+        </Fragment>
     );
 };
 

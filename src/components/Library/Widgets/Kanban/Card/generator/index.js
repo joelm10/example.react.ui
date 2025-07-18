@@ -59,7 +59,7 @@ const generateCardMarkup = (inputData, cardSchema) => {
                     const subIsValid = subPropertySchema?.isValid ?? true;
                     const subErrorMessage = subPropertySchema?.error || '';
 
-                    const nestedField = renderFields(subKey, subValue, subPropertySchema, subErrorMessage, subIsValid, true, key);
+                    const nestedField = renderFields(subKey, subValue, subPropertySchema, subErrorMessage, subIsValid, true, key, value);
                     return subIsDisplayable && nestedField;
                 });
             }
@@ -98,6 +98,15 @@ const generateCardMarkup = (inputData, cardSchema) => {
     );
 };
 
+const getInitials = (name) => {
+    if (!name) return '';
+    const parts = name.split(' ');
+    if (parts.length === 1) {
+        return parts[0].charAt(0).toUpperCase();
+    }
+    return parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase();
+};
+
 /**
  * Renders fields for a Kanban card.
  * 
@@ -110,17 +119,27 @@ const generateCardMarkup = (inputData, cardSchema) => {
  * @param {boolean} isNested - Whether the field is nested within another field.
  * @returns {JSX.Element} A div containing the rendered field with appropriate styling.
  */
-const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid, isNested, parentKey) => {
+const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid, isNested, parentKey, parentValue) => {
+    // TODO: Add button click event handlers
     const fieldClass = isPropertyValid ? '' : 'field-invalid';
     const fieldErrorClass = errorMessage ? 'field-error' : '';
     const fieldKey = isNested ? `${parentKey}-${key}` : key;
     const fieldType = propertySchema?.displayType || propertySchema.type;
     let renderField = null;
-
+    const formattedValue = formatValue(value, propertySchema?.type);
     // TODO: build out content handlers based on displayType
     if (fieldType === 'image') {
-        renderField = (<img src={value} alt={key} className={`field-${fieldKey}`} />);
-    } else if (fieldType === 'icon') {
+        if (!value || typeof value !== 'string') {
+            const letters = getInitials(parentValue?.name);
+            renderField = (
+                <span className="field-value initials" title={parentValue.name}>
+                    {letters}
+                </span>
+            );
+        } else {
+            renderField = (<img src={value} alt={key} className={`field-${fieldKey}`} />);
+        }
+    } else if (fieldType === 'icons') {
         // console.log('ICON->fieldType', fieldType, 'value', value);
         renderField = (
             <span className={`icon field-${fieldKey}`}>
@@ -135,14 +154,23 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
                 {value}
             </span>
         );
-    } else {
-        //   console.log('fieldType', fieldType, 'value', value);
+    } else if (fieldType === 'epic') {
+        // TODO: consider schema specific type handlers, eg: epic handler
         renderField = (
-            <div className={`field-value field-${fieldKey} ${fieldClass} ${fieldErrorClass}`}>
-                {formatValue(value, propertySchema?.type)}
+            <span className={`epic epic-${value.toLowerCase()}`}>
+                {value}
+            </span>
+        );
+    } else {
+        renderField = (
+            <div
+                className={`field-value field-${fieldKey} ${fieldClass} ${fieldErrorClass}`}
+                title={formattedValue}>
+                {formattedValue}
             </div>
         );
     }
+
     const renderedFields = (
         <div
             key={fieldKey}
@@ -150,6 +178,7 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
             data-property={fieldKey}
             data-is-nested={isNested}
             data-type={propertySchema?.type}
+            title={formattedValue}
         >
             {renderField}
             {errorMessage && <div className="field-error-message">{errorMessage}</div>}

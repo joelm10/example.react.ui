@@ -1,4 +1,4 @@
-import mockCards from "../mockData/dataMockCards";
+import mockCards from "../__mockData/dataMockCards";
 
 // Sample default cards for the Kanban board
 const defaultCards = [

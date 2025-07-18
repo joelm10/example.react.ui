@@ -8,7 +8,7 @@
 
 // import mock data for the KanbanBoard component
 // The mock data simulates the default columns and cards that would be present in the KanbanBoard.
-import mockCards from 'components/Library/Widgets/Kanban/mockData/dataMockCards';
+import mockCards from 'components/Library/Widgets/Kanban/__mockData/dataMockCards';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';

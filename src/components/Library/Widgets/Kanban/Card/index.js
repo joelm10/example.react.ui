@@ -1,6 +1,6 @@
 import generateCardMarkup from './generator';
 import defaultSchema from '../config/schema/cardSchema';
-import '../styles/card.css';
+import './card.css';
 
 /**
  *  This component renders individual cards in the Kanban board,

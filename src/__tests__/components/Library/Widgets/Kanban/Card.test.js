@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Card from '../../../../../components/Library/Widgets/Kanban/Card';
-import mockCards from 'components/Library/Widgets/Kanban/mockData/dataMockCards';
+import mockCards from 'components/Library/Widgets/Kanban/__mockData/dataMockCards';
 /* Note all these fields are required for cardSchema.js to be valid. 
     'id',
     'cardKey',
