@@ -152,10 +152,10 @@ const cardSchema = {
             'description',
             'status',
             'issueType',
-            'cardKey', 
+            'cardKey',
             'storyPoints',
             'priority',
-        'assignee',
+            'assignee',
             'reporter',
             'watchers',
             'epic',
@@ -167,5 +167,5 @@ const cardSchema = {
         ],
     }
 };
-
-export default cardSchema;
+const defaultSchema = cardSchema;
+export default defaultSchema;

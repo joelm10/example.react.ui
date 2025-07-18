@@ -1,5 +1,5 @@
 import generateCardMarkup from './generator';
-import cardSchema from '../config/schema/cardSchema';
+import defaultSchema from '../config/schema/cardSchema';
 import '../styles/card.css';
 
 /**
@@ -27,7 +27,8 @@ const Card = (props) => {
     const {
         cardKey,
         card,
-        callbacks = {}
+        callbacks = {},
+        cardSchema = defaultSchema
     } = props;
 
     const { handleDragEnd, handleDragStart } = callbacks;
