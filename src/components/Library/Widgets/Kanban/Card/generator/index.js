@@ -1,7 +1,31 @@
 import logger from "helpers/utils/logging";
 import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
+import { getInitials } from "../../helpers/string/getInitials";
+import { validateAgainstSchema } from "../../helpers/validators/validateAgainstSchema";
+import { formatValue } from "../../helpers/validators/formatValue";
+
 /**
- * Generates markup for displaying card data based on validation against the schema
+ * Generates React markup for a card component based on input data and schema.
+ * 
+ * @param {Object} inputData - The data to render in the card
+ * @param {Object} cardSchema - Schema that defines the structure, validation rules, and display order
+ * @returns {JSX.Element} React element representing the card
+ * 
+ * @description
+ * This function generates a card with the following structure:
+ * - Header: Contains the summary if available
+ * - Body: Contains all displayable fields from the input data, ordered according to schema
+ * - Footer: Contains validation errors if input data doesn't conform to schema
+ * 
+ * The function performs the following operations:
+ * 1. Validates input data against the provided schema
+ * 2. Orders the data according to schema's UI order preference
+ * 3. Generates the card header from the summary field if available
+ * 4. Generates the card body by rendering each field, handling nested objects
+ * 5. Adds a footer with validation errors if any exist
+ * 6. Returns a complete card component with appropriate styling
+ * 
+ * @throws Returns an invalid card component if input data is missing, invalid, or has no displayable content
  */
 const generateCardMarkup = (inputData, cardSchema) => {
     // Handle empty/missing input data
@@ -98,15 +122,6 @@ const generateCardMarkup = (inputData, cardSchema) => {
     );
 };
 
-const getInitials = (name) => {
-    if (!name) return '';
-    const parts = name.split(' ');
-    if (parts.length === 1) {
-        return parts[0].charAt(0).toUpperCase();
-    }
-    return parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase();
-};
-
 /**
  * Renders fields for a Kanban card.
  * 
@@ -137,7 +152,13 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
                 </span>
             );
         } else {
-            renderField = (<img src={value} alt={key} className={`field-${fieldKey}`} />);
+            renderField = (
+                <img
+                    src={value}
+                    alt={parentValue.name}
+                    className={`field-${fieldKey}`}
+                />
+            );
         }
     } else if (fieldType === 'icons') {
         // console.log('ICON->fieldType', fieldType, 'value', value);
@@ -171,6 +192,7 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
         );
     }
 
+    const renderErrorContent = errorMessage && (<div className="field-error-message">{errorMessage}</div>);
     const renderedFields = (
         <div
             key={fieldKey}
@@ -178,17 +200,21 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
             data-property={fieldKey}
             data-is-nested={isNested}
             data-type={propertySchema?.type}
-            title={formattedValue}
+            title={parentValue?.name || formattedValue}
         >
             {renderField}
-            {errorMessage && <div className="field-error-message">{errorMessage}</div>}
+            {renderErrorContent}
         </div>
     );
     return renderedFields;
 };
 
 /**
- * Renders an invalid card with error messages
+ * Renders an invalid card component with an error message and optional error list.
+ * 
+ * @param {string} message - The main error message to display in the card.
+ * @param {Array<string>} [errors=[]] - Optional array of error messages to display as a list.
+ * @returns {JSX.Element} A React element representing the invalid card.
  */
 const renderInvalidCard = (message, errors = []) => (
     <div className="card-invalid">
@@ -205,138 +231,5 @@ const renderInvalidCard = (message, errors = []) => (
         </div>
     </div>
 );
-
-/**
- * Validates input data against a schema
- */
-const validateAgainstSchema = (data, schema) => {
-    const results = {
-        isValid: true,
-        errors: [],
-        propertyResults: {}
-    };
-
-    if (!data || typeof data !== 'object') {
-        results.isValid = false;
-        results.errors.push('Input data is not an object');
-        return results;
-    }
-
-    // Check required fields
-    if (schema.required?.length) {
-        schema.required.forEach(field => {
-            const isFieldValid = data[field] !== undefined && data[field] !== null && data[field] !== '';
-            if (!isFieldValid) {
-                addValidationError(
-                    results,
-                    field,
-                    `${schema.properties[field]?.title || field} is required`
-                );
-                results.propertyResults[field] = {
-                    isDisplayable: false,
-                    isValid: false,
-                    error: results.errors[results.errors.length - 1]
-                };
-            } else {
-                results.propertyResults[field] = { isValid: true, error: null };
-            }
-        });
-    }
-
-    // Validate property types and constraints
-    if (schema.properties) {
-        Object.entries(schema.properties).forEach(([key, prop]) => {
-            // TODO check if object contains child objects and iterate over its keys
-
-            // Check for child objects
-            if (typeof data[key] === 'object' && !Array.isArray(data[key])) {
-                const childResults = validateAgainstSchema(data[key], prop);
-                results.isValid = results.isValid && childResults.isValid;
-                results.errors.push(...childResults.errors);
-                results.propertyResults[key] = childResults.propertyResults;
-                return;
-            }
-
-            const isDisplayable = prop?.isDisplayable ?? false;
-
-            if (!results.propertyResults[key]) {
-                results.propertyResults[key] = {
-                    // add all additional properties for key
-                    ...prop,
-                    isDisplayable,
-                    isValid: true,
-                    error: null
-                };
-            } else {
-                results.propertyResults[key].isDisplayable = isDisplayable;
-            }
-
-            if (data[key] == null) return;
-
-            // Type validation
-            if (prop.type === 'string' && typeof data[key] !== 'string') {
-                addValidationError(results, key, `${prop.title || key} must be a string`);
-            } else if (prop.type === 'number' && typeof data[key] !== 'number') {
-                addValidationError(results, key, `${prop.title || key} must be a number`);
-            }
-
-            // String constraints
-            if (prop.type === 'string') {
-                if (prop.minLength && data[key].length < prop.minLength) {
-                    addValidationError(results, key, `${prop.title || key} must be at least ${prop.minLength} characters`);
-                }
-                if (prop.maxLength && data[key].length > prop.maxLength) {
-                    addValidationError(results, key, `${prop.title || key} must not exceed ${prop.maxLength} characters`);
-                }
-                if (prop.pattern && !new RegExp(prop.pattern).test(data[key])) {
-                    addValidationError(results, key, `${prop.title || key} has an invalid format`);
-                }
-            }
-
-            // Number constraints
-            if (prop.type === 'number') {
-                if (prop.minimum !== undefined && data[key] < prop.minimum) {
-                    addValidationError(results, key, `${prop.title || key} must be at least ${prop.minimum}`);
-                }
-                if (prop.maximum !== undefined && data[key] > prop.maximum) {
-                    addValidationError(results, key, `${prop.title || key} must not exceed ${prop.maximum}`);
-                }
-            }
-        });
-    }
-
-    return results;
-};
-
-/**
- * Helper function to add validation errors
- */
-const addValidationError = (results, field, errorMessage) => {
-    results.isValid = false;
-    results.errors.push(errorMessage);
-
-    results.propertyResults[field] = results.propertyResults[field] || {};
-    results.propertyResults[field].isValid = false;
-    results.propertyResults[field].error = errorMessage;
-};
-
-/**
- * Format value based on type
- */
-const formatValue = (value, type) => {
-    if (value == null) {
-        return <span className="empty-value">Value Not provided</span>;
-    }
-
-    switch (type) {
-        case 'string': return value;
-        case 'number':
-        case 'integer': return typeof value === 'number' ? value.toString() : '0';
-        case 'boolean': return value ? 'Yes' : 'No';
-        case 'array': return Array.isArray(value) ? value.join(', ') : value;
-        case 'object': return JSON.stringify(value);
-        default: return String(value);
-    }
-};
 
 export default generateCardMarkup;

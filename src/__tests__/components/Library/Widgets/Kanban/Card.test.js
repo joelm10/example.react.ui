@@ -1,5 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Card from '../../../../../components/Library/Widgets/Kanban/Card';
 import mockCards from 'components/Library/Widgets/Kanban/__mockData/dataMockCards';
