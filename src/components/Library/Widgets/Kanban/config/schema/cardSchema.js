@@ -8,11 +8,7 @@ const cardSchema = {
         'cardKey',
         'summary',
         'status',
-        'type',
-        'priority',
-        'assignee',
-        'reporter',
-        'watchers',
+        'issueType',
         'epic',
         'sprint',
         'storyPoints'
@@ -39,6 +35,7 @@ const cardSchema = {
             type: 'string',
             description: 'Project cardKey with issue number (e.g., "PROJ-123")',
             required: true,
+            isDisplayable: true,
         },
         summary: {
             isDisplayable: false,
@@ -59,14 +56,15 @@ const cardSchema = {
             description: 'Current status of the card (e.g., "To Do", "In Progress", "Done")',
             required: true,
         },
-        type: {
+        issueType: {
             isDisplayable: true,
-            type: 'string',
+            displayType: 'icon',
+            type: 'icon',
             description: 'Issue type (e.g., "Bug", "Story", "Task", "Epic")',
-            required: true,
         },
         priority: {
             isDisplayable: true,
+            displayType: 'badge',
             type: 'string',
             description: 'Priority level (e.g., "Highest", "High", "Medium", "Low", "Lowest")',
         },
@@ -80,11 +78,20 @@ const cardSchema = {
                     isDisplayable: false
                 },
                 name: {
+                    displayType: 'string',
                     type: 'string',
-                    isDisplayable: true
+                    isDisplayable: false
                 },
-                avatarUrl: { type: 'string' },
-                email: { type: 'string' },
+                avatarUrl: {
+                    displayType: 'image',
+                    description: 'URL to the user\'s avatar image',
+                    isDisplayable: true,
+                    altText: 'string',
+                    required: true,
+                    format: 'uri',
+                    type: 'string',
+                },
+                email: { type: 'string', isDisplayable: false },
             },
         },
         reporter: {
@@ -138,16 +145,17 @@ const cardSchema = {
         }
     },
     ui: {
+        /** Field order for the card - ensure these values are present or it will be discarded at render */
         order: [
             'id',
-            'cardKey',
             'summary',
             'description',
-            'storyPoints',
             'status',
-            'type',
+            'issueType',
+            'cardKey', 
+            'storyPoints',
             'priority',
-            'assignee',
+        'assignee',
             'reporter',
             'watchers',
             'epic',

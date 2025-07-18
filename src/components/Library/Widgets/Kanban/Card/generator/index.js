@@ -1,5 +1,5 @@
 import logger from "helpers/utils/logging";
-
+import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 /**
  * Generates markup for displaying card data based on validation against the schema
  */
@@ -33,7 +33,7 @@ const generateCardMarkup = (inputData, cardSchema) => {
     // Generate card content
     const cardClass = 'card-valid';
     const header = orderedInputData.summary ? (
-        <span className="card-header" onClick="href:javascript:void(0);">
+        <span className="card-header" data-property="summary">
             <h2>{orderedInputData.summary}</h2>
         </span>
     ) : null;
@@ -46,20 +46,19 @@ const generateCardMarkup = (inputData, cardSchema) => {
             const isPropertyValid = propertySchema?.isValid ?? true;
             const errorMessage = propertySchema?.error || '';
             const topLevelFields = isDisplayable && renderFields(key, value, propertySchema, errorMessage, isPropertyValid, false, '');
-
             // check if property is an object with child objects and iterate over its keys if it is
             if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+                // should iterate, but retain references to child object
                 return Object.entries(value).map(([subKey, subValue]) => {
-                    // TODO: correct isDisplayable logic for nested properties
                     if (subValue === null || subValue === undefined) {
                         return null; // Skip null or undefined values
                     }
-        
-                    const subPropertySchema = value.properties?.[subKey] || {};
-                    console.log(value, subKey, subValue, subPropertySchema);
+
+                    const subPropertySchema = propertySchema[subKey];
                     const subIsDisplayable = subPropertySchema?.isDisplayable ?? true;
                     const subIsValid = subPropertySchema?.isValid ?? true;
                     const subErrorMessage = subPropertySchema?.error || '';
+
                     const nestedField = renderFields(subKey, subValue, subPropertySchema, subErrorMessage, subIsValid, true, key);
                     return subIsDisplayable && nestedField;
                 });
@@ -82,8 +81,16 @@ const generateCardMarkup = (inputData, cardSchema) => {
     ) : null;
 
     // Return the complete card
+    // TODO leverage makeKey function to generate unique keys
+    if (!header && !body.length && !footer) {
+        logger('warn', 'Card has no displayable content');
+        return renderInvalidCard("Card has no displayable content");
+    }
     return (
-        <div className={`card-container ${cardClass}`}>
+        <div
+            className={`card-container ${cardClass}`}
+            key={makeUniqueKeyStr(orderedInputData.id || 'card')}
+        >
             {header}
             <div className="card-body">{body}</div>
             {footer}
@@ -106,17 +113,45 @@ const generateCardMarkup = (inputData, cardSchema) => {
 const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid, isNested, parentKey) => {
     const fieldClass = isPropertyValid ? '' : 'field-invalid';
     const fieldErrorClass = errorMessage ? 'field-error' : '';
-    const fieldKey = isNested ? `${parentKey}.${key}` : key;
-    const renderedFields = (
-        <div
-            className={`field-value ${fieldKey}`}
-            data-property={fieldKey}
-            data-isNested={isNested}
-            data-type={propertySchema?.type}
-        >
-            <div className={`field-value ${fieldClass} ${fieldErrorClass}`}>
+    const fieldKey = isNested ? `${parentKey}-${key}` : key;
+    const fieldType = propertySchema?.displayType || propertySchema.type;
+    let renderField = null;
+
+    // TODO: build out content handlers based on displayType
+    if (fieldType === 'image') {
+        renderField = (<img src={value} alt={key} className={`field-${fieldKey}`} />);
+    } else if (fieldType === 'icon') {
+        // console.log('ICON->fieldType', fieldType, 'value', value);
+        renderField = (
+            <span className={`icon field-${fieldKey}`}>
+                <i className={`icon-${value.toLowerCase()}`} />
+                {value}ICON
+            </span>
+        );
+    } else if (fieldType === 'badge') {
+        // console.log('BADGE->fieldType', fieldType, 'value', value);
+        renderField = (
+            <span className={`badge badge-${value.toLowerCase()}`}>
+                {value}
+            </span>
+        );
+    } else {
+        //   console.log('fieldType', fieldType, 'value', value);
+        renderField = (
+            <div className={`field-value field-${fieldKey} ${fieldClass} ${fieldErrorClass}`}>
                 {formatValue(value, propertySchema?.type)}
             </div>
+        );
+    }
+    const renderedFields = (
+        <div
+            key={fieldKey}
+            className={`field-value ${fieldKey}`}
+            data-property={fieldKey}
+            data-is-nested={isNested}
+            data-type={propertySchema?.type}
+        >
+            {renderField}
             {errorMessage && <div className="field-error-message">{errorMessage}</div>}
         </div>
     );
@@ -182,10 +217,23 @@ const validateAgainstSchema = (data, schema) => {
     // Validate property types and constraints
     if (schema.properties) {
         Object.entries(schema.properties).forEach(([key, prop]) => {
+            // TODO check if object contains child objects and iterate over its keys
+
+            // Check for child objects
+            if (typeof data[key] === 'object' && !Array.isArray(data[key])) {
+                const childResults = validateAgainstSchema(data[key], prop);
+                results.isValid = results.isValid && childResults.isValid;
+                results.errors.push(...childResults.errors);
+                results.propertyResults[key] = childResults.propertyResults;
+                return;
+            }
+
             const isDisplayable = prop?.isDisplayable ?? false;
 
             if (!results.propertyResults[key]) {
                 results.propertyResults[key] = {
+                    // add all additional properties for key
+                    ...prop,
                     isDisplayable,
                     isValid: true,
                     error: null

@@ -1,5 +1,6 @@
 import Card from '../Card';
 import ColumnHeader from './Header';
+import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 
 /**
  * A component that represents a column in a Kanban board.
@@ -37,7 +38,7 @@ const ColumnWrapper = (props) => {
                     };
                     return (
                         <Card
-                            key={card.id}
+                            key={makeUniqueKeyStr(`card-${card.id}`)}
                             cardKey={card.id}
                             column={column}
                             card={card}

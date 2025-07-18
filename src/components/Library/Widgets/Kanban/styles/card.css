@@ -56,9 +56,11 @@
 
 
 .field-value {
-    &.name {
-        /* color: pink; */
-    }
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
 
     &.description {
         font-style: normal;
@@ -70,6 +72,63 @@
         /* Styles for assignee field */
         font-weight: bold;
         color: #333;
+    }
+
+    &.assignee-name {
+        font-weight: bold;
+        color: #333;
+        margin-right: 4px;
+    }
+
+    &.assignee-email {
+        font-style: italic;
+        color: #666;
+        margin-right: 4px;
+    }
+
+    &.assignee-id {
+        font-style: italic;
+        color: #999;
+        margin-right: 4px;
+    }
+
+    &.reporter {
+        font-weight: bold;
+        color: #333;
+    }
+
+    &.reporter-name {
+        font-weight: bold;
+        color: #333;
+        margin-right: 4px;
+    }
+
+    &.reporter-email {
+        font-style: italic;
+        color: #666;
+        margin-right: 4px;
+    }
+
+    &.reporter-id {
+        font-style: italic;
+        color: #999;
+        margin-right: 4px;
+    }
+
+    &.issueType,
+    &.cardKey,
+    &.assignee-avatarUrl {
+        display: inline-block;
+
+    }
+
+    &.assignee-avatarUrl {
+        overflow: hidden;
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+        margin-right: 4px;
+        vertical-align: middle;
     }
 
     &.storyPoints {
@@ -124,36 +183,29 @@
         font-size: 0.8em;
         display: inline-block;
 
-
-
         &[data-property='type'] .field-value {
             color: #333;
 
-            :contains("Bug") {
-                color: #dc3545;
-                /* red */
-            }
-
+            /*
             :contains("Story") {
                 color: #007bff;
                 background: pink;
-                /* blue */
             }
+                */
 
             &.task {
                 color: #28a745;
-                /* green */
             }
 
             &.epic {
                 color: #6f42c1;
-                /* purple */
             }
         }
-        &[data-property='type'].field-value:contains("Story") {
+
+        /* &[data-property='type'].field-value:contains("Story") {
             color: #007bff;
             text-transform: uppercase;
-        }
+        } */
 
         /* make into an icon tag display based on content*/
 
@@ -162,5 +214,13 @@
     &.due-date {
         font-style: italic;
         color: #6c757d;
+    }
+
+}
+
+.badge {
+    &.badge-high {
+        background-color: #dc3545;
+        color: #fff;
     }
 }

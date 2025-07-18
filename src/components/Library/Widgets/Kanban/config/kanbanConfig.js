@@ -3,6 +3,7 @@ import mockCards from "../mockData/dataMockCards";
 // Sample default cards for the Kanban board
 const defaultCards = [
     ...mockCards
+    // mockCards[0]
 ];
 
 // Sample cards for different columns
