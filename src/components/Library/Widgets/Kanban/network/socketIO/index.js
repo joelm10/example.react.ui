@@ -8,10 +8,10 @@ const socketWrapper = (config) => {
         logger('error', 'Socket endpoint URL is required');
         return null;
     }
-    new URL(endPointUrl); // Validate URL format}
-    const socket = io(endPointUrl, options);
+    const validUrl = new URL(endPointUrl); // Validate URL format
+    const socket = io(validUrl, options);
 
-    logger('info', 'socketWrapper initialized with URL:', endPointUrl);
+    logger('info', `... attempting to connect to Socket at URL: ${validUrl}`);
 
     socket.on('connect', () => {
         logger('info', 'Socket connected:', socket.id);

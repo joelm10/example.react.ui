@@ -7,6 +7,7 @@ const mockCards = [
         status: "In Progress",
         issueType: "Story",
         priority: "High",
+        displayOrder: 2,
         assignee: {
             id: "user-1",
             name: "Alice Johnson",
@@ -53,6 +54,7 @@ const mockCards = [
         status: "To Do",
         issueType: "Bug",
         priority: "Medium",
+        displayOrder: 3,
         assignee: {
             id: "user-5",
             name: "Eva Martinez",
@@ -88,6 +90,7 @@ const mockCards = [
         status: "In Progress",
         issueType: "Task",
         priority: "Highest",
+        displayOrder: 4,
         assignee: {
             id: "user-6",
             name: "Frank Thomas",
@@ -159,6 +162,7 @@ const mockCards = [
         status: "Done",
         issueType: "Task",
         priority: "Low",
+        displayOrder: 5,
         assignee: {
             id: "user-1",
             name: "Alice Johnson",
@@ -194,6 +198,7 @@ const mockCards = [
         status: "Done",
         issueType: "Bug",
         priority: "Medium",
+        displayOrder: 1,
         assignee: {
             id: "user-5",
             name: "Eva Martinez",
@@ -229,6 +234,7 @@ const mockCards = [
         status: "To Do",
         issueType: "Task",
         priority: "Low",
+        displayOrder: 8,
         assignee: {
             id: "user-6",
             name: "Frank Thomas",
@@ -270,6 +276,7 @@ const mockCards = [
         status: "In Progress",
         issueType: "Story",
         priority: "High",
+        displayOrder: 9,
         assignee: {
             id: "user-9",
             name: "Irene Clark",
@@ -316,6 +323,7 @@ const mockCards = [
         status: "To Do",
         issueType: "Bug",
         priority: "Highest",
+        displayOrder: 10,
         assignee: {
             id: "user-10",
             name: "Jack Robinson",

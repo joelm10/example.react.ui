@@ -25,6 +25,11 @@ const cardSchema = {
             description: 'Creation date of the card',
             required: true,
         },
+        displayOrder: {
+            type: 'number',
+            description: 'Display order of the card in the column',
+            required: false,
+        },
         // Core fields
         id: {
             type: 'string',
