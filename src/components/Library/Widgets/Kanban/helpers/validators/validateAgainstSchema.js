@@ -62,21 +62,25 @@ export const validateAgainstSchema = (data, schema) => {
                 results.propertyResults[key] = childResults.propertyResults;
                 return;
             }
-
+            // Handle displayable property
             const isDisplayable = prop?.isDisplayable ?? false;
 
             if (!results.propertyResults[key]) {
                 results.propertyResults[key] = {
                     // add all additional properties for key
                     ...prop,
-                    isDisplayable,
                     isValid: true,
                     error: null
                 };
             } else {
                 results.propertyResults[key].isDisplayable = isDisplayable;
             }
-
+            // Always add display type and isDisplayable
+            results.propertyResults[key] = {
+                ...prop,
+                displayType: prop?.displayType || 'text',
+                isDisplayable,
+            }
             if (data[key] == null) return;
 
             // Type validation

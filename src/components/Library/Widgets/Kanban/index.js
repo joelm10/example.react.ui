@@ -101,10 +101,10 @@ const KanbanBoard = ({
         // handle all events which should trigger a data update
         updateCardState: (updatedColumns) => {
             if (!updatedColumns || !Array.isArray(updatedColumns)) {
-                logger('error', 'updateCardState() called with invalid columns:', updatedColumns);
+                // logger('error', 'updateCardState() called with invalid columns:', updatedColumns);
                 return;
             }
-            logger('info', 'updateCardState()->Updating card state with new columns:', updatedColumns);
+            // logger('info', 'updateCardState()->Updating card state with new columns:', updatedColumns);
             socket.emit(boardEvents.MOVE_CARD, updatedColumns);
             setColumns(updatedColumns);
         }
@@ -228,7 +228,7 @@ const KanbanBoard = ({
         e.preventDefault();
 
         if (!draggingCard) {
-            logger('info', 'handleDrop() No card is being dragged');
+            // logger('info', 'handleDrop() No card is being dragged');
             return;
         }
 
@@ -238,7 +238,7 @@ const KanbanBoard = ({
         let updatedColumns = JSON.parse(JSON.stringify(columns));
 
         if (sourceColumnId === targetColumnId) {
-            logger('info', `Card ${card.id} dropped in the same column ${sourceColumnId} at order ${targetCardId || 'end'}`);
+            // logger('info', `Card ${card.id} dropped in the same column ${sourceColumnId} at order ${targetCardId || 'end'}`);
 
             // Find the source column
             const columnIndex = updatedColumns.findIndex(col => col.id === sourceColumnId);
@@ -281,7 +281,7 @@ const KanbanBoard = ({
         updatedColumns = updatedColumns.map(column => {
             // Remove from source column
             if (column.id === sourceColumnId) {
-                logger('info', `Removing card ${card.id} from column ${sourceColumnId}`);
+                // logger('info', `Removing card ${card.id} from column ${sourceColumnId}`);
                 const filteredCards = column.cards.filter(c => c.id !== card.id);
 
                 // Update displayOrder for remaining cards in source column
@@ -297,7 +297,7 @@ const KanbanBoard = ({
 
             // Add to target column
             if (column.id === targetColumnId) {
-                logger('info', `Adding card ${card.id} to column ${targetColumnId}`);
+                // logger('info', `Adding card ${card.id} to column ${targetColumnId}`);
                 const newCards = [...column.cards];
 
                 if (targetCardId) {
@@ -327,10 +327,10 @@ const KanbanBoard = ({
         });
 
         if (updatedColumns && updatedColumns.length > 0) {
-            logger('info', 'Updated columns after drop:', updatedColumns);
+            // logger('info', 'Updated columns after drop:', updatedColumns);
             await dataUpdateActions.updateCardState(updatedColumns);
         } else {
-            logger('error', 'No updated columns provided after drop');
+            // logger('error', 'No updated columns provided after drop');
         }
     };
 

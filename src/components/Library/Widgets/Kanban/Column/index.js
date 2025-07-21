@@ -21,6 +21,23 @@ import makeUniqueKeyStr from "helpers/utils/string/makeUniqueKeyStr";
 const ColumnWrapper = (props) => {
     const { column, callbacks } = props;
     const { handleDragOver, handleDrop, handleDragStart, handleDragEnd } = callbacks;
+    const columnContent = column?.cards.length > 0
+        ? column?.cards.map(card => {
+            const cardCallbacks = {
+                handleDragStart: (e) => handleDragStart(e, card, column.id),
+                handleDragEnd: handleDragEnd
+            };
+            return (
+                <Card
+                    key={makeUniqueKeyStr(`card-${card.id}`)}
+                    cardKey={card.id}
+                    column={column}
+                    card={card}
+                    callbacks={cardCallbacks}
+                />
+            );
+        })
+        : null;
 
     return (
         <div
@@ -31,21 +48,7 @@ const ColumnWrapper = (props) => {
             <ColumnHeader headerTitle={column.title} headerCount={column?.cards?.length} />
 
             <div className="column-content">
-                {column.cards.map(card => {
-                    const cardCallbacks = {
-                        handleDragStart: (e) => handleDragStart(e, card, column.id),
-                        handleDragEnd: handleDragEnd
-                    };
-                    return (
-                        <Card
-                            key={makeUniqueKeyStr(`card-${card.id}`)}
-                            cardKey={card.id}
-                            column={column}
-                            card={card}
-                            callbacks={cardCallbacks}
-                        />
-                    );
-                })}
+                {columnContent}
             </div>
         </div>
     );

@@ -142,6 +142,11 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
     const fieldType = propertySchema?.displayType || propertySchema.type;
     let renderField = null;
     const formattedValue = formatValue(value, propertySchema?.type);
+    if (formattedValue === undefined || formattedValue === null) {
+        logger('warn', `Field ${fieldKey} has no valid value to render`);
+        return null; // Skip rendering if value is undefined or null
+    }
+
     // TODO: build out content handlers based on displayType
     if (fieldType === 'image') {
         if (!value || typeof value !== 'string') {
@@ -160,14 +165,6 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
                 />
             );
         }
-    } else if (fieldType === 'icons') {
-        // console.log('ICON->fieldType', fieldType, 'value', value);
-        renderField = (
-            <span className={`icon field-${fieldKey}`}>
-                <i className={`icon-${value.toLowerCase()}`} />
-                {value}ICON
-            </span>
-        );
     } else if (fieldType === 'badge') {
         // console.log('BADGE->fieldType', fieldType, 'value', value);
         renderField = (
@@ -179,6 +176,27 @@ const renderFields = (key, value, propertySchema, errorMessage, isPropertyValid,
         // TODO: consider schema specific type handlers, eg: epic handler
         renderField = (
             <span className={`epic epic-${value.toLowerCase()}`}>
+                {value}
+            </span>
+        );
+    }
+    else if (fieldType === 'icon') {
+        // TODO: Write handler for Icon import/svg loader
+        // eg: <IconLoader iconName={value} />
+        // For now, assume value is a string representing the icon name
+        // and render it as a span with an icon class
+        if (!value || typeof value !== 'string') {
+            logger('warn', `Field ${fieldKey} has no valid icon value to render`);
+            return null; // Skip rendering if value is not a valid string
+        }
+        /*
+        <span className={`icon field-${fieldKey}`}>
+            <IconLoader iconName={value} />
+        </span>
+        */
+        renderField = (
+            <span className={`icon field-${fieldKey}`}>
+                <i className={`icon-${value.toLowerCase()}`} />
                 {value}
             </span>
         );

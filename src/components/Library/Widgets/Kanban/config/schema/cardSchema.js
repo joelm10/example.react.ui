@@ -62,9 +62,9 @@ const cardSchema = {
             required: true,
         },
         issueType: {
-            isDisplayable: true,
             displayType: 'icon',
             type: 'string',
+            isDisplayable: true,
             description: 'Issue type (e.g., "Bug", "Story", "Task", "Epic")',
         },
         priority: {
