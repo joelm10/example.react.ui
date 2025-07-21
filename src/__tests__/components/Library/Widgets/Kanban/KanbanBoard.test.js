@@ -10,11 +10,13 @@
 // The mock data simulates the default columns and cards that would be present in the KanbanBoard.
 import mockCards from 'components/Library/Widgets/Kanban/__mockData/dataMockCards';
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+
 import '@testing-library/jest-dom';
 
 import KanbanBoard from 'components/Library/Widgets/Kanban';
 import defaultColumns from 'components/Library/Widgets/Kanban/config/kanbanConfig'; // Import the default columns for testing          
+
 jest.mock('components/Library/Widgets/Kanban/config/kanbanConfig', () => ([
     { id: 'default-1', title: 'Default Column 1', cards: [...mockCards] },
     { id: 'default-2', title: 'Default Column 2', cards: [] },
@@ -47,7 +49,7 @@ describe('KanbanBoard Widget', () => {
     test.skip('calls onCardMove when a card is moved', () => {
         const mockOnCardMove = jest.fn();
 
-        const { container} =render(<KanbanBoard initialColumns={customColumns} onCardMove={mockOnCardMove} />);
+        const { container } = render(<KanbanBoard initialColumns={customColumns} onCardMove={mockOnCardMove} />);
 
         const card = container.querySelector(`[data-testid="kanban-card-${customColumns[0].cards[0].id}"]`);
         expect(card).toBeInTheDocument();

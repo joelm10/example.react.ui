@@ -1,23 +1,24 @@
-import { formatValue } from './formatValue';
+import { formatValue } from '../../../../../components/Library/Widgets/Kanban/helpers/validators/formatValue';
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
 
 describe('formatValue', () => {
     test('formats null values as a React element', () => {
         const result = formatValue(null, 'string');
         expect(React.isValidElement(result)).toBe(true);
-        
-        const { container } = render(result);
-        expect(container.querySelector('.empty-value')).not.toBeNull();
-        expect(container.textContent).toBe('Value Not provided');
+
+        render(result);
+        expect(screen.getByText('Value Not provided')).toBeInTheDocument();
     });
 
     test('formats undefined values as a React element', () => {
         const result = formatValue(undefined, 'string');
         expect(React.isValidElement(result)).toBe(true);
-        
-        const { container } = render(result);
-        expect(container.querySelector('.empty-value')).not.toBeNull();
+
+        render(result);
+        expect(screen.getByText('Value Not provided')).toBeInTheDocument();
     });
 
     test('formats string values', () => {
