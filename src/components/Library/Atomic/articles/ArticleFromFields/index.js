@@ -1,6 +1,6 @@
 import ImageLoader from '../../images/imageLoader';
 import makeUniqueKeyStr from 'helpers/utils/string/makeUniqueKeyStr';
-
+import ExpandableContent from '../ExpandableContent';
 // context: extrapolate json fields to common display
 /**
  * 
@@ -19,7 +19,7 @@ const ArticleFromFields = ({ article, lookupList, options = {} }) => {
     const footerContent = article[lookupList?.footer];
 
     const keyLegend = bodyContent?.substring(0, 10) || null
-    
+
     const articleKey = makeUniqueKeyStr(`aff_${keyLegend}`);
     const articleFormattedKey = makeUniqueKeyStr(`aff_formatted-${keyLegend}`);
 
@@ -37,6 +37,9 @@ const ArticleFromFields = ({ article, lookupList, options = {} }) => {
             content: paragraph.trim(),
         }));
     };
+
+
+
     // TODO: Consider moving to own generator funtions file
     const rawFormattedBodyContent = useFormatted && processBodyContent(article[lookupList?.content]);
     const formattedBodyContent = useFormatted && rawFormattedBodyContent?.map((item) => {
@@ -67,8 +70,17 @@ const ArticleFromFields = ({ article, lookupList, options = {} }) => {
                 id={`${articleKey}-body`}
 
             >
-                {bodyContent}
-
+                <ExpandableContent {...{
+                    content: bodyContent,
+                    summaryLength: 150,
+                    expandText: "Show more",
+                    collapseText: "Show less"
+                }}
+                aria-label={title}
+                aria-labelledby={articleKey}
+                aria-describedby={`${articleKey}-body`}
+                title={title}
+                />
             </div>
         )
         : null;

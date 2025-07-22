@@ -55,25 +55,38 @@ const AppBody = (props) => {
         } else if (activePage === '/game') {
             return <GameWrapper />;
         } else if (activePage === '/kanban') {
-            return <KanbanBoard {...articleProps} />;
+            return (
+                <div className="kanban-container">
+                    <KanbanBoard {...articleProps} />
+                </div>
+            )
+
         } else {
             return <ArticleWrapper {...articleProps} />;
         }
     }
-
+    // Set container to be fluid (full width) if on kanban page
+    const isKanbanPage = activePage === '/kanban' ? 'min-vh-100' : 'min-vh-75';
+    const containerClass = ` ${isKanbanPage}`;
     let content = getActiveContent(activePage);
 
-    const appBody = (
-        <main role="main">
+    if (activePage !== '/kanban') {
+        content = (
             <article>
                 <Container
-                    className='min-vh-75'
+                    className={containerClass}
                 >
                     <Row className="h-auto">
                         {content}
                     </Row>
                 </Container>
             </article>
+        );
+    }
+
+    const appBody = (
+        <main role="main">
+            {content}
         </main>
 
     );

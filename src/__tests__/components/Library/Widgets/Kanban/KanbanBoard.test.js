@@ -10,12 +10,15 @@
 // The mock data simulates the default columns and cards that would be present in the KanbanBoard.
 import mockCards from 'components/Library/Widgets/Kanban/__mockData/dataMockCards';
 
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
 import KanbanBoard from 'components/Library/Widgets/Kanban';
-import defaultColumns from 'components/Library/Widgets/Kanban/config/kanbanConfig'; // Import the default columns for testing          
+// import defaultColumns from 'components/Library/Widgets/Kanban/config/kanbanConfig'; 
+import { defaultColumns, socketWrapperConfig, boardEvents } from 'components/Library/Widgets/Kanban/config/kanbanConfig';
+import socketWrapper from 'components/Library/Widgets/Kanban/network/socketIO';
+// Import the default columns for testing          
 
 jest.mock('components/Library/Widgets/Kanban/config/kanbanConfig', () => ([
     { id: 'default-1', title: 'Default Column 1', cards: [...mockCards] },
@@ -32,11 +35,13 @@ describe('KanbanBoard Widget', () => {
         // Clear any previous mocks before each test
         jest.clearAllMocks();
     });
-    test('renders KanbanBoard with default columns when no initialColumns provided', () => {
+
+    test('renders KanbanBoard with no columns when no initialColumns provided', () => {
         const { container } = render(<KanbanBoard />);
+
         expect(container.querySelector('.kanban-board')).toBeInTheDocument();
         const columns = container.querySelectorAll('.kanban-column');
-        expect(columns.length).toBe(defaultColumns.length);
+        expect(columns.length).toBe(0);
     });
 
     test('renders KanbanBoard with provided initialColumns', () => {

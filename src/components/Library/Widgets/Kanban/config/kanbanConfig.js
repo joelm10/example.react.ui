@@ -19,4 +19,24 @@ const defaultColumns = [
     { id: 'done', title: 'Done', cards: [...doneCards] }
 ];
 
-export default defaultColumns;
+// TODO: Move to config or environment variable
+const endPointUrl = 'http://localhost:3000'; // Replace with your actual endpoint URL
+
+const socketWrapperConfig = {
+    endPointUrl,
+    options: {
+        transports: ['websocket']
+    }
+};
+
+const boardEvents = {
+    LOAD_CARDS: 'loadCards',
+    SAVE_CARD: 'saveCard',
+    MOVE_CARD: 'moveCard',
+    DELETE_CARD: 'deleteCard',
+    ADD_CARD: 'addCard',
+    UPDATE_CARD: 'updateCard',
+};
+
+
+export { defaultColumns, socketWrapperConfig, boardEvents };

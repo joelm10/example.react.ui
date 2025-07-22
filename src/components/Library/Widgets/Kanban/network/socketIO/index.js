@@ -1,13 +1,16 @@
 import io from 'socket.io-client';
 import logger from 'helpers/utils/logging';
-const socketWrapper = (config) => {
-    // Initialize socket connection
-    const { endPointUrl, options } = config;
 
-    if (!endPointUrl) {
+const socketWrapper = (config) => {
+
+    if (!config || !config.endPointUrl) {
         logger('error', 'Socket endpoint URL is required');
         return null;
     }
+
+    // Initialize socket connection
+    const { endPointUrl, options } = config;
+
     const validUrl = new URL(endPointUrl); // Validate URL format
     const socket = io(validUrl, options);
 

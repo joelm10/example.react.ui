@@ -100,14 +100,14 @@ const mockCards = [
         reporter: {
             id: "user-1",
             name: "Alice Johnson",
-            avatarUrl: "https://example.com/avatars/alice.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=44",
             email: "alice@example.com"
         },
         watchers: [
             {
                 id: "user-2",
                 name: "Bob Smith",
-                avatarUrl: "https://example.com/avatars/bob.jpg"
+            avatarUrl: "https://i.pravatar.cc/30?img=45",
             }
         ],
         epic: {
@@ -166,13 +166,13 @@ const mockCards = [
         assignee: {
             id: "user-1",
             name: "Alice Johnson",
-            avatarUrl: "https://example.com/avatars/alice.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=46",
             email: "alice@example.com"
         },
         reporter: {
             id: "user-1",
             name: "Alice Johnson",
-            avatarUrl: "https://example.com/avatars/alice.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=47",
             email: "alice@example.com"
         },
         watchers: [],
@@ -202,13 +202,13 @@ const mockCards = [
         assignee: {
             id: "user-5",
             name: "Eva Martinez",
-            avatarUrl: "https://example.com/avatars/eva.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=1",
             email: "eva@example.com"
         },
         reporter: {
             id: "user-8",
             name: "Henry Wilson",
-            avatarUrl: "https://example.com/avatars/henry.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=2",
             email: "henry@example.com"
         },
         watchers: [],
@@ -238,26 +238,27 @@ const mockCards = [
         assignee: {
             id: "user-6",
             name: "Frank Thomas",
-            avatarUrl: "https://example.com/avatars/frank.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=3",
             email: "frank@example.com"
         },
         reporter: {
             id: "user-2",
             name: "Bob Smith",
-            avatarUrl: "https://example.com/avatars/bob.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=4",
             email: "bob@example.com"
         },
         watchers: [
             {
                 id: "user-1",
                 name: "Alice Johnson",
-                avatarUrl: "https://example.com/avatars/alice.jpg"
-            }
-        ],
-        epic: {
-            id: "epic-004",
-            cardKey: "PROJ-400",
-            name: "Documentation",
+            avatarUrl: "https://i.pravatar.cc/30?img=5",
+            email: "alice@example.com"
+        }
+    ],
+    epic: {
+        id: "epic-004",
+        cardKey: "PROJ-400",
+        name: "Documentation",
             color: "#6554C0"
         },
         sprint: {
@@ -280,25 +281,25 @@ const mockCards = [
         assignee: {
             id: "user-9",
             name: "Irene Clark",
-            avatarUrl: "https://example.com/avatars/irene.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=11",
             email: "irene@example.com"
         },
         reporter: {
             id: "user-7",
             name: "Grace Lee",
-            avatarUrl: "https://example.com/avatars/grace.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=12",
             email: "grace@example.com"
         },
         watchers: [
             {
                 id: "user-2",
                 name: "Bob Smith",
-                avatarUrl: "https://example.com/avatars/bob.jpg"
+                avatarUrl: "https://i.pravatar.cc/30?img=13"
             },
             {
                 id: "user-7",
                 name: "Grace Lee",
-                avatarUrl: "https://example.com/avatars/grace.jpg"
+                avatarUrl: "https://i.pravatar.cc/30?img=12"
             }
         ],
         epic: {
@@ -327,25 +328,25 @@ const mockCards = [
         assignee: {
             id: "user-10",
             name: "Jack Robinson",
-            avatarUrl: "https://example.com/avatars/jack.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=10",
             email: "jack@example.com"
         },
         reporter: {
             id: "user-8",
             name: "Henry Wilson",
-            avatarUrl: "https://example.com/avatars/henry.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=9",
             email: "henry@example.com"
         },
         watchers: [
             {
                 id: "user-1",
                 name: "Alice Johnson",
-                avatarUrl: "https://example.com/avatars/alice.jpg"
+                avatarUrl: "https://i.pravatar.cc/30?img=5"
             },
             {
                 id: "user-6",
                 name: "Frank Thomas",
-                avatarUrl: "https://example.com/avatars/frank.jpg"
+                avatarUrl: "https://i.pravatar.cc/30?img=6"
             }
         ],
         epic: {
@@ -373,13 +374,13 @@ const mockCards = [
         assignee: {
             id: "user-7",
             name: "Grace Lee",
-            avatarUrl: "https://example.com/avatars/grace.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=12",
             email: "grace@example.com"
         },
         reporter: {
             id: "user-2",
             name: "Bob Smith",
-            avatarUrl: "https://example.com/avatars/bob.jpg",
+            avatarUrl: "https://i.pravatar.cc/30?img=13",
             email: "bob@example.com"
         },
         watchers: [],
