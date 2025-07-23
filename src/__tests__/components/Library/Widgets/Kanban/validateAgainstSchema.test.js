@@ -1,5 +1,5 @@
 import { validateAgainstSchema } from 'components/Library/Widgets/Kanban/helpers/validators/validateAgainstSchema';
-import { addValidationError } from "components/Library/Widgets/Kanban/Card/generator/addValidationError";
+// import { addValidationError } from "components/Library/Widgets/Kanban/Card/generator/addValidationError";
 
 // Mock the dependency
 jest.mock("components/Library/Widgets/Kanban/Card/generator/addValidationError", () => ({

@@ -15,9 +15,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import KanbanBoard from 'components/Library/Widgets/Kanban';
-// import defaultColumns from 'components/Library/Widgets/Kanban/config/kanbanConfig'; 
-import { defaultColumns, socketWrapperConfig, boardEvents } from 'components/Library/Widgets/Kanban/config/kanbanConfig';
-import socketWrapper from 'components/Library/Widgets/Kanban/network/socketIO';
+// import { defaultColumns, socketWrapperConfig, boardEvents } from 'components/Library/Widgets/Kanban/config/kanbanConfig';
+// import socketWrapper from 'components/Library/Widgets/Kanban/network/socketIO';
 // Import the default columns for testing          
 
 jest.mock('components/Library/Widgets/Kanban/config/kanbanConfig', () => ([

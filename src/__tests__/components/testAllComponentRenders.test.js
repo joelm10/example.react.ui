@@ -14,7 +14,9 @@ const componentList = [
     [
         getShouldAssert('Header'),
         Header,
-        {},
+        {
+            showLogo:true
+        },
         { role: 'img', class: '', altText: 'test text' },
     ],
     [

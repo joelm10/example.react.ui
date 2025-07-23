@@ -6,9 +6,7 @@ import AppBody from "layout/appBody";
 delete global.window.location;
 global.window = Object.create(window);
 
-
 const cases = ['/home', '/about', '/engineering', '/game', '/chart'];
-
 
 describe('Base Application', () => {
     beforeEach(() => {

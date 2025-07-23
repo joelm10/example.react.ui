@@ -8,14 +8,14 @@ import logoItem from 'media/assets/logos/logo.svg';
  * @returns 
  */
 const Header = (props) => {
-    const { logo = logoItem } = props;
+    const { logo = logoItem, showLogo = false } = props;
     const logoProps = {
         imgPath: logo,
         imgType: '',
         altText: 'test text',
         size: 'sml'
     };
-    const Logo = logoItem ? <ImageLoader {...logoProps} /> : null;
+    const Logo = logoItem && showLogo ? <ImageLoader {...logoProps} /> : null;
 
     return Logo;
 };

@@ -105,7 +105,7 @@ const ArticleWrapper = (props) => {
             );
             return articleBody;
         })
-        : (<div>{meta.errorState}</div>);
+        : (<div>{meta?.errorState}</div>);
 
     const paginationProps = {
         callback: {

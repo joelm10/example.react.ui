@@ -1,22 +1,18 @@
-import { useLocation } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
+import ArticleWrapper from 'components/Library/Atomic/articles';
 import ChartWrapper from 'components/Library/Widgets/Charts';
 import GameWrapper from 'components/Library/Widgets/Games/TicTacToe';
 import KanbanBoard from 'components/Library/Widgets/Kanban';
-import ArticleWrapper from 'components/Library/Atomic/articles';
 import schemaMappings from 'config/schema';
+
 
 // TODO: Add useContext() wrapper/provider for content
 // ref: https://react.dev/reference/react/useContext
 const AppBody = (props) => {
-    // could/should this use useContext() instead?
-    // const pageTitle = useContext();
-    const location = useLocation();
-
-    const activePage = location.pathname;
+    const { activePage } = props;
     // TODO: put into enum lookup method();
     let articleProps = { pageTitle: '', className: '' };
     switch (activePage) {
@@ -43,9 +39,14 @@ const AppBody = (props) => {
             articleProps = { pageTitle: '', className: '' };
     }
     // END TODO: 
-
+    // TODO: move to helper function
+    /**
+     * Get the active content based on the current page
+     * @param {string} activePage
+     * @returns {JSX.Element} The content component for the active page
+     */
     const getActiveContent = (activePage) => {
-        if (activePage.includes('chart')) {
+        if (activePage?.includes('chart')) {
             const isRoot = activePage === '/chart';
             let chartProps = {
                 // get from URL
@@ -60,7 +61,6 @@ const AppBody = (props) => {
                     <KanbanBoard {...articleProps} />
                 </div>
             )
-
         } else {
             return <ArticleWrapper {...articleProps} />;
         }

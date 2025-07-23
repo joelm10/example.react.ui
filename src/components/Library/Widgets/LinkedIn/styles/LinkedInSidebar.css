@@ -1,0 +1,138 @@
+/* LinkedInSidebar.css - Styles for LinkedIn sidebar component */
+.linkedin-sidebar {
+    &.left {
+
+        width: 225px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+        padding: 16px;
+        margin-bottom: 16px;
+
+        .sidebar-profile {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+            margin-bottom: 12px;
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.9);
+            margin-bottom: 4px;
+        }
+
+        .profile-headline {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .profile-stats {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 12px;
+            font-size: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+
+        .stat-label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #0a66c2;
+        }
+
+        /* Recent section */
+        .sidebar-section {
+            margin-top: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .recent-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recent-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .recent-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        .recent-icon {
+            color: rgba(0, 0, 0, 0.6);
+            margin-right: 8px;
+            font-size: 12px;
+        }
+
+        /* Groups section */
+        .groups-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .group-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .group-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        /* Discover more section */
+        .discover-more {
+            text-align: center;
+            padding: 12px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            margin-top: 12px;
+        }
+
+        .discover-more a {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .discover-more a:hover {
+            color: #0a66c2;
+            text-decoration: underline;
+        }
+    }
+}

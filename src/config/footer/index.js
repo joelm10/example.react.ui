@@ -70,6 +70,18 @@ const defaultFooterList = {
                     routeParams: {
                         pageTitle: 'kanban board'
                     }
+                },
+                {
+                    itemId: 5,
+                    itemType: 'link',
+                    label: 'LinkedIn',
+                    linkUrl: '/linkedin',
+                    target: '_blank',
+                    isInternalNav: true,
+                    routeElement: 'app',
+                    routeParams: {
+                        pageTitle: 'LinkedIn UI example'
+                    }
                 }
             ]
         },
