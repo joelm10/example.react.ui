@@ -1,5 +1,5 @@
-import playerMove from "components/Library/Widgets/Games/TicTacToe/helpers/playerMove";
-import { defaultGameSetup } from "components/Library/Widgets/Games/TicTacToe/config/defaultGameSetup";
+import playerMove from "client/components/Library/Widgets/Games/TicTacToe/helpers/playerMove";
+import { defaultGameSetup } from "client/components/Library/Widgets/Games/TicTacToe/config/defaultGameSetup";
 const testArgs = {
     move: 'X',
     targetLocation: null,

@@ -4,12 +4,12 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // Import after mocking
-import ColumnWrapper from 'components/Library/Widgets/Kanban/Column';
+import ColumnWrapper from 'client/components/Library/Widgets/Kanban/Column';
 
 // Mock Card component and capture props for verification in tests
 let cardPropsSpy = jest.fn();
 
-jest.mock('components/Library/Widgets/Kanban/Card', () => (props) => {
+jest.mock('client/components/Library/Widgets/Kanban/Card', () => (props) => {
     // cardPropsSpy(props);
     jest.fn(props);
     return (

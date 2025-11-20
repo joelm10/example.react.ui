@@ -1,4 +1,4 @@
-import getDataFromArray from "helpers/utils/arrays/getFromArray";
+import getDataFromArray from "client/helpers/utils/arrays/getFromArray";
 
 /**
  * 

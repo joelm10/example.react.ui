@@ -1,5 +1,5 @@
 
-import { generatePropsForChart } from "components/Library/Widgets/Charts/helpers/getChartByType";
+import { generatePropsForChart } from "client/components/Library/Widgets/Charts/helpers/getChartByType";
 
 const mockProps = {};
 const expectedResp = {

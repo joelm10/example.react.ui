@@ -1,4 +1,4 @@
-import getNestedRoutes from 'helpers/navigation/routing/generators/getNestedRoutes';
+import getNestedRoutes from 'client/helpers/navigation/routing/generators/getNestedRoutes';
 
 const mockNestedArray = [
     {

@@ -1,4 +1,5 @@
-const { makeSentenceCase } = require("components/Library/Widgets/Charts/helpers/makeSentenceCase");
+// const { makeSentenceCase } = require("client/components/Library/Widgets/Charts/helpers/makeSentenceCase");
+import { makeSentenceCase } from "client/components/Library/Widgets/Charts/helpers/makeSentenceCase";
 
 describe('Library/Widgets/Charts/helpers/', () => {
 

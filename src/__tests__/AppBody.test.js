@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 
-import AppBody from "layout/appBody";
+import AppBody from "client/layout/appBody";
 
 delete global.window.location;
 global.window = Object.create(window);

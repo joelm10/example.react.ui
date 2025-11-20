@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
-import GridWrapper from "components/Library/Widgets/Games/TicTacToe/Grid";
-import { defaultGameSetup } from 'components/Library/Widgets/Games/TicTacToe/config/defaultGameSetup';
+import GridWrapper from "client/components/Library/Widgets/Games/TicTacToe/Grid";
+import { defaultGameSetup } from 'client/components/Library/Widgets/Games/TicTacToe/config/defaultGameSetup';
 
 const testProps = {
     callbacks: {

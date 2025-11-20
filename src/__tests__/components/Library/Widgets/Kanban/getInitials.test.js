@@ -1,4 +1,4 @@
-import { getInitials } from 'components/Library/Widgets/Kanban/helpers/string/getInitials';
+import { getInitials } from 'client/components/Library/Widgets/Kanban/helpers/string/getInitials';
 
 describe('getInitials', () => {
     it('should return an empty string when no name is provided', () => {

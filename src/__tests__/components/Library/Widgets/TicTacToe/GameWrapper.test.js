@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
-import GameWrapper from "components/Library/Widgets/Games/TicTacToe";
+import GameWrapper from "client/components/Library/Widgets/Games/TicTacToe";
 
 describe('components/Widgets/Games/TicTacToc', () => {
     test('<GameWrapper /> should render without error', () => {

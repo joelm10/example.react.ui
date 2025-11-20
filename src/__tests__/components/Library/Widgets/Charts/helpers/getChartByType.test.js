@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { getChartByType } from "components/Library/Widgets/Charts/helpers/getChartByType";
+import { getChartByType } from "client/components/Library/Widgets/Charts/helpers/getChartByType";
 // import { Doughnut, Bar, Pie, Line, PolarArea, Bubble, Radar } from 'react-chartjs-2';
 
 const mockProps = {};

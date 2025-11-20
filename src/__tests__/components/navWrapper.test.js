@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-import navElements from 'config/nav';
-import NavWrapper from 'layout/header/nav';
+import navElements from 'client/config/nav';
+import NavWrapper from 'client/layout/header/nav';
 
 const testProps = {
     navElements: navElements

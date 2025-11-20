@@ -1,6 +1,6 @@
-import getRouteList from 'helpers/navigation/routing/generators/getRouteList';
-import App from 'App';
-import ErrorComponent from 'components/Library/Atomic/Errors';
+import getRouteList from 'client/helpers/navigation/routing/generators/getRouteList';
+import App from 'client/App';
+import ErrorComponent from 'client/components/Library/Atomic/Errors';
 
 const defaultRouteList = [{ "element": <App pageTitle="App Home" />, "errorElement": <ErrorComponent />, "path": "" },
 { "element": <App pageTitle="App Home" />, "errorElement": <ErrorComponent />, "path": "/" },

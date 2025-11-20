@@ -8,18 +8,18 @@
 
 // import mock data for the KanbanBoard component
 // The mock data simulates the default columns and cards that would be present in the KanbanBoard.
-import mockCards from 'components/Library/Widgets/Kanban/__mockData/dataMockCards';
+import mockCards from 'client/components/Library/Widgets/Kanban/__mockData/dataMockCards';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
-import KanbanBoard from 'components/Library/Widgets/Kanban';
-// import { defaultColumns, socketWrapperConfig, boardEvents } from 'components/Library/Widgets/Kanban/config/kanbanConfig';
-// import socketWrapper from 'components/Library/Widgets/Kanban/network/socketIO';
+import KanbanBoard from 'client/components/Library/Widgets/Kanban';
+// import { defaultColumns, socketWrapperConfig, boardEvents } from 'client/components/Library/Widgets/Kanban/config/kanbanConfig';
+// import socketWrapper from 'client/components/Library/Widgets/Kanban/network/socketIO';
 // Import the default columns for testing          
 
-jest.mock('components/Library/Widgets/Kanban/config/kanbanConfig', () => ([
+jest.mock('client/components/Library/Widgets/Kanban/config/kanbanConfig', () => ([
     { id: 'default-1', title: 'Default Column 1', cards: [...mockCards] },
     { id: 'default-2', title: 'Default Column 2', cards: [] },
     { id: 'default-3', title: 'Default Column 3', cards: [] }

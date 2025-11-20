@@ -3,7 +3,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import Pagination from 'components/Library/Widgets/Pagination';
+import Pagination from 'client/components/Library/Widgets/Pagination';
 
 const testProps = {
     rootKey: 'test_',

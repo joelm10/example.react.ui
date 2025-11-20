@@ -1,4 +1,4 @@
-import togglePlayer from "components/Library/Widgets/Games/TicTacToe/helpers/togglePlayer";
+import togglePlayer from "client/components/Library/Widgets/Games/TicTacToe/helpers/togglePlayer";
 
 describe('components/Widgets/Games/TicTacToc/helpers', () => {
     test('togglePlayer() should return 1 if no arguments passed', () => {
