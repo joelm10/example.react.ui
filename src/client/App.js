@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import useSetPageTitle from 'client/helpers/react/hooks/pageTitle';
 
 // presentation
-import 'styles/baseStyle.css';
+import './styles/baseStyle.css';
 
 // layout
 import Layout from 'client/layout';

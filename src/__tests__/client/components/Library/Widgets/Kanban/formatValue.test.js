@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { formatValue } from '../../../../../client/components/Library/Widgets/Kanban/helpers/validators/formatValue';
+import { formatValue } from 'client/components/Library/Widgets/Kanban/helpers/validators/formatValue';
 
 
 describe('formatValue', () => {
