@@ -14,3 +14,8 @@
         }
     }
 }
+
+/* Loader styles */
+.loader-wrapper {
+    margin: 20px 0;
+}

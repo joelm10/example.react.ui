@@ -23,7 +23,7 @@ const ArticleWrapper = (props) => {
             totalRecords: 0
         }
     };
-    console.log('ArticleWrapper props:', props);
+
     const { url, meta, articleLimit = 12, pageTitle, paginationRootKey = 'footer' } = props;
     const [articleContent, setApiContent] = useState(defaultState);
     // const [isLoaded, setIsLoaded] = useState(false);
@@ -38,7 +38,8 @@ const ArticleWrapper = (props) => {
                 maxDisplayCount: articleLimit,
                 totalRecords: apiResponse?.length ?? 0
             };
-            // confirm apiResponse is NOT empty array;  
+
+            logger('info', `Successful API response for ${pageTitle} at ${url}`);
             // verify response contains data in array at target level
             const isValidResponse = Array.isArray(apiResponse) && apiResponse.length > 0;
             if (!isValidResponse) {
@@ -69,7 +70,7 @@ const ArticleWrapper = (props) => {
             const currentPageData = isValidResponse
                 ? getDataFromArray(apiResponse, paginationConfig.maxDisplayCount)
                 : [];
-
+            logger('debug', `CHECK current page data: ${JSON.stringify(currentPageData)}`);
             setApiContent({
                 isLoading: false,
                 // cache full response
@@ -98,10 +99,10 @@ const ArticleWrapper = (props) => {
                 }
             });
             return;
-        } else {
-            if (mounted) {
-                fetchData();
-            }
+        }
+
+        if (mounted) {
+            fetchData();
         }
     }, [articleLimit, pageTitle, url, meta]);
 
