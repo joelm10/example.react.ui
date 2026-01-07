@@ -22,5 +22,6 @@ export const getInitials = (name) => {
     if (parts.length === 1) {
         return parts[0].charAt(0).toUpperCase();
     }
+    // TODO: add iterate over parts to find ALL non-empty names   
     return parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase();
 };
