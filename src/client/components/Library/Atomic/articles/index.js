@@ -17,6 +17,7 @@ const ArticleWrapper = (props) => {
     const defaultState = {
         isLoading: true,
         content: null,
+        rawApi: null,
         pagination: {
             currentPage: 1,
             maxDisplayCount: 0,
@@ -26,7 +27,6 @@ const ArticleWrapper = (props) => {
 
     const { url, meta, articleLimit = 12, pageTitle, paginationRootKey = 'footer' } = props;
     const [articleContent, setApiContent] = useState(defaultState);
-    // const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         let mounted = true;
@@ -39,7 +39,16 @@ const ArticleWrapper = (props) => {
                 totalRecords: apiResponse?.length ?? 0
             };
 
-            logger('info', `Successful API response for ${pageTitle} at ${url}`);
+            // check for target node in response
+            if (meta?.baseResponseKey && apiResponse[meta?.baseResponseKey]) {
+                // if node exists, use it to get data
+                apiResponse = apiResponse[meta?.baseResponseKey];
+                logger('info', `Successful API response for ${pageTitle} at ${url}`);
+            } else if (meta?.baseResponseKey && !apiResponse[meta?.baseResponseKey]) {
+                // if node does not exist, log error and return empty array
+                logger('error', `Schema ${meta?.baseResponseKey} not found in response for ${pageTitle} at ${url}`);
+                apiResponse = [];
+            }
             // verify response contains data in array at target level
             const isValidResponse = Array.isArray(apiResponse) && apiResponse.length > 0;
             if (!isValidResponse) {
@@ -56,21 +65,13 @@ const ArticleWrapper = (props) => {
                 });
                 return;
             }
-            // check for target node in response
-            if (meta?.baseResponseKey && apiResponse[meta?.baseResponseKey]) {
-                // if node exists, use it to get data
-                apiResponse = apiResponse[meta?.baseResponseKey];
-            } else if (meta?.baseResponseKey && !apiResponse[meta?.baseResponseKey]) {
-                // if node does not exist, log error and return empty array
-                logger('error', `Schema ${meta?.baseResponseKey} not found in response for ${pageTitle} at ${url}`);
-                apiResponse = [];
-            }
 
             // api response handling only. subsequent calls, will live in pagination namespace
             const currentPageData = isValidResponse
                 ? getDataFromArray(apiResponse, paginationConfig.maxDisplayCount)
                 : [];
-            logger('debug', `CHECK current page data: ${JSON.stringify(currentPageData)}`);
+            logger('debug', `Checking current page data: ${JSON.stringify(currentPageData)}`);
+
             setApiContent({
                 isLoading: false,
                 // cache full response
@@ -82,11 +83,10 @@ const ArticleWrapper = (props) => {
                     pageLength: articleLimit,
                 }
             });
-            console.log('should have set content:', currentPageData);
         };
 
         if (!url || !mounted) {
-            logger('info', 'No URL provided or component is unmounted, skipping API call.');
+            logger('info', 'No URL provided, skipping API call.');
             setApiContent({
                 isLoading: false,
                 rawApi: [],
@@ -109,7 +109,7 @@ const ArticleWrapper = (props) => {
     const articleContentWrapper = articleContent?.content !== null && articleContent.content.length > 0
         ? articleContent.content?.map((item) => {
             const articleKey = makeUniqueKeyStr(`acr_${item[meta.heading]}`)
-            let displayContent = item;
+            let displayContent = item ?? null;
             // check if item is object, and get child object if needed
             if (typeof item !== 'object') {
                 // TODO: BUILD FOR SPLIT OBJECTS where content is split across multiple fields
@@ -150,7 +150,7 @@ const ArticleWrapper = (props) => {
         },
         ...articleContent.pagination,
     };
-    console.log('isLoading:', articleContent.isLoading);
+
     const wrappedArticles = !articleContent.isLoading ? (
         <Fragment>
             <div className='row'>{articleContentWrapper}</div>

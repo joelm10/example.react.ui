@@ -7,7 +7,7 @@ import ExpandableContent from '../ExpandableContent';
  * @param {object} props 
  * @param {object} article - json object with content 
  * @param {object} lookupList - enum object string values for matching 
- * @returns 
+ * @returns {JSX.Element | null} JSX markup for an article composed from provided fields, or null if required data is missing.
  */
 const ArticleFromFields = ({ article, lookupList, options = {} }) => {
     if (!article || !lookupList) {
@@ -15,13 +15,16 @@ const ArticleFromFields = ({ article, lookupList, options = {} }) => {
     };
 
     const useFormatted = options?.useFormatted || false;
-    const bodyContent = article[lookupList.content];
-    const footerContent = article[lookupList?.footer];
+    const bodyContent = article[lookupList?.content] ?? null;
+    const footerContent = article[lookupList?.footer] ?? null;
 
-    const keyLegend = bodyContent?.substring(0, 10) || null
+    if (!bodyContent) {
+        return null;
+    }
+    const contentPrefix = bodyContent?.substring(0, 10) || null;
 
-    const articleKey = makeUniqueKeyStr(`aff_${keyLegend}`);
-    const articleFormattedKey = makeUniqueKeyStr(`aff_formatted-${keyLegend}`);
+    const articleKey = makeUniqueKeyStr(`aff_${contentPrefix}`);
+    const articleFormattedKey = makeUniqueKeyStr(`aff_formatted-${contentPrefix}`);
 
     const title = article[lookupList?.heading];
     /**
@@ -38,9 +41,7 @@ const ArticleFromFields = ({ article, lookupList, options = {} }) => {
         }));
     };
 
-
-
-    // TODO: Consider moving to own generator funtions file
+    // TODO: Consider moving to own generator functions file
     const rawFormattedBodyContent = useFormatted && processBodyContent(article[lookupList?.content]);
     const formattedBodyContent = useFormatted && rawFormattedBodyContent?.map((item) => {
         const { content, id } = item;
@@ -76,10 +77,10 @@ const ArticleFromFields = ({ article, lookupList, options = {} }) => {
                     expandText: "Show more",
                     collapseText: "Show less"
                 }}
-                aria-label={title}
-                aria-labelledby={articleKey}
-                aria-describedby={`${articleKey}-body`}
-                title={title}
+                    aria-label={title}
+                    aria-labelledby={articleKey}
+                    aria-describedby={`${articleKey}-body`}
+                    title={title}
                 />
             </div>
         )
